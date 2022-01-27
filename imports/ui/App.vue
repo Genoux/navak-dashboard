@@ -1,23 +1,18 @@
 <template>
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <info/>
-  </div>
+	<div>
+    <sidebar />
+    <links />
+	</div>
 </template>
 
 <script>
-import Info from './components/Info.vue'
+import Links from './components/Links.vue';
+import Sidebar from './components/Sidebar.vue';
 
 export default {
-  components: {
-    Info,
-  },
-}
+	components: {
+		Links,
+		Sidebar
+	}
+};
 </script>
-
-<style>
-  body {
-    font-family: sans-serif;
-    padding: 10px;
-  }
-</style>

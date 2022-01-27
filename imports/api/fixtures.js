@@ -4,8 +4,8 @@ import Links from './collections/Links.js';
 Meteor.startup((e) => {
 
 // if the Links collection is empty
-/* if (Links.find().count() === 0) {
-  const data = [
+ if (Links.find().count() === 0) {
+  /*const data = [
     {
       title: 'Do the Tutorial',
       url: 'https://www.meteor.com/try',
@@ -26,8 +26,8 @@ Meteor.startup((e) => {
       url: 'https://forums.meteor.com',
       createdAt: new Date(),
     },
-  ];
-
-  data.forEach(link => Links.insert(link));
-}*/
+  ];*/
+  //data.forEach(link => Links.insert(link));
+ }
+  
 });
