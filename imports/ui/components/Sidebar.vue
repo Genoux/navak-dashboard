@@ -41,9 +41,3 @@
     })
   }
 </script>
-
-
-<style scoped>
-.vs-sidebar__item::after{
-}
-</style>

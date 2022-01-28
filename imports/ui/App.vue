@@ -1,18 +1,21 @@
 <template>
 	<div>
     <sidebar />
-    <links />
+    <lanterns />
 	</div>
 </template>
 
 <script>
-import Links from './components/Links.vue';
+import Lanterns from './components/Lanterns.vue';
 import Sidebar from './components/Sidebar.vue';
+
 
 export default {
 	components: {
-		Links,
+		Lanterns,
 		Sidebar
-	}
+	},
+	 mounted() {
+      }
 };
 </script>

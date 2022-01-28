@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",
+    "boxicons": "^2.1.1",
+    "material-icons": "^1.10.6",
     "meteor-node-stubs": "^1.1.0",
     "postcss-loader": "^6.2.1",
     "vue": "^2.6.14",

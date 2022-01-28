@@ -1,1 +1,1 @@
-import './links'
+import './lanterns'
