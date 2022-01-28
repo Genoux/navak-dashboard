@@ -1,15 +1,32 @@
 <template>
 	<div>
+    <div  class="center">
+    <vs-dialog blur v-model="confirmationDialog" v-bind:loading="loading" v-bind:prevent-close="dialogClose" v-bind:not-close="dialogClose">
+      <template #header>
+        <h4 >
+          Are you sure you want to delete this lantern?
+        </h4>
+      </template>
+      <div class="flex flex-grow place-content-center con-form">
+        <vs-button class="center" danger icon @click.stop="deleteItem">
+          <i class="bx bx-x"></i>Yes delete
+        </vs-button>
+      </div>
+    </vs-dialog>
+  </div>
 		<div :key="index" v-for="(lantern, index) in lanterns" >
-			<ul class="flex flex-grow">
-        <li>ID: {{ lantern.id }}</li>
-        <li>STATUS: {{ lantern.status }}</li>
-        <li>PULSE: {{ lantern.pulse }}</li>
-        <li>COLOR: {{ lantern.rgb }}</li>
-        <li>GROUP: {{ lantern.group }}</li>
+			<ul class="flex flex-grow pr-10">
+        <li class="mr-3">ID: <b>{{ lantern.id }}</b></li>
+        <li class="mr-3">STATUS: <b>{{ lantern.status }}</b> </li>
+        <li class="mr-3">PULSE: <b>{{ lantern.pulse }}</b></li>
+        <li class="mr-3">COLOR: <b>{{ lantern.rgb }}</b></li>
+        <li class="mr-3">GROUP: <b>{{ lantern.group }}</b></li>
 				<vs-button dark icon @click.stop="openDialog(lantern, $event)">
 					<i class="bx bx-edit"></i>
 				</vs-button>
+        <vs-button danger icon @click.stop="verification(lantern, $event)">
+          <i class="bx bx-x"></i>
+        </vs-button>
 			</ul>
 		</div>
 		<vs-dialog blur v-model="activeDialog" v-bind:loading="loading" v-bind:prevent-close="dialogClose" v-bind:not-close="dialogClose">
@@ -27,12 +44,16 @@
           <vs-input type="number" v-model=defaultValue.startUniverse :placeholder="selectedLantern.startUniverse"></vs-input>
         </div>
         <div class="flex">
-          <p>Status</p>
-          <li>{{defaultValue.status}}</li>
+          <p class=" pr-4">Status</p>
+          <li>{{ defaultValue.status }}</li>
         </div>
         <div>
           <p>Pulse</p>
           <vs-input v-model=defaultValue.pulse :placeholder="selectedLantern.pulse"></vs-input>
+        </div>
+        <div>
+          <p>Color</p>
+          <vs-input v-model=defaultValue.rgb :placeholder="selectedLantern.rgb"></vs-input>
         </div>
 				<vs-button flat :active="active == 0" @click="updateLantern(selectedLantern, $event)">Active</vs-button>
 			</form>
@@ -42,19 +63,35 @@
 
 <script>
 import Lanterns from '../../api/collections/Lanterns';
+import { Sketch } from 'vue-color'
+var colors = {
+  hex: '#194d33',
+  hex8: '#194D33A8',
+  hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
+  hsv: { h: 150, s: 0.66, v: 0.30, a: 1 },
+  rgba: { r: 25, g: 77, b: 51, a: 1 },
+  a: 1
+}
 export default {
+  components: {
+    'sketch-picker': Sketch
+  },
 	data() {
 		return {
+      noti: null,
+      colors,
 			myData: null,
 			errorMessage: '',
 			lanternsList: '',
 			selectedLantern: '',
 			default: '',
 			value1: '',
+      confirmationDialog: false,
 			activeDialog: false,
 			dialogClose: false,
 			loading: false,
 			active: 0,
+      active2: false,
 			storeValue: '',
 			defaultValue: {
 				id: '',
@@ -78,8 +115,40 @@ export default {
 		}
 	},
 	methods: {
+    openColor() {
+      this.colorPicker = true;
+    },
+    deleteItem(){
+    this.loading = true;
+    this.dialogClose = true;
+    setTimeout(() => {
+     Meteor.call(
+      'deleteLantern',
+      {
+        _id: this.selectedLantern._id
+      },
+      (error) => {
+        if (error) {
+          this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', 'It might be the data passing to the server, please check the console');
+          this.loading = false;
+        } else {
+          this.openNotification('top-center', 'success', '💢 Succelfully deleted lantern!', 'You can check the changes in the list');
+          this.loading = false;
+          this.confirmationDialog = false;
+          this.selectedLantern  = '';
+          this.noti.close()
+        }
+      }
+    );
+  }, 500);
+    },
+    verification(obj, event){
+      this.selectedLantern = obj
+      this.confirmationDialog = true;
+
+    },
 		openNotification(position = null, color, title, text) {
-			const noti = this.$vs.notification({
+			this.noti = this.$vs.notification({
 				color,
 				position,
 				title: title,
@@ -99,7 +168,6 @@ export default {
 				group: obj.group,
 				rgb: obj.rgb
 			};
-			console.log('obj', obj);
 			// check if obj is same as data
 			if (JSON.stringify(objJson) === JSON.stringify(this.defaultValue)) {
 				this.openNotification('top-center', '#7d33ff', '😲 Hey!', 'No changes made');
@@ -130,6 +198,9 @@ export default {
 				);
 			}, 500);
 		},
+    closeDialog(){
+      this.activeDialog = false;
+    },
 		openDialog(e) {
 			this.defaultValue.id = e.id;
 			this.defaultValue.hostName = e.hostName;
