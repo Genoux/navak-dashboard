@@ -1,21 +1,17 @@
 <template>
-	<div>
-    <sidebar />
-    <lanterns />
-	</div>
+    <div>
+      <div class="flex flex-grow">
+        <sidebar />
+        <router-view></router-view>
+      </div>
+    </div>
 </template>
 
 <script>
-import Lanterns from './components/Lanterns.vue';
 import Sidebar from './components/Sidebar.vue';
-
-
 export default {
-	components: {
-		Lanterns,
-		Sidebar
-	},
-	 mounted() {
-      }
+  components: {
+    Sidebar,
+  }
 };
 </script>
