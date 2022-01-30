@@ -3,18 +3,26 @@ import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css' //Vuesax styles
 import '../imports/ui/plugins'
 import App from '../imports/ui/App.vue'
-Meteor.startup(() => {
-  Vue.use(Vuesax, {
-    colors: {
-    primary:'#1e1e1e',
-    success:'rgb(23, 201, 100)',
-    danger:'rgb(242, 19, 93)',
-    warning:'rgb(255, 130, 0)',
-    dark:'rgb(36, 33, 69)'
-  }})
-  new Vue({
 
-    el: '#app',
-    ...App,
-  })
+import mdiVue from 'mdi-vue'
+import * as mdijs from '@mdi/js'
+
+import VueRouter from 'vue-router'
+import routes from '/imports/routes';
+
+const router = new VueRouter({
+  mode: 'history',
+  routes
+})
+
+Meteor.startup(() => {
+  Vue.use(mdiVue, {
+    icons: mdijs
+  }) 
+  Vue.use(VueRouter)
+  Vue.use(Vuesax)
+  new Vue({
+    router,
+    render: h => h(App)
+    }).$mount("#app");
 })
