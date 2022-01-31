@@ -1,17 +1,22 @@
 <template>
     <div>
-      <div class="flex flex-grow">
+      <div class=" bg-gray-dark flex flex-row">
         <sidebar />
-        <router-view></router-view>
+        <div class="w-full">
+          <topbar />
+          <router-view></router-view>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
 import Sidebar from './components/Sidebar.vue';
+import Topbar from './components/Topbar.vue';
 export default {
   components: {
     Sidebar,
+    Topbar
   }
 };
 </script>

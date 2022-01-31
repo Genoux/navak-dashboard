@@ -4,12 +4,12 @@ import Lanterns from '/imports/ui/components/Lanterns.vue'
 export default [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: Home
   },
   {
     path: '/lanterns',
-    name: 'lanterns',
+    name: 'Lanterns',
     component: Lanterns
   }
 ];

@@ -1,7 +1,6 @@
 // tailwind.config.js
 module.exports = {
-  
-  purge: ['./imports/ui/**/*.{js,jsx,ts,tsx}', './public/*.html'],
+  content: ["./src/**/*.{html,js}"],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
@@ -14,6 +13,7 @@ module.exports = {
         'green': '#13ce66',
         'yellow': '#ffc82c',
         'gray-dark': '#0C0C0C',
+        'gray-dark-light': '#191919',
         'gray': '#8492a6',
         'gray-light': '#d3dce6',
       },

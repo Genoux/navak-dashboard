@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Inter";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+}
+
+#app {
+  font-family: 'Inter', sans-serif;
+}

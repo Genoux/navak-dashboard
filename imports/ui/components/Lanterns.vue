@@ -2,7 +2,6 @@
 	<div>
 		<div v-if="lanterns.length > 0">
 			<div :key="index" v-for="(lantern, index) in lanterns">
-        		{{lantern.status}}
 				<ul class="flex flex-grow pr-10">
 					<li class="mr-3">
 						ID:
