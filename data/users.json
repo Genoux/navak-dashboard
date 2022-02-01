@@ -1,21 +1,15 @@
 [{
-  "_id": {
-    "$oid": "61895a94f0500b232ef27303"
-  },
   "id": "0b85",
   "hostName": "esp32-66F2C0",
   "macAddress": "F0:08:D1:66:F2:C0",
   "ipAddress": "192.168.1.10",
   "startUniverse": 0,
-  "status": false,
+  "status": true,
   "__v": 0,
-  "pulse": 10,
+  "pulse": 60,
   "group": 1,
-  "rgb": "0, 0, 0, 0"
+  "rgb": "240, 12, 22, 255"
 },{
-  "_id": {
-    "$oid": "61895a98f0510b232ef27306"
-  },
   "id": "0a99",
   "hostName": "esp32-D2AE70",
   "macAddress": "BC:DD:C2:D2:AE:70",
@@ -27,10 +21,19 @@
   "group": 1,
   "rgb": "0, 0, 0, 0"
 },{
-  "_id": {
-    "$oid": "61969effbf3d6d7b72c1da80"
-  },
   "id": "5a8e",
+  "hostName": "esp32-66E53C",
+  "macAddress": "F0:08:D1:66:E5:3C",
+  "ipAddress": "192.168.1.11",
+  "startUniverse": 3,
+  "status": true,
+  "__v": 0,
+  "pulse": 89,
+  "group": 1,
+  "rgb": "255, 76, 0, 255"
+},
+{
+  "id": "6y8e",
   "hostName": "esp32-66E53C",
   "macAddress": "F0:08:D1:66:E5:3C",
   "ipAddress": "192.168.1.11",
@@ -42,10 +45,7 @@
   "rgb": "0, 0, 0, 0"
 },
 {
-  "_id": {
-    "$oid": "61969effbf9d6d7b12c1da80"
-  },
-  "id": "5a8e",
+  "id": "4t5t",
   "hostName": "esp32-66E53C",
   "macAddress": "F0:08:D1:66:E5:3C",
   "ipAddress": "192.168.1.11",
@@ -53,36 +53,18 @@
   "status": false,
   "__v": 0,
   "pulse": 0,
-  "group": 1,
-  "rgb": "0, 0, 0, 0"
-},
-{
-  "_id": {
-    "$oid": "61969effbf9d6d7b72c3da80"
-  },
-  "id": "5a8e",
-  "hostName": "esp32-66E53C",
-  "macAddress": "F0:08:D1:66:E5:3C",
-  "ipAddress": "192.168.1.11",
-  "startUniverse": 3,
-  "status": false,
-  "__v": 0,
-  "pulse": 0,
-  "group": 1,
+  "group": 2,
   "rgb": "0, 0, 0, 0"
 }
 ,{
-  "_id": {
-    "$oid": "61969effbf9d6d7b72c1ca80"
-  },
-  "id": "5a8e",
+  "id": "a2d2",
   "hostName": "esp32-66E53C",
   "macAddress": "F0:08:D1:66:E5:3C",
   "ipAddress": "192.168.1.11",
   "startUniverse": 3,
-  "status": false,
+  "status": true,
   "__v": 0,
-  "pulse": 0,
-  "group": 1,
-  "rgb": "0, 0, 0, 0"
+  "pulse": 90,
+  "group": 2,
+  "rgb": "56, 255, 0, 255"
 }]

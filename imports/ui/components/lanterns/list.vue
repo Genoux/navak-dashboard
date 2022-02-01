@@ -1,51 +1,19 @@
 <template name="lanterns">
 	<div>
+		<button class="bg-violet-500 hover:bg-violet-400 active:bg-violet-600 focus:outline-none focus:ring focus:ring-violet-300 ...">
+			Save changes
+		</button>
 		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 shadow-lg">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
 				<v-lantern  :lantern="lantern"></v-lantern>
 			</div>
 		</div>
-		<div v-else>Lantern empty</div>
-		<vs-dialog class="text-left">
-			<!--Body-->
-			<div class="p-4">
-				<form class="grid grid-cols-2 gap-6 ">
-					<div class="grid opacity-60" v-for="(value, index, i) in defaultValue" :key="'index' + i">
-						<p class="text-sm">{{ index.charAt(0).toUpperCase() + index.slice(1) }}</p>
-						<vs-input disabled v-model="defaultValue[index]" :placeholder="selectedLantern[index]"></vs-input>
-					</div>
-					<div>
-						<p class="text-sm">StartUnivers</p>
-						<vs-input type="number" v-model="defaultValue.startUniverse" :placeholder="toString(selectedLantern.startUniverse)"></vs-input>
-					</div>
-					<div>
-						<p class="text-sm">Pulse</p>
-						<vs-input v-model="defaultValue.pulse" :placeholder="toString(selectedLantern.pulse)"></vs-input>
-					</div>
-					<div>
-						<p class="text-sm">Group</p>
-						<vs-input type="number" v-model="defaultValue.group" :placeholder="toString(selectedLantern.group)"></vs-input>
-					</div>
-					<div>
-						<p class="text-sm">Color</p>
-						<vs-input v-model="defaultValue.rgb" :placeholder="selectedLantern.rgb"></vs-input>
-					</div>
-				</form>
-				<div class="grid grid-flow-row grid-cols-2 gap-2 pt-2 mt-6">
-					<button @click="updateLantern(selectedLantern, $event)" class="px-4 drop-shadow-lg bg-blue p-3 rounded-lg text-white hover:opacity-90">Action</button>
-					<button @click="deleteItem" class="px-4 drop-shadow-lg bg-red-500 p-3 rounded-lg text-white hover:opacity-90"><mdicon name="Delete" /></button>
-				</div>
-			</div>
-		</vs-dialog>
-		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex items-center justify-center overflow-y-scroll">
+		<div v-else class="text-white text-center flex ">Lantern empty</div>
+		<!-- <div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex items-center justify-center overflow-y-scroll">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
 			<div class="bg-black border border-white border-opacity-25 pt-5 pb-8 px-10 rounded-lg shadow-lg z-50 overflow-y-auto">
         <div @click="closeDialog" class="float-right text-white hover:opacity-80 cursor-pointer relative bottom-1 left-6"><mdicon name="Close"></mdicon></div>
 				<form class="grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2">
-					<!-- <div class="grid opacity-60" v-for="(value, index, i) in defaultValue" :key="'index' + i">
-						<p class="text-sm">{{ index.charAt(0).toUpperCase() + index.slice(1) }}</p>
-						<vs-input disabled v-model="defaultValue[index]" :placeholder="selectedLantern[index]"></vs-input>
-					</div> -->
 					<div >
 						<p class="text-sm text-white pb-2">StartUnivers</p>
             <input v-model="defaultValue.startUniverse" :placeholder="toString(selectedLantern.startUniverse)" class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60">
@@ -68,7 +36,7 @@
           <button @click="deleteItem" class="flex text-center px-4 drop-shadow-lg bg-red-500 p-3 rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name="Delete" /></button>
         </div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -83,11 +51,7 @@ export default {
 	},
 	data() {
 		return {
-			noti: null,
-			activeDialog: false,
-			dialogClose: false,
-			loading: false,
-			active: 0,
+
 			selectedLantern: '',
 			defaultValue: {
 				id: '',
