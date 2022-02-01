@@ -1,8 +1,5 @@
 <template name="lanterns">
 	<div>
-		<button class="bg-violet-500 hover:bg-violet-400 active:bg-violet-600 focus:outline-none focus:ring focus:ring-violet-300 ...">
-			Save changes
-		</button>
 		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 shadow-lg">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
 				<v-lantern  :lantern="lantern"></v-lantern>

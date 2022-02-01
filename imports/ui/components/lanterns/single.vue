@@ -100,6 +100,7 @@
 							:placeholder="selectedLantern.rgb"
 							class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60"
 						/>
+
 					</div>
 				</form>
 				<div class="grid grid-flow-row grid-cols-12 gap-3 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading }">
@@ -112,7 +113,12 @@
 </template>
 
 <script>
+  import { Photoshop } from 'vue-color'
+
 export default {
+  components: {
+    'photoshop-picker': Photoshop
+  },
 	data() {
 		return {
 			selectedLantern: '',
@@ -161,10 +167,15 @@ export default {
 			}, 500);
 		},
 		verification(obj) {
-      if (obj.pulse < 0 || obj.startUniverse < 0 || obj.pulse < 0 || obj.group < 0) {
-        this.dialogError = true;
-        this.dialogErrorMessage = `'Value cannot be negative'`;
-        return false;
+      if (obj.pulse < 0 || obj.startUniverse < 0 || obj.group < 0) {
+        if (obj.pulse > 800 || obj.startUniverse > 1000 || obj.group > 1000) {
+          this.dialogError = true;
+          this.dialogErrorMessage = 'Yo dawg, you can\'t have more than 1000';
+          return false;
+        }else{
+          this.dialogError = false;
+          return true;
+        }
       }else{
         this.dialogError = false;
         return true;
