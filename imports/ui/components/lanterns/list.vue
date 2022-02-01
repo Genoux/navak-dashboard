@@ -1,103 +1,94 @@
 <template name="lanterns">
 	<div>
-		<div v-if="lanterns.length > 0">
-			<div :key="index" v-for="(lantern, index) in lanterns">
-				<ul class="flex flex-grow pr-10">
-					<li class="mr-3">
-						ID:
-						<b>{{ lantern.id }}</b>
-					</li>
-					<li class="mr-3">
-						STATUS:
-						<b>{{ lantern.status }}</b>  <span :class=lantern.status class="px-2 py-0 rounded-lg drop-shadow-2xl"></span> 
-					</li>
-					<li class="mr-3">
-						PULSE:
-						<b>{{ lantern.pulse }}</b>
-					</li>
-					<li class="mr-3">
-						COLOR:
-						<b>{{ lantern.rgb }}</b>
-					</li>
-					<li class="mr-3">
-						GROUP:
-						<b>{{ lantern.group }}</b>
-					</li>
-					<vs-button dark icon @click.stop="openDialog(lantern, $event)">
-						<i class="bx bx-edit"></i>
-					</vs-button>
-					<vs-button danger icon @click.stop="verification(lantern, $event)">
-						<i class="bx bx-x"></i>
-					</vs-button>
-				</ul>
+		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 shadow-lg">
+			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
+				<v-lantern  :lantern="lantern"></v-lantern>
 			</div>
 		</div>
 		<div v-else>Lantern empty</div>
-		<vs-dialog
-		width="800"
-		class="bg-darken-4 z-auto" 
-		internal-activator
-		v-model="activeDialog" v-bind:loading="loading" v-bind:prevent-close="dialogClose" v-bind:not-close="dialogClose">
-			<form class="p-10">
-					<div  v-if="i >= 1 && i <= 3" v-for="(value, index, i) in defaultValue">
-						<p>{{ index.charAt(0).toUpperCase() + index.slice(1) }}</p>
+		<vs-dialog class="text-left">
+			<!--Body-->
+			<div class="p-4">
+				<form class="grid grid-cols-2 gap-6 ">
+					<div class="grid opacity-60" v-for="(value, index, i) in defaultValue" :key="'index' + i">
+						<p class="text-sm">{{ index.charAt(0).toUpperCase() + index.slice(1) }}</p>
 						<vs-input disabled v-model="defaultValue[index]" :placeholder="selectedLantern[index]"></vs-input>
 					</div>
-					
-					<div md="12" v-if="i >= 0 && i <= 0" v-for="(value, index, i) in defaultValue">
-						<p>{{ index.charAt(0).toUpperCase() + index.slice(1) }}</p>
-						<vs-input v-model="defaultValue[index]" :placeholder="selectedLantern[index]"></vs-input>
-					</div>
 					<div>
-						<p>StarUnivers</p>
+						<p class="text-sm">StartUnivers</p>
 						<vs-input type="number" v-model="defaultValue.startUniverse" :placeholder="toString(selectedLantern.startUniverse)"></vs-input>
 					</div>
-					<div class="flex">
-						<p class="pr-4">Status</p>
-						<li>{{ defaultValue.status }}</li>
-					</div>
 					<div>
-						<p>Pulse</p>
+						<p class="text-sm">Pulse</p>
 						<vs-input v-model="defaultValue.pulse" :placeholder="toString(selectedLantern.pulse)"></vs-input>
 					</div>
 					<div>
-						<p>Group</p>
+						<p class="text-sm">Group</p>
 						<vs-input type="number" v-model="defaultValue.group" :placeholder="toString(selectedLantern.group)"></vs-input>
 					</div>
 					<div>
-						<p>Color</p>
+						<p class="text-sm">Color</p>
 						<vs-input v-model="defaultValue.rgb" :placeholder="selectedLantern.rgb"></vs-input>
 					</div>
-					<vs-button text :active="active == 0" @click="updateLantern(selectedLantern, $event)">Updated</vs-button>
-			</form>
+				</form>
+				<div class="grid grid-flow-row grid-cols-2 gap-2 pt-2 mt-6">
+					<button @click="updateLantern(selectedLantern, $event)" class="px-4 drop-shadow-lg bg-blue p-3 rounded-lg text-white hover:opacity-90">Action</button>
+					<button @click="deleteItem" class="px-4 drop-shadow-lg bg-red-500 p-3 rounded-lg text-white hover:opacity-90"><mdicon name="Delete" /></button>
+				</div>
+			</div>
 		</vs-dialog>
+		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex items-center justify-center overflow-y-scroll">
+			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
+			<div class="bg-black border border-white border-opacity-25 pt-5 pb-8 px-10 rounded-lg shadow-lg z-50 overflow-y-auto">
+        <div @click="closeDialog" class="float-right text-white hover:opacity-80 cursor-pointer relative bottom-1 left-6"><mdicon name="Close"></mdicon></div>
+				<form class="grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2">
+					<!-- <div class="grid opacity-60" v-for="(value, index, i) in defaultValue" :key="'index' + i">
+						<p class="text-sm">{{ index.charAt(0).toUpperCase() + index.slice(1) }}</p>
+						<vs-input disabled v-model="defaultValue[index]" :placeholder="selectedLantern[index]"></vs-input>
+					</div> -->
+					<div >
+						<p class="text-sm text-white pb-2">StartUnivers</p>
+            <input v-model="defaultValue.startUniverse" :placeholder="toString(selectedLantern.startUniverse)" class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60">
+					</div>
+					<div>
+						<p class="text-sm text-white pb-2">Pulse</p>
+            <input v-model="defaultValue.pulse" :placeholder="toString(selectedLantern.pulse)" class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60">
+					</div>
+					<div>
+						<p class="text-sm text-white pb-2">Group</p>
+            <input v-model="defaultValue.group" :placeholder="toString(selectedLantern.group)" class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60">
+					</div>
+					<div>
+						<p class="text-sm text-white pb-2">Color</p>
+            <input v-model="defaultValue.rgb" :placeholder="selectedLantern.rgb" class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60">
+					</div>
+				</form>
+        <div class="grid grid-flow-row grid-cols-5 gap-3 pt-2 mt-6">
+          <button @click="updateLantern(selectedLantern, $event)" class="px-4 drop-shadow-lg bg-blue p-3 rounded-lg text-white hover:opacity-90">Action</button>
+          <button @click="deleteItem" class="flex text-center px-4 drop-shadow-lg bg-red-500 p-3 rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name="Delete" /></button>
+        </div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-import Lanterns from '../../api/collections/Lanterns';
+import Lanterns from '../../../../imports/api/collections/Lanterns.js';
+import singleLantern from './single.vue';
 
 export default {
-	name: "lanterns",
+	name: 'lanterns',
 	components: {
+		'v-lantern': singleLantern
 	},
 	data() {
 		return {
-			alert:false,
 			noti: null,
-			myData: null,
-			errorMessage: '',
-			lanternsList: '',
-			selectedLantern: '',
-			default: '',
-			value1: '',
-			confirmationDialog: false,
 			activeDialog: false,
 			dialogClose: false,
 			loading: false,
 			active: 0,
-			active2: false,
-			storeValue: '',
+			selectedLantern: '',
 			defaultValue: {
 				id: '',
 				hostName: '',
@@ -111,9 +102,6 @@ export default {
 			}
 		};
 	},
-	mounted(){
-		this.alert = true;
-	},
 	meteor: {
 		$subscribe: {
 			lanterns: []
@@ -123,9 +111,6 @@ export default {
 		}
 	},
 	methods: {
-		openColor() {
-			this.colorPicker = true;
-		},
 		deleteItem() {
 			this.loading = true;
 			this.dialogClose = true;
@@ -142,7 +127,6 @@ export default {
 						} else {
 							this.openNotification('top-center', 'success', '💢 Succelfully deleted lantern!', 'You can check the changes in the list');
 							this.loading = false;
-							this.confirmationDialog = false;
 							this.selectedLantern = '';
 							this.noti.close();
 						}
@@ -152,7 +136,6 @@ export default {
 		},
 		verification(obj, event) {
 			this.selectedLantern = obj;
-			this.confirmationDialog = true;
 		},
 		openNotification(position = null, color, title, text) {
 			this.noti = this.$vs.notification({
@@ -226,8 +209,3 @@ export default {
 	}
 };
 </script>
-<style scoped>
-	.vs-dialog{
-	background: red !important;
-}
-</style>

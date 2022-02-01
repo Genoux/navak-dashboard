@@ -5,6 +5,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
         'dark': '#000000',
         'blue': '#1fb6ff',
         'purple': '#7e5bef',
@@ -16,6 +18,8 @@ module.exports = {
         'gray-dark-light': '#191919',
         'gray': '#8492a6',
         'gray-light': '#d3dce6',
+        'status-green': '#00FF75',
+        'input-dark': '#141417'
       },
     },
   },

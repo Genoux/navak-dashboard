@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class=" bg-gray-dark flex flex-row">
+      <div class=" bg-gray-dark flex flex-row ">
         <sidebar />
         <div class="w-full">
           <topbar />

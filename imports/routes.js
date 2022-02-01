@@ -1,5 +1,5 @@
 import Home from '/imports/ui/components/Home.vue'
-import Lanterns from '/imports/ui/components/Lanterns.vue'
+import Lanterns from '/imports/ui/components/lanterns/list.vue'
 
 export default [
   {
