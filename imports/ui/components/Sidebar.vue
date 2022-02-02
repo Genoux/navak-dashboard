@@ -4,8 +4,8 @@
       <nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20" v-model="active">
         <div>
           <ul>
-            <li v-for="item in items" :key="item.title" link class="text-white flex align-middle text-center my-2 p-2 rounded-lg" color="red">
-              <mdicon size=28 class="m-auto " v-bind:name=item.icon />
+            <li v-for="item in items" :key="item.title">
+              <router-link class="hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg"  :to="{'name': item.title }"  > <mdicon size=21 class="m-auto " v-bind:name=item.icon /></router-link>
             </li>
           </ul>
         </div>
@@ -19,17 +19,18 @@
     data() {
       return {
         active: 'home',
-        items: [{
+        items: [
+          {
             title: 'Home',
+            icon: 'Home'
+          },
+          {
+            title: 'lanterns',
             icon: 'Lightbulb'
           },
           {
-            title: 'My Account',
+            title: 'none',
             icon: 'HandHeart'
-          },
-          {
-            title: 'Users',
-            icon: 'GoogleMaps'
           },
         ],
       }

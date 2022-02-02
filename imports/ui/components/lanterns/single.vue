@@ -103,11 +103,12 @@
 						/>
 					</div>
 				</form>
-				<div class="grid grid-flow-row grid-cols-12 gap-3 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-3 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
+				<div class="grid grid-flow-row grid-cols-12 gap-2 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
+					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
 						<mdicon class="m-auto" name="CheckBold"></mdicon>
 					</button>
-					<button @click="deleteItem" class="py-2 px-3 flex text-center drop-shadow-lg bg-red-500 rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name="Delete" /></button>
+          <button disabled @click="RestartItem" class="py-2 px-6 flex text-center drop-shadow-lg bg-indigo-500 rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name="Restart" /></button>
+				<!--	<button disabled @click="deleteItem" class="py-2 px-3 flex text-center drop-shadow-lg bg-gray rounded-lg text-white opacity-10"><mdicon class="m-auto" name="Delete" /></button> -->
 				</div>
 			</div>
 		</div>
@@ -146,6 +147,10 @@ export default {
 		lantern: Object
 	},
 	methods: {
+    RestartItem(){
+    this.loading = true;
+      //axios restart lantern
+    },
 		deleteItem() {
 			this.loading = true;
 			this.dialogClose = false;

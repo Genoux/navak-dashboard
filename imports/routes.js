@@ -9,7 +9,7 @@ export default [
   },
   {
     path: '/lanterns',
-    name: 'Lanterns',
+    name: 'lanterns',
     component: Lanterns
   }
 ];
