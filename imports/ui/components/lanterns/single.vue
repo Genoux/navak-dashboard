@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-white border-opacity-20" v-bind:class="{'opacity-20': !lantern.status, 'pointer-events-none' : !lantern.status}">
+		<div
+			class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-white border-opacity-20"
+			v-bind:class="{'opacity-20': !lantern.status, 'pointer-events-none': !lantern.status}"
+		>
 			<div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
 				<div v-bind:class="{'text-status-green': lantern.status, 'text-gray': !lantern.status}">
 					<mdicon size="21" class="m-auto" name="Power" />
@@ -19,14 +22,11 @@
 					</div>
 				</div>
 				<div class="border-l border-white border-opacity-25 flex">
-					<div class="bg-black border ml-4 p-1 hover:opacity-60 cursor-pointer active:text-red-400">
-						<mdicon name="Flash" size="12"></mdicon>
+					<div class=" border ml-4 p-1 hover:opacity-60 cursor-pointer">
+						<mdicon class="" name="Flash" size="12"></mdicon>
 					</div>
 					<div @click="openDialog(lantern)" class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
 						<mdicon name="Wrench" size="12"></mdicon>
-					</div>
-					<div class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
-						<mdicon name="Flash" size="12"></mdicon>
 					</div>
 				</div>
 			</div>
@@ -53,14 +53,15 @@
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
 			<div class="bg-black border border-white border-opacity-25 pt-5 pb-8 px-10 rounded-lg shadow-lg z-50 overflow-y-auto">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
-          <svg fill='white' class="animate-spin h-8 w-8 " xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
-          </svg>
-        </div>
-				<div @click="closeDialog" class="float-right text-white hover:opacity-80 cursor-pointer relative bottom-1 left-6"  v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading }"><mdicon name="Close"></mdicon></div>
-        <div v-if="dialogError" class="text-white">{{ dialogErrorMessage }}</div>
-        <form class="grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading }">
-         
+					<svg fill="white" class="animate-spin h-8 w-8" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+						<path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+					</svg>
+				</div>
+				<div @click="closeDialog" class="float-right text-white hover:opacity-80 cursor-pointer relative bottom-1 left-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
+					<mdicon name="Close"></mdicon>
+				</div>
+				<div v-if="dialogError" class="text-white">{{ dialogErrorMessage }}</div>
+				<form class="grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
 					<div>
 						<p class="text-sm text-white pb-2">ID</p>
 						<input
@@ -100,12 +101,13 @@
 							:placeholder="selectedLantern.rgb"
 							class="w-auto px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60"
 						/>
-
 					</div>
 				</form>
-				<div class="grid grid-flow-row grid-cols-12 gap-3 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading }">
-					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-3 flex text-center drop-shadow-lg bg-green  rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name='CheckBold'></mdicon></button>
-					<button @click="deleteItem" class="py-2 px-3 flex text-center drop-shadow-lg bg-red-500  rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name="Delete" /></button>
+				<div class="grid grid-flow-row grid-cols-12 gap-3 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
+					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-3 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
+						<mdicon class="m-auto" name="CheckBold"></mdicon>
+					</button>
+					<button @click="deleteItem" class="py-2 px-3 flex text-center drop-shadow-lg bg-red-500 rounded-lg text-white hover:opacity-90"><mdicon class="m-auto" name="Delete" /></button>
 				</div>
 			</div>
 		</div>
@@ -113,19 +115,20 @@
 </template>
 
 <script>
-  import { Photoshop } from 'vue-color'
+import {Photoshop} from 'vue-color';
 
 export default {
-  components: {
-    'photoshop-picker': Photoshop
-  },
+	components: {
+		'photoshop-picker': Photoshop
+	},
 	data() {
 		return {
+      clicked: false,
 			selectedLantern: '',
 			activeDialog: false,
 			loading: false,
-      dialogErrorMessage: '',
-      dialogError: false,
+			dialogErrorMessage: '',
+			dialogError: false,
 			defaultValue: {
 				id: '',
 				hostName: '',
@@ -167,26 +170,26 @@ export default {
 			}, 500);
 		},
 		verification(obj) {
-      if (obj.pulse < 0 || obj.startUniverse < 0 || obj.group < 0) {
-        if (obj.pulse > 800 || obj.startUniverse > 1000 || obj.group > 1000) {
-          this.dialogError = true;
-          this.dialogErrorMessage = 'Yo dawg, you can\'t have more than 1000';
-          return false;
-        }else{
-          this.dialogError = false;
-          return true;
-        }
-      }else{
-        this.dialogError = false;
-        return true;
-      }
-      if (obj.id.length !== 4) {
-        this.dialogError = true;
-        this.dialogErrorMessage = 'ID need to be 4 characters long';
-        return false;
-      }else{
-        return true;
-      }
+			if (obj.pulse < 0 || obj.startUniverse < 0 || obj.group < 0) {
+				if (obj.pulse > 800 || obj.startUniverse > 1000 || obj.group > 1000) {
+					this.dialogError = true;
+					this.dialogErrorMessage = "Yo dawg, you can't have more than 1000";
+					return false;
+				} else {
+					this.dialogError = false;
+					return true;
+				}
+			} else {
+				this.dialogError = false;
+				return true;
+			}
+			if (obj.id.length !== 4) {
+				this.dialogError = true;
+				this.dialogErrorMessage = 'ID need to be 4 characters long';
+				return false;
+			} else {
+				return true;
+			}
 		},
 		openNotification(position = null, color, title, text) {
 			this.noti = this.$vs.notification({
@@ -198,12 +201,12 @@ export default {
 		},
 		updateLantern(obj, event) {
 			event.preventDefault();
-      this.dialogErrorMessage = '';
-      this.dialogError = false;
-      console.log('!this.verification(this.defaultValue)', !this.verification(this.defaultValue));
-      if(!this.verification(this.defaultValue)) {
-        return;
-      }
+			this.dialogErrorMessage = '';
+			this.dialogError = false;
+			console.log('!this.verification(this.defaultValue)', !this.verification(this.defaultValue));
+			if (!this.verification(this.defaultValue)) {
+				return;
+			}
 			const objJson = {
 				id: obj.id,
 				hostName: obj.hostName,
@@ -244,14 +247,13 @@ export default {
 					}
 				);
 			}, 1000);
-
 		},
 		closeDialog() {
-      if(this.loading == true){
-        return;
-      }
-      this.dialogErrorMessage = '';
-      this.dialogError = false;
+			if (this.loading == true) {
+				return;
+			}
+			this.dialogErrorMessage = '';
+			this.dialogError = false;
 			this.activeDialog = false;
 		},
 		openDialog(e) {

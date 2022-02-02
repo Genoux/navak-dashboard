@@ -5,6 +5,7 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
+      textColor: ['responsive', 'hover', 'focus', 'group-hover'],
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
