@@ -1,5 +1,7 @@
 <template>
 	<div>
+   <p class="text-white">{{ colors.rgba }}</p> 
+    <photoshop-picker v-model="colors"  :value="colors" />
 		<div
 			class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-white border-opacity-20"
 			v-bind:class="{'opacity-20': !lantern.status, 'pointer-events-none': !lantern.status}"
@@ -116,14 +118,15 @@
 </template>
 
 <script>
-import {Photoshop} from 'vue-color';
-
+import {Chrome} from 'vue-color';
+var colors = '#194d33'
 export default {
 	components: {
-		'photoshop-picker': Photoshop
+		'photoshop-picker': Chrome
 	},
 	data() {
 		return {
+      colors,
       clicked: false,
 			selectedLantern: '',
 			activeDialog: false,
