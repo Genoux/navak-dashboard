@@ -24,9 +24,13 @@
           </div>
         </div>
         <div class="border-l border-white border-opacity-25 flex">
-          <div @click="flash(lantern)" class=" border ml-4 p-1 hover:opacity-60 cursor-pointer">
-            <mdicon v-if="apiCalling" class="animate-spin" size="18" name="Flash" />
-            <mdicon class="" name="Flash" size="12"></mdicon>
+          <div @click="flash(lantern)" class="border ml-4 p-1 hover:opacity-60 cursor-pointer">
+      
+           <svg v-if="apiCalling" fill="white" class="animate-spin h-3 w-3" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+              width="24" height="24" viewBox="0 0 24 24">
+              <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
+            </svg>
+            <mdicon v-else size="12" name="Flash" />
           </div>
           <div @click="openDialog(lantern)"
             class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
@@ -185,6 +189,9 @@
       },
       flash(elm) {
         this.apiCalling = true;
+        setTimeout(() => {
+          this.apiCalling = false;
+        }, 1000);
         try {
           this.$http
             .post('https://192.168.1.42/action/flash', {
