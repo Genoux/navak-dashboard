@@ -25,7 +25,6 @@
         </div>
         <div class="border-l border-white border-opacity-25 flex">
           <div @click="flash(lantern)" class="border ml-4 p-1 hover:opacity-60 cursor-pointer">
-      
            <svg v-if="apiCalling" fill="white" class="animate-spin h-3 w-3" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
               width="24" height="24" viewBox="0 0 24 24">
               <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
@@ -131,7 +130,6 @@
     data() {
       return {
         showColorPicker: false,
-        selectedLanternColor: '',
         colors: {'rgba': { "r": 171, "g": 167, "b": 167, "a": 1} },
         apiCalling: false,
         clicked: false,
@@ -140,7 +138,6 @@
         loading: false,
         dialogErrorMessage: '',
         dialogError: false,
-        c: '',
         defaultValue: {
           id: '',
           hostName: '',
@@ -152,7 +149,6 @@
           group: '',
           rgb: ''
         }
-        
       };
     },
     props: {
@@ -172,11 +168,10 @@
         return `${this.colors.rgba.r}, ${this.colors.rgba.g}, ${this.colors.rgba.b}`;
       },
       restart(elm) {
-        console.log(elm);
-        this.loading = true;
         try {
+          this.loading = true;
           this.$http
-            .post('https://192.168.1.42/action/restart', {
+            .post('http://192.168.1.15:8080/api/lanterns/restart', {
               id: elm.id
             })
             .then(function (response) {
@@ -184,6 +179,7 @@
             })
         } catch (error) {
           console.log(error);
+          this.loading = false;
           this.apiCalling = false;
         }
       },
@@ -194,7 +190,7 @@
         }, 1000);
         try {
           this.$http
-            .post('https://192.168.1.42/action/flash', {
+            .post('http://192.168.1.15:8080/api/lanterns/flash', {
               id: elm.id
             })
             .then(function (response) {
@@ -202,6 +198,7 @@
             })
         } catch (error) {
           console.log(error);
+          
           this.apiCalling = false;
         }
       },
