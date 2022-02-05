@@ -12,7 +12,9 @@
 						</li>
 					</ul>
 				</div>
-				<div  type="button" v-for="item in servers" :key="item.status" class="w-4 h-4 flex align-middle text-center ml-auto mr-auto" v-bind:class="{'bg-status-green': item.status, 'bg-status-red': !item.status}"></div>
+        <div>
+          <div :name="item.name" type="button" v-for="item in servers" :key="item.status" class="mt-4 mb-4 animate-pulse w-3 h-3  align-middle text-center ml-auto mr-auto" v-bind:class="{'bg-status-green': item.status, 'bg-status-red': !item.status}"></div>
+        </div>
 			</nav>
 		</div>
 	</div>
