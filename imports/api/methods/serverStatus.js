@@ -1,15 +1,16 @@
+
 import { Meteor } from 'meteor/meteor';
-import Lanterns from '../collections/Lanterns.js';
+import Servers from '../collections/Servers.js';
 
 Meteor.methods({
-  'deleteLantern'(data) {
+  'serversStatus'(data) {
 
    // await Lanterns.updateOne({id:id}, req.body, { useFindAndModify: false })
 
     //check(url, String);
    // check(title, String);
     //return Lanterns.findOne({ id: id });
- return Lanterns.remove({ _id: data._id });
+ return Servers.find({ _id: data._id }, data.data);
    // console.log('lantern', lantern);
    // return lantern.update({data});
   },

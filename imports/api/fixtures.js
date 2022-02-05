@@ -1,18 +1,18 @@
 import { Meteor } from 'meteor/meteor';
-import Lanterns from './collections/Lanterns.js';
-import fakeData from '../../data/users.json'
+import Servers from './collections/Servers.js';
+const isReachable = require('is-reachable');
+var cron = require('node-cron');
 
-
-Meteor.startup((e) => {
-
-// if the Links collection is empty
- if (Lanterns.find().count() === 0) {
-  const data = fakeData;
-
-   data.forEach(lantern => {
-    console.log('lantern', lantern);
-    Lanterns.insert(lantern)
+Meteor.startup(async (e) => {
+  var servers = Servers.find().fetch();
+  cron.schedule('*/7 * * * * *', () => {
+    servers.forEach(async function (host) {
+      var status = await isReachable(host.ipAddress);
+      if (status) {
+        Servers.update({ ipAddress: host.ipAddress }, { $set: { status: status } })
+      } else {
+        Servers.update({ ipAddress: host.ipAddress }, { $set: { status: status } })
+      }
+    });
   });
- }
-  
 });

@@ -1,6 +1,9 @@
 // tailwind.config.js
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ['./src/**/*.{html,js}', , './node_modules/tw-elements/dist/js/**/*.js'],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
   purge: ["./src/**/*.vue"],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
@@ -21,11 +24,10 @@ module.exports = {
         'gray': '#8492a6',
         'gray-light': '#d3dce6',
         'status-green': '#00FF75',
+        'status-red': '#FF002E',
         'input-dark': '#141417'
       },
     },
   },
   variants: {},
-  plugins: [],
-
 }

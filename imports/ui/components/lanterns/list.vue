@@ -1,6 +1,6 @@
 <template name="lanterns">
 	<div >
-		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 shadow-lg">
+		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
 				<v-lantern  :lantern="lantern"></v-lantern>
 			</div>
@@ -29,6 +29,7 @@ export default {
 		},
 		lanterns() {  
 			return Lanterns.find({});
+		
 		}
 	},
 	methods: {

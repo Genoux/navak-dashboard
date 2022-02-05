@@ -177,7 +177,7 @@ export default {
 			this.loading = true;
 			try {
 				this.$http
-					.post('http://localhost:8080/api/lanterns/reboot', {
+					.post('http://172.25.208.1:8081/api/lanterns/reboot', {
 						id: elm.id
 					})
 					.then((response) => {
@@ -196,7 +196,7 @@ export default {
 			this.apiCalling = true;
 			try {
 				this.$http
-					.post('http://192.168.56.1:8080/api/lanterns/flash', {
+					.post('http://172.25.208.1:8081/api/lanterns/flash', {
 						id: elm.id
 					})
 					.then((response) => {
