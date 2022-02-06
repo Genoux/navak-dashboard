@@ -218,7 +218,6 @@ export default {
 			});
 		},
 		updateLantern(obj, event) {
-			console.log(obj);
 			event.preventDefault();
 			this.dialogErrorMessage = '';
 			this.dialogError = false;
@@ -243,25 +242,24 @@ export default {
 			this.loading = true;
 			this.dialogClose = true;
 			setTimeout(() => {
-				Meteor.call(
-					'editLantern',
-					{
-						data: this.defaultValue,
-						_id: obj._id
-					},
-					(error) => {
-						if (error) {
-							this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', 'It might be the data passing to the server, please check the console');
-							this.loading = false;
-						} else {
-							this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!', 'You can check the changes in the list');
-							this.loading = false;
-							this.dialogClose = false;
-							this.activeDialog = false;
-							this.showColorPicker = false;
-						}
-					}
-				);
+        // update lantern to the API??
+        this.$http
+        .put('http://172.25.208.1:8081/api/lanterns/'+obj.id, this.defaultValue)
+        .then((response) => {
+          console.log('response', response);
+          this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!', 'You can check the changes in the list');
+          this.loading = false;
+          this.dialogClose = false;
+          this.activeDialog = false;
+          this.showColorPicker = false;
+        }).catch((error) => {
+          console.log(error);
+          this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',  `${error}`);
+          this.loading = false;
+          this.dialogClose = false;
+          this.activeDialog = false;
+          this.showColorPicker = false;
+        });
 			}, 1000);
 		},
 		closeDialog() {
