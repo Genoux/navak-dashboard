@@ -16,7 +16,8 @@ import axios from 'axios';
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
+  linkExactActiveClass: "bg-gray-dark-light",
 })
 
 Meteor.startup(() => {
