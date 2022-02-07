@@ -5,7 +5,7 @@ var cron = require('node-cron');
 
 Meteor.startup(async (e) => {
   var servers = Servers.find().fetch();
-  cron.schedule('*/7 * * * * *', () => {
+  cron.schedule('*/3 * * * * *', () => {
     servers.forEach(async function (host) {
       var status = await isReachable(host.ipAddress);
       if (status) {

@@ -1,0 +1,11 @@
+[{
+  "name": "navak-api",
+  "ipAddress": "192.168.1.15:8080",
+  "status": false,
+  "__v": 0
+},{
+  "name": "navak-mqtt",
+  "ipAddress": "192.168.1.212:1883",
+  "status": false,
+  "__v": 0
+}]

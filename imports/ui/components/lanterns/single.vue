@@ -177,7 +177,7 @@ export default {
 			this.loading = true;
 			try {
 				this.$http
-					.post('http://172.25.208.1:8081/api/lanterns/reboot', {
+					.post('http://192.168.1.15:8081/api/lanterns/reboot', {
 						id: elm.id
 					})
 					.then((response) => {
@@ -196,7 +196,7 @@ export default {
 			this.apiCalling = true;
 			try {
 				this.$http
-					.post('http://172.25.208.1:8081/api/lanterns/flash', {
+					.post('http://192.168.1.15:8081/api/lanterns/flash', {
 						id: elm.id
 					})
 					.then((response) => {
@@ -244,7 +244,7 @@ export default {
 			setTimeout(() => {
         // update lantern to the API??
         this.$http
-        .put('http://172.25.208.1:8081/api/lanterns/'+obj.id, this.defaultValue)
+        .put('http://192.168.1.15:8081/api/lanterns/'+obj.id, this.defaultValue)
         .then((response) => {
           console.log('response', response);
           this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!', 'You can check the changes in the list');
