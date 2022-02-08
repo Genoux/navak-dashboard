@@ -1,11 +1,17 @@
 <template name="lanterns">
-	<div >
+	<div>
+		<p class="text-white">{{ lanterns.length }}</p>
 		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
-				<v-lantern  :lantern="lantern"></v-lantern>
+				<v-lantern :lantern="lantern"></v-lantern>
 			</div>
 		</div>
-		<div v-else class="text-white text-center flex ">Lantern empty</div>
+		<div v-if="!loadingLanterns && lanterns.length < 1" class="text-white flex justify-center p-24 items-center">{{ lanterns.length }}{{ msg }}</div>
+		<div v-if="loadingLanterns" class="flex justify-center p-24 items-center border border-white border-opacity-25 border-dashed m-4">
+			<div class="inset-0 border">
+				<h1 class="text-white">Loading Lanterns...</h1>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -20,20 +26,17 @@ export default {
 	},
 	data() {
 		return {
-      loadingPage: true,
+			loadingLanterns: true,
+			msg: ''
 		};
 	},
 	meteor: {
 		$subscribe: {
 			lanterns: []
 		},
-		lanterns() {  
+		lanterns() {
 			return Lanterns.find({});
-		
 		}
-	},
-	methods: {
-
-    }
+	}
 };
 </script>

@@ -1,0 +1,11 @@
+
+Todo:
+  ☐ Add Spinner on the lanterns list
+  ☐ Build the position setup page
+  ☐ Add filter for the lanterns list
+  ☐ Add tooltip on the servers status to show the last update and name
+
+Bug:
+  ☐ On the lanterns list -> edit color. The color palette sometime hide the check button
+
+

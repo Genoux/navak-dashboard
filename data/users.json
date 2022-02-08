@@ -31,40 +31,4 @@
   "pulse": 89,
   "group": 1,
   "rgb": "255, 76, 0, 255"
-},
-{
-  "id": "6y8e",
-  "hostName": "esp32-66E53C",
-  "macAddress": "F0:08:D1:66:E5:3C",
-  "ipAddress": "192.168.1.11",
-  "startUniverse": 3,
-  "status": false,
-  "__v": 0,
-  "pulse": 0,
-  "group": 1,
-  "rgb": "0, 0, 0, 0"
-},
-{
-  "id": "4t5t",
-  "hostName": "esp32-66E53C",
-  "macAddress": "F0:08:D1:66:E5:3C",
-  "ipAddress": "192.168.1.11",
-  "startUniverse": 3,
-  "status": false,
-  "__v": 0,
-  "pulse": 0,
-  "group": 2,
-  "rgb": "0, 0, 0, 0"
-}
-,{
-  "id": "a2d2",
-  "hostName": "esp32-66E53C",
-  "macAddress": "F0:08:D1:66:E5:3C",
-  "ipAddress": "192.168.1.11",
-  "startUniverse": 3,
-  "status": true,
-  "__v": 0,
-  "pulse": 90,
-  "group": 2,
-  "rgb": "56, 255, 0, 255"
 }]
