@@ -16,14 +16,12 @@
       <div class="grid grid-cols-2 p-5 gap-5 self-end">
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">hostName</h5>
-          <h4 
-          
-          readonly 
-          :value="text" class="text-sm hover:underline" @click="copy(server.name)">{{ server.name }}</h4>
+          <h4 class="text-sm" >{{ server.name }}</h4>
         </div>
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">IP address</h5>
-          <h4 class="text-sm">{{ server.ipAddress }}</h4>
+          <h4 readonly 
+          :value="text" @click="copy(server.ipAddress)" class="text-sm hover:underline cursor-pointer">{{ server.ipAddress }}</h4>
         </div>
       </div>
     </div>
@@ -47,10 +45,8 @@
         });
       },
       copy(e) {
-        console.log('e', e);
-        console.log('e', this.text);
-        this.openNotification('top-center', 'success', '🔥 Rebooted! ',
-        `Copied!`);
+        this.openNotification('top-center', 'success', '📋 Copied! ',
+        `Copied to clipboard!`);
         navigator.clipboard.writeText(e);
       }
     },

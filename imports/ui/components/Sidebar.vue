@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="relative bg-dark">
-			<nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20" >
+			<nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20">
 				<div>
 					<ul>
 						<li v-for="item in items" :key="item.title">
@@ -11,41 +11,33 @@
 						</li>
 					</ul>
 				</div>
-        <div>
-          <div :name="server.name" type="button" v-for="(server, index) in servers" :key="index" class="mt-4 mb-4 animate-pulse w-3 h-3  align-middle text-center ml-auto mr-auto" v-bind:class="{'bg-status-green': server.status, 'bg-status-red': !server.status}"></div>
-        
-        </div>
 			</nav>
 		</div>
 	</div>
 </template>
 
 <script>
-import Servers from '../../../imports/api/collections/Servers.js';
+
 export default {
-	
 	data() {
 		return {
 			items: [
 				{
+					title: 'lanterns',
+					icon: 'Lightbulb'
+				},
+				{
 					title: 'servers',
 					icon: 'ServerSecurity'
 				},
-				{
-					title: 'lanterns',
-					icon: 'Lightbulb'
-				}
+        {
+          title: 'positions',
+          icon: 'GoogleMaps'
+        }
 			]
 		};
 	},
 	meteor: {
-		$subscribe: {
-			servers: []
-		},
-		servers() {  
-			return Servers.find({});
-
-		}
-	},
+	}
 };
 </script>

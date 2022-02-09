@@ -5,8 +5,8 @@
 				<v-lantern :lantern="lantern"></v-lantern>
 			</div>
 		</div>
-		<div v-else class="flex justify-center p-24 items-center m-4">
-			<mdicon size="31" name="LightningBolt" class="text-white animate-pulse"></mdicon>
+		<div v-if="loadingLanterns" class="flex justify-center p-24 items-center borderm-4">
+      <mdicon name="LightbulbQuestion" size="48" class="animate-pulse" />
 		</div>
 	</div>
 </template>
@@ -19,6 +19,12 @@ export default {
 	name: 'lanterns',
 	components: {
 		'v-lantern': singleLantern
+	},
+	data() {
+		return {
+			loadingLanterns: true,
+			msg: ''
+		};
 	},
 	meteor: {
 		$subscribe: {
