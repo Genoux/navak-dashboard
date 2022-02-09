@@ -13,6 +13,7 @@
 				</div>
         <div>
           <div :name="server.name" type="button" v-for="(server, index) in servers" :key="index" class="mt-4 mb-4 animate-pulse w-3 h-3  align-middle text-center ml-auto mr-auto" v-bind:class="{'bg-status-green': server.status, 'bg-status-red': !server.status}"></div>
+        
         </div>
 			</nav>
 		</div>
@@ -27,8 +28,8 @@ export default {
 		return {
 			items: [
 				{
-					title: 'Home',
-					icon: 'Home'
+					title: 'servers',
+					icon: 'ServerSecurity'
 				},
 				{
 					title: 'lanterns',
