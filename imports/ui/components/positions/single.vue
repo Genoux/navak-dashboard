@@ -19,7 +19,7 @@
       <div class="grid grid-cols-2 p-5 gap-5 self-end">
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">Position</h5>
-          <h4 class="text-sm">{{ position.position }}</h4>
+          <h4 class="text-sm">{{ formatNumber(position.x) }}, {{ formatNumber(position.y) }}, {{ formatNumber(position.x)  }}</h4>
         </div>
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">Size</h5>
@@ -43,9 +43,9 @@
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
           <mdicon name="Close"></mdicon>
         </div>
-        <form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-1"
+        <form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-3"
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-          <div v-if="i > 0" :key="i" v-for="(value, key, i) in selectedPosition">
+          <div  :key="i" v-for="(value, key, i) in selectedPosition">
               <p  class="text-sm text-white pb-2">{{key}}</p>
               <input v-model="defaultValue[key]" :placeholder="toString(selectedPosition[key])"
                 class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
@@ -56,6 +56,10 @@
           <button @click="updatePosition(selectedPosition, $event)"
             class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
             <mdicon class="m-auto" name="CheckBold"></mdicon>
+          </button>
+          <button @click="getPosition($event)"
+            class="py-2 px-6 flex text-center drop-shadow-lg bg-blue rounded-lg text-white hover:opacity-90">
+            <mdicon class="m-auto" name="Camera"></mdicon>
           </button>
         </div>
       </div>
@@ -76,7 +80,9 @@
         defaultValue: {
           id: '',
           name: '',
-          position: '',
+          x: '',
+          y: '',
+          z: '',
           size: '',
         }
       };
@@ -85,6 +91,35 @@
       position: Object
     },
     methods: {
+      formatNumber (num) {
+        return parseFloat(num).toFixed(2)
+      },
+      getPosition(event){
+        event.preventDefault();
+        this.loading = true;
+          this.$http
+            .get('http://192.168.1.15:8081/api/positions/snap')
+            .then((response) => {
+              console.log('response', response.data.position);
+              this.defaultValue.x = response.data.position.x
+              this.defaultValue.y = response.data.position.y
+              this.defaultValue.z = response.data.position.z
+              this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
+                'You can check the changes in the list');
+              this.loading = false;
+              this.dialogClose = false;
+             // this.activeDialog = false;
+              this.showColorPicker = false;
+            }).catch((error) => {
+              console.log(error);
+              this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
+                `${error}`);
+              this.loading = false;
+              this.dialogClose = false;
+              //this.activeDialog = false;
+              this.showColorPicker = false;
+            });
+      },
       openNotification(position = null, color, title, text) {
         this.noti = this.$vs.notification({
           color,
@@ -99,7 +134,9 @@
         const objJson = {
           id: obj.id,
           name: obj.name,
-          position: obj.position,
+          x: obj.x,
+          y: obj.y,
+          z: obj.z,
           size: obj.size,
         };
         // check if obj is same as data
@@ -111,7 +148,6 @@
         }
         this.loading = true;
         this.dialogClose = true;
-        setTimeout(() => {
           this.$http
             .put('http://192.168.1.15:8081/api/positions/' + obj.id, this.defaultValue)
             .then((response) => {
@@ -131,7 +167,6 @@
               this.activeDialog = false;
               this.showColorPicker = false;
             });
-        }, 1000);
       },
       closeDialog() {
         if (this.loading == true) {
@@ -144,7 +179,9 @@
       openDialog(e) {
         this.defaultValue.id = e.id;
         this.defaultValue.name = e.name;
-        this.defaultValue.position = e.position;
+        this.defaultValue.x = e.x
+        this.defaultValue.y = e.y
+        this.defaultValue.z = e.z
         this.defaultValue.size = e.size;
         this.selectedPosition = e;
         this.dialogClose = false;
