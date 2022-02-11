@@ -47,11 +47,11 @@
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
           <div  :key="i" v-for="(value, key, i) in selectedPosition">
               <p  class="text-sm text-white pb-2">{{key}}</p>
-              <input v-model="defaultValue[key]" :placeholder="toString(selectedPosition[key])"
+              <input v-model="defaultValue[key]" :placeholder="JSON.stringify(defaultValue[value])"
                 class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
           </div>
         </form>
-        <div class="grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-5 gap-2 pt-2 mt-6"
+        <div class="flex w-full gap-2 pt-2 mt-6"
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
           <button @click="updatePosition(selectedPosition, $event)"
             class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
@@ -60,6 +60,10 @@
           <button @click="getPosition($event)"
             class="py-2 px-6 flex text-center drop-shadow-lg bg-blue rounded-lg text-white hover:opacity-90">
             <mdicon class="m-auto" name="Camera"></mdicon>
+          </button>
+          <button @click="deletePosition($event)"
+            class="py-2 px-6 flex ml-auto text-center drop-shadow-lg bg-red-500 rounded-lg text-white hover:opacity-90">
+            <mdicon class="m-auto" name="Close"></mdicon>
           </button>
         </div>
       </div>
@@ -76,7 +80,6 @@
         selectedPosition: '',
         activeDialog: false,
         loading: false,
-        dialogError: false,
         defaultValue: {
           id: '',
           name: '',
@@ -90,9 +93,28 @@
     props: {
       position: Object
     },
+    
     methods: {
       formatNumber (num) {
         return parseFloat(num).toFixed(2)
+      },
+      async deletePosition(event){
+        event.preventDefault();
+        this.loading = true;
+        try{
+          await this.$http.delete('http://192.168.1.15:8081/api/positions/'+this.selectedPosition.id)
+          this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
+          'You can check the changes in the list');
+          this.loading = false;
+          this.activeDialog = false;
+
+        }catch(err){
+          console.log('error', err)
+          this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
+            `${error}`);
+          this.loading = false;
+          
+        }
       },
       getPosition(event){
         event.preventDefault();
@@ -107,17 +129,11 @@
               this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
                 'You can check the changes in the list');
               this.loading = false;
-              this.dialogClose = false;
-             // this.activeDialog = false;
-              this.showColorPicker = false;
             }).catch((error) => {
               console.log(error);
               this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
                 `${error}`);
               this.loading = false;
-              this.dialogClose = false;
-              //this.activeDialog = false;
-              this.showColorPicker = false;
             });
       },
       openNotification(position = null, color, title, text) {
@@ -130,7 +146,6 @@
       },
       updatePosition(obj, event) {
         event.preventDefault();
-        this.dialogError = false;
         const objJson = {
           id: obj.id,
           name: obj.name,
@@ -155,7 +170,7 @@
               this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
                 'You can check the changes in the list');
               this.loading = false;
-              this.dialogClose = false;
+    
               this.activeDialog = false;
               this.showColorPicker = false;
             }).catch((error) => {
@@ -163,7 +178,7 @@
               this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
                 `${error}`);
               this.loading = false;
-              this.dialogClose = false;
+    
               this.activeDialog = false;
               this.showColorPicker = false;
             });
@@ -172,19 +187,17 @@
         if (this.loading == true) {
           return;
         }
-        this.dialogError = false;
         this.activeDialog = false;
         this.showColorPicker = false;
       },
       openDialog(e) {
         this.defaultValue.id = e.id;
         this.defaultValue.name = e.name;
-        this.defaultValue.x = e.x
-        this.defaultValue.y = e.y
-        this.defaultValue.z = e.z
-        this.defaultValue.size = e.size;
+        this.defaultValue.x = 0
+        this.defaultValue.y = 0
+        this.defaultValue.z = 0
+        this.defaultValue.size = 0;
         this.selectedPosition = e;
-        this.dialogClose = false;
         this.activeDialog = true;
       }
     }
