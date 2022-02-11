@@ -1,5 +1,10 @@
  <template name="server">
    <div>
+     <div class="w-full flex bg-dark border-b border-white border-opacity-20 h-14">
+       <h1 class="text-white ml-5 align-middle self-center content-center font-regular">
+         {{ $route.name }}
+       </h1>
+     </div>
      <div v-if="servers.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
        <div v-bind:key="object" v-for="(server, object) in servers">
          <v-server :server="server"></v-server>
