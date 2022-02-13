@@ -5,13 +5,16 @@
          {{ $route.name }}
        </h1>
      </div>
+  
+        <v-serversStatus></v-serversStatus>
+
 		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
 				<v-lantern :lantern="lantern"></v-lantern>
 			</div>
 		</div>
-		<div v-if="loadingLanterns" class="flex justify-center p-24 items-center borderm-4">
-      <mdicon name="LightbulbQuestion" size="48" class="animate-pulse" />
+		<div v-else class="flex justify-center p-24 items-center borderm-4">
+      <mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
 		</div>
 	</div>
 </template>
@@ -19,21 +22,20 @@
 <script>
 import Lanterns from '../../../../imports/api/collections/Lanterns.js';
 import singleLantern from './single.vue';
-
+import ServersStatusBanner from '../ServersStatusBanner.vue';
 export default {
 	name: 'lanterns',
 	components: {
-		'v-lantern': singleLantern
+		'v-lantern': singleLantern,
+    'v-serversStatus': ServersStatusBanner
 	},
 	data() {
 		return {
-			loadingLanterns: true,
-			msg: ''
 		};
 	},
 	meteor: {
 		$subscribe: {
-			lanterns: []
+			lanterns: [],
 		},
 		lanterns() {
 			return Lanterns.find({});

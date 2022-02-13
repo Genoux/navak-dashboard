@@ -4,11 +4,22 @@
 			<nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20">
 				<div>
 					<ul>
-						<li v-for="item in items" :key="item.title">
-							<router-link class="hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: item.title}">
-								<mdicon size="21" class="m-auto" v-bind:name="item.icon" />
+						<li>
+							<router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'lanterns'}">
+								<mdicon size="21" class="m-au:to" name="Lightbulb" />
 							</router-link>
 						</li>
+            <li>
+              <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'servers'}">
+                <mdicon size="21" class="m-auto" name="ServerSecurity" />
+                <div v-if="servers.length > 0" class="h-3 w-3 bg-red-600 absolute right-0 top-0 rounded-xl animate-pulse"></div>
+                 </router-link>
+             	</li>
+             <li>
+               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'positions'}">
+                 <mdicon size="21" class="m-auto" name="GoogleMaps" />
+               </router-link>
+             </li>
 					</ul>
 				</div>
 			</nav>
@@ -17,27 +28,16 @@
 </template>
 
 <script>
-
+import Servers from '../../../imports/api/collections/Servers.js';
 export default {
-	data() {
-		return {
-			items: [
-				{
-					title: 'lanterns',
-					icon: 'Lightbulb'
-				},
-				{
-					title: 'servers',
-					icon: 'ServerSecurity'
-				},
-        {
-          title: 'positions',
-          icon: 'GoogleMaps'
-        }
-			]
-		};
-	},
-	meteor: {
-	}
+
+  meteor: {
+    $subscribe: {
+      servers: []
+    },
+    servers() {
+      return Servers.find({status: false});
+    }
+  }
 };
 </script>

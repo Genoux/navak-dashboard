@@ -5,7 +5,7 @@
        <div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20"> 
       <div class="flex-1">
         <h4 class="font-medium">
-          {{ position.name }}
+          {{ position.name }} 
           <span class="font-light opacity-50 pl-1">#{{ position.id }}</span>
         </h4>
       </div>
@@ -102,7 +102,7 @@
         event.preventDefault();
         this.loading = true;
         try{
-          await this.$http.delete('http://192.168.1.15:8081/api/positions/'+this.selectedPosition.id)
+          await this.$http.delete('http://localhost:8081/api/positions/'+this.selectedPosition.id)
           this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
           'You can check the changes in the list');
           this.loading = false;
@@ -120,7 +120,7 @@
         event.preventDefault();
         this.loading = true;
           this.$http
-            .get('http://192.168.1.15:8081/api/positions/snap')
+            .get('http://localhost:8081/api/positions/snap')
             .then((response) => {
               console.log('response', response.data.position);
               this.defaultValue.x = response.data.position.x
@@ -164,7 +164,7 @@
         this.loading = true;
         this.dialogClose = true;
           this.$http
-            .put('http://192.168.1.15:8081/api/positions/' + obj.id, this.defaultValue)
+            .put('http://localhost:8081/api/positions/' + obj.id, this.defaultValue)
             .then((response) => {
               console.log('response', response);
               this.openNotification('top-center', 'success', '👍 Succelfully updated position!',

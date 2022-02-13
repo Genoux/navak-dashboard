@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import Servers from './collections/Servers.js';
+import Lanterns from './collections/Lanterns.js';
 const isReachable = require('is-reachable');
 var cron = require('node-cron');
 
@@ -12,6 +13,7 @@ Meteor.startup(async (e) => {
         Servers.update({ ipAddress: host.ipAddress }, { $set: { status: status } })
       } else {
         Servers.update({ ipAddress: host.ipAddress }, { $set: { status: status } })
+        Lanterns.update({status: true}, {$set: {status: status}});
       }
     });
   });

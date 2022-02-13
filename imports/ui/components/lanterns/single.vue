@@ -72,7 +72,6 @@
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
           <mdicon name="Close"></mdicon>
         </div>
-        <div v-if="dialogError" class="text-white">{{ dialogErrorMessage }}</div>
         <form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2"
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
           <div>
@@ -98,7 +97,7 @@
           <div class="relative z-50 overflow-visible">
             <p class="text-sm text-white">Color</p>
             <p class="text-white text-xs p-0 m-0 opacity-75">{{ formatColor() }}</p>
-            <div class="border border-opacity-20 border-white mt-3 mb-3 h-5 rounded-sm" v-model="defaultValue.rgb"
+            <div class="border border-opacity-20 border-white mt-3 mb-3 h-5 rounded-sm"
               @click="showColorPicker = !showColorPicker"
               v-bind:style="'background-color: rgba(' + formatColor() + ')'"></div>
             <color-picker class="absolute right-0 top-0" v-if="showColorPicker" v-model="colors" />
@@ -121,9 +120,7 @@
 </template>
 
 <script>
-  import {
-    Chrome
-  } from 'vue-color';
+  import { Chrome } from 'vue-color';
 
   export default {
     components: {
@@ -145,8 +142,6 @@
         selectedLantern: '',
         activeDialog: false,
         loading: false,
-        dialogErrorMessage: '',
-        dialogError: false,
         defaultValue: {
           id: '',
           hostName: '',
@@ -190,7 +185,7 @@
         this.loading = true;
         try {
           this.$http
-            .post('http://192.168.1.15:8081/api/lanterns/reboot', {
+            .post('http://172.30.192.1:8081/api/lanterns/reboot', {
               id: elm.id
             })
             .then((response) => {
@@ -210,7 +205,7 @@
         this.apiCalling = true;
         try {
           this.$http
-            .post('http://192.168.1.15:8081/api/lanterns/flash', {
+            .post('http://172.30.192.1:8081/api/lanterns/flash', {
               id: elm.id
             })
             .then((response) => {
@@ -233,7 +228,6 @@
       },
       updateLantern(obj, event) {
         event.preventDefault();
-        this.dialogErrorMessage = '';
         this.dialogError = false;
         const objJson = {
           id: obj.id,
@@ -258,7 +252,7 @@
         setTimeout(() => {
           // update lantern to the API??
           this.$http
-            .put('http://192.168.1.15:8081/api/lanterns/' + obj.id, this.defaultValue)
+            .put('http://172.30.192.1:8081/api/lanterns/' + obj.id, this.defaultValue)
             .then((response) => {
               console.log('response', response);
               this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!',
@@ -282,7 +276,6 @@
         if (this.loading == true) {
           return;
         }
-        this.dialogErrorMessage = '';
         this.dialogError = false;
         this.activeDialog = false;
         this.showColorPicker = false;

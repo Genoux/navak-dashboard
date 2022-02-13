@@ -6,13 +6,15 @@
       </h1>
       <div @click="openDialog()" class="flex-end ml-auto self-center  border border-white hover:opacity-60 cursor-pointer focus:bg-white p-1"><mdicon class="text-white" name="Plus" size="18"></mdicon></div>
     </div>
+   
+        <v-serversStatus></v-serversStatus>
 		<div v-if="positions.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
 			<div v-bind:key="object" v-for="(position, object) in positions">
 				<v-position :position="position"></v-position>
 			</div>
 		</div>
-		<div v-if="loadingPositions" class="flex justify-center p-24 items-center borderm-4">
-      <mdicon name="LightbulbQuestion" size="48" class="animate-pulse" />
+		<div v-else class="flex justify-center p-24 items-center borderm-4">
+      <mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
 		</div>
     <div v-if="activeDialog"
       class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
@@ -57,12 +59,13 @@
 <script>
 import Positions from '../../../../imports/api/collections/Positions';
 import singlePosition from './single.vue';
-
+import ServersStatusBanner from '../ServersStatusBanner.vue';
 
 export default {
 	name: 'positions',
 	components: {
-		'v-position': singlePosition
+		'v-position': singlePosition,
+    'v-serversStatus': ServersStatusBanner
 	},
 	data() {
 		return {
@@ -103,7 +106,7 @@ export default {
     },
     async createNewPosition(elm){
       try{
-        await this.$http.post('http://192.168.1.15:8081/api/positions/', this.defaultValue);
+        await this.$http.post('http://localhost:8081/api/positions/', this.defaultValue);
         this.loading = false;
         this.activeDialog = false;
         this.openNotification('top-center', 'success', '👍 Succelfully updated position!',

@@ -3,16 +3,11 @@ import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css' //Vuesax styles
 import '../imports/ui/plugins'
 import App from '../imports/ui/App.vue'
-
 import mdiVue from 'mdi-vue'
 import * as mdijs from '@mdi/js'
-
 import VueRouter from 'vue-router'
 import routes from '/imports/routes';
-
-
 import axios from 'axios';
-
 
 const router = new VueRouter({
   mode: 'history',

@@ -5,7 +5,7 @@ Todo:
   ☐ Add filter for the lanterns list
   ✘ Add tooltip on the servers status to show the last update and name @cancelled(22-02-10 19:20)
   ☐ Add alert notification when e.g lanterns is up but server crash! (The lantern will technecly stay up and thats a problem)
-  ☐ Rename po
+  ☐ Rename positions for Zones
   
 
 Bug:
