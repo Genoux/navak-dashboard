@@ -229,6 +229,7 @@
       updateLantern(obj, event) {
         event.preventDefault();
         this.dialogError = false;
+        this.showColorPicker = false;
         const objJson = {
           id: obj.id,
           hostName: obj.hostName,

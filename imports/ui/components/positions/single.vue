@@ -19,7 +19,7 @@
       <div class="grid grid-cols-2 p-5 gap-5 self-end">
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">Position</h5>
-          <h4 class="text-sm">{{ formatNumber(position.x) }}, {{ formatNumber(position.y) }}, {{ formatNumber(position.x)  }}</h4>
+          <h4 class="text-sm">{{ formatNumber(position.x) }}, {{ formatNumber(position.y) }}, {{ formatNumber(position.z)  }}</h4>
         </div>
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">Size</h5>
@@ -45,7 +45,7 @@
         </div>
         <form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-3"
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-          <div  :key="i" v-for="(value, key, i) in selectedPosition">
+          <div :key="i" v-for="(value, key, i) in selectedPosition">
               <p  class="text-sm text-white pb-2">{{key}}</p>
               <input v-model="defaultValue[key]" :placeholder="JSON.stringify(defaultValue[value])"
                 class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
@@ -111,7 +111,7 @@
         }catch(err){
           console.log('error', err)
           this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
-            `${error}`);
+            `${err}`);
           this.loading = false;
           
         }
@@ -193,10 +193,10 @@
       openDialog(e) {
         this.defaultValue.id = e.id;
         this.defaultValue.name = e.name;
-        this.defaultValue.x = 0
-        this.defaultValue.y = 0
-        this.defaultValue.z = 0
-        this.defaultValue.size = 0;
+        this.defaultValue.x = e.x
+        this.defaultValue.y = e.y
+        this.defaultValue.z = e.z
+        this.defaultValue.size = e.size;
         this.selectedPosition = e;
         this.activeDialog = true;
       }

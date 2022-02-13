@@ -34,8 +34,8 @@
         </div>
         <form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-3"
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-          <div  :key="i" v-for="(value, key, i) in defaultValue">
-              <p  class="text-sm text-white pb-2">{{key}}</p>
+          <div :key="i" v-for="(value, key, i) in defaultValue">
+              <p class="text-sm text-white pb-2">{{key}}</p>
               <input v-model="defaultValue[key]" :placeholder="JSON.stringify(defaultValue[key])"
                 class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
           </div>
@@ -92,7 +92,14 @@ export default {
       if (this.loading == true) {
         return;
       }
-      this.defaultValue.id = (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+      this.defaultValue = {
+        id: (((1+Math.random())*0x10000)|0).toString(16).substring(1),
+        name: null,
+        x: 0,
+        y: 0,
+        z: 0,
+        size: 0,
+      }
       this.activeDialog = false;
     },
     
@@ -105,12 +112,16 @@ export default {
       });
     },
     async createNewPosition(elm){
+      if(elm.name == null || elm.name == ''){
+        this.openNotification('top-center', 'danger', 'Error', 'Name is required');
+        return;
+      }
       try{
         await this.$http.post('http://localhost:8081/api/positions/', this.defaultValue);
+        this.openNotification('top-center', 'success', `👍 Succelfully created position ${elm.name}`, 'You can check the changes in the list');
         this.loading = false;
-        this.activeDialog = false;
-        this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
-        'You can check the changes in the list');
+        this.closeDialog();
+
       }catch(err){
         console.log('error', err)
         this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
