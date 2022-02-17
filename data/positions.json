@@ -3,6 +3,7 @@
 		"name": "Test zone",
 		"id": "fd1a",
 		"size": "12.00",
+    "group": "0",
 		"x": 0,
 		"y": 0,
 		"z": 0

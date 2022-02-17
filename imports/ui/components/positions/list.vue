@@ -84,7 +84,7 @@ export default {
       event.preventDefault();
       this.loading = true;
         this.$http
-          .get('http://localhost:8081/api/positions/snap')
+          .get('http://localhost:8081/api/positions/snap', {id:'d490'})
           .then((response) => {
             console.log('response', response.data.position);
             this.defaultValue.x = response.data.position.x

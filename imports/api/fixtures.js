@@ -3,7 +3,6 @@ import Servers from './collections/Servers.js';
 import Lanterns from './collections/Lanterns.js';
 const isReachable = require('is-reachable');
 var cron = require('node-cron');
-
 Meteor.startup(async (e) => {
   var servers = Servers.find().fetch();
   cron.schedule('*/3 * * * * *', () => {
