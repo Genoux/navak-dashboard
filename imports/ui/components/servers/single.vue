@@ -40,6 +40,7 @@
         this.noti = this.$vs.notification({
           color,
           position,
+          square: true,
           title: title,
           text: text
         });

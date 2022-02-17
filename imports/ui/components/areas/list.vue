@@ -19,7 +19,7 @@
 		</div>
 		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
-			<div class="bg-black border border-white border-opacity-25 sm:w-3/4 md:w-3/4 lg:w-3/6 pt-5 pb-8 px-10 rounded-lg shadow-lg z-50">
+			<div class="bg-black border border-white border-opacity-25 sm:w-3/4 md:w-3/4 lg:w-3/6 pt-5 pb-8 px-10 shadow-lg z-50">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
 					<svg fill="white" class="animate-spin h-8 w-8" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
 						<path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
@@ -34,15 +34,15 @@
 						<input
 							v-model="defaultValue[key]"
 							:placeholder="JSON.stringify(defaultValue[key])"
-							class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60"
+							class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
 						/>
 					</div>
 				</form>
 				<div class="grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-5 gap-2 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-					<button @click="createNewPosition(defaultValue)" class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
+					<button @click="createNewPosition(defaultValue)" class="py-2 px-6 flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
 						<mdicon class="m-auto" name="CheckBold"></mdicon>
 					</button>
-					<button @click="getPosition($event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-blue rounded-lg text-white hover:opacity-90">
+					<button @click="getPosition($event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-blue text-white hover:opacity-90">
 						<mdicon class="m-auto" name="Camera"></mdicon>
 					</button>
 				</div>
@@ -69,6 +69,7 @@ export default {
 			defaultValue: {
 				id: (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1),
 				name: null,
+        group: '0',
 				x: 0,
 				y: 0,
 				z: 0,
@@ -108,6 +109,7 @@ export default {
 			this.defaultValue = {
 				id: (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1),
 				name: null,
+        group: '0',
 				x: 0,
 				y: 0,
 				z: 0,
@@ -120,13 +122,14 @@ export default {
 			this.noti = this.$vs.notification({
 				color,
 				position,
+        square: true,
 				title: title,
 				text: text
 			});
 		},
 		async createNewPosition(elm) {
 			if (elm.name == null || elm.name == '') {
-				this.openNotification('top-center', 'danger', 'Error', 'Name is required');
+				this.openNotification('top-center', 'danger', '❌ Error', 'Name is required');
 				return;
 			}
 			try {

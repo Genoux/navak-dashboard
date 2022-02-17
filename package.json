@@ -1,6 +1,12 @@
 {
   "name": "navak-dashboard",
   "private": false,
+  "description": "",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navak-project/navak-dashboard.git"
+  },
   "scripts": {
     "meteor": "set MONGO_OPLOG_URL=mongodb://navak:navakFTW@192.168.1.209/local?authSource=admin && set MONGO_URL=mongodb://192.168.1.209:27017/navak && meteor",
     "start": "meteor run",

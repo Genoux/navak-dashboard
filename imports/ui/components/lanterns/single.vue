@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-white border-opacity-20"
+      class="hover:border-current duration-75 ease-in bg-black text-white border border-white border-opacity-20"
       v-bind:class="{'opacity-20': !lantern.status, 'pointer-events-none': !lantern.status}">
       <div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
         <div v-bind:class="{'text-status-green': lantern.status, 'text-gray': !lantern.status}">
@@ -14,9 +14,9 @@
           </h4>
         </div>
         <div class="flex mr-2">
-          <div class="w-8 rounded-sm border border-white border-opacity-20 mr-2"
+          <div class="w-8 border border-white border-opacity-20 mr-2"
             v-bind:style="'background-color: rgba(' + lantern.rgb + ')'"></div>
-          <div class="border grid grid-flow-col gap-0 divide-x rounded-sm">
+          <div class="border grid grid-flow-col gap-0 divide-x">
             <span class="self-center px-2">
               <mdicon size="18" name="Pulse" />
             </span>
@@ -60,7 +60,7 @@
       class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
       <div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
       <div
-        class="bg-black border border-white border-opacity-25 sm:w-full md:w-2/5 pt-5 pb-8 px-10 rounded-lg shadow-lg z-50">
+        class="bg-black border border-white border-opacity-25 sm:w-full md:w-2/5 pt-5 pb-8 px-10 shadow-lg z-50">
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
           <svg fill="white" class="animate-spin h-8 w-8" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
             width="24" height="24" viewBox="0 0 24 24">
@@ -77,27 +77,27 @@
           <div>
             <p class="text-sm text-white pb-2">ID</p>
             <input v-model="defaultValue.id" :placeholder="toString(selectedLantern.id)"
-              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
+              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60" />
           </div>
           <div>
             <p class="text-sm text-white pb-2">StartUnivers</p>
             <input v-model="defaultValue.startUniverse" :placeholder="toString(selectedLantern.startUniverse)"
-              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
+              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60" />
           </div>
           <div>
             <p class="text-sm text-white pb-2">Pulse</p>
             <input v-model="defaultValue.pulse" :placeholder="toString(selectedLantern.pulse)"
-              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
+              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60" />
           </div>
           <div>
             <p class="text-sm text-white pb-2">Group</p>
             <input v-model="defaultValue.group" :placeholder="toString(selectedLantern.group)"
-              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 rounded-md focus:outline-none focus:border-opacity-60" />
+              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60" />
           </div>
           <div class="relative z-50 overflow-visible">
             <p class="text-sm text-white">Color</p>
             <p class="text-white text-xs p-0 m-0 opacity-75">{{ formatColor() }}</p>
-            <div class="border border-opacity-20 border-white mt-3 mb-3 h-5 rounded-sm"
+            <div class="border border-opacity-20 border-white mt-3 mb-3 h-5"
               @click="showColorPicker = !showColorPicker"
               v-bind:style="'background-color: rgba(' + formatColor() + ')'"></div>
             <color-picker class="absolute right-0 top-0" v-if="showColorPicker" v-model="colors" />
@@ -106,11 +106,11 @@
         <div class="grid grid-flow-col gap-2 pt-2 mt-6"
           v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
           <button @click="updateLantern(selectedLantern, $event)"
-            class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
+            class="py-2 px-10 flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
             <mdicon class="m-auto" name="CheckBold"></mdicon>
           </button>
           <button @click="restart(lantern)"
-            class="py-2 px-6 flex text-center drop-shadow-lg bg-indigo-500 rounded-lg text-white hover:opacity-90">
+            class="py-2 px-6 flex text-center drop-shadow-lg bg-indigo-500 text-white hover:opacity-90">
             <mdicon class="m-auto" name="Restart" />
           </button>
         </div>
@@ -220,6 +220,7 @@
         this.noti = this.$vs.notification({
           color,
           position,
+          square: true,
           title: title,
           text: text
         });
