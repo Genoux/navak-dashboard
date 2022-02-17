@@ -1,4 +1,4 @@
-<template name="positions">
+<template name="areas">
 	<div>
 		<div class="flex bg-dark border-b border-white border-opacity-20 h-14 pl-5 pr-5">
 			<h1 class="text-white self-center font-regular">
@@ -9,9 +9,9 @@
 			</div>
 		</div>
 		<v-serversStatus></v-serversStatus>
-		<div v-if="positions.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-			<div v-bind:key="object" v-for="(position, object) in positions">
-				<v-position :position="position"></v-position>
+		<div v-if="areas.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+			<div v-bind:key="object" v-for="(area, object) in areas">
+				<v-area :area="area"></v-area>
 			</div>
 		</div>
 		<div v-else class="flex justify-center p-24 items-center borderm-4">
@@ -52,19 +52,18 @@
 </template>
 
 <script>
-import Positions from '../../../../imports/api/collections/Positions';
-import singlePosition from './single.vue';
+import Areas from '../../../../imports/api/collections/Areas';
+import singleArea from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 
 export default {
-	name: 'positions',
+	name: 'areas',
 	components: {
-		'v-position': singlePosition,
+		'v-area': singleArea,
 		'v-serversStatus': ServersStatusBanner
 	},
 	data() {
 		return {
-			selectedPosition: '',
 			activeDialog: false,
 			loading: false,
 			defaultValue: {
@@ -75,7 +74,6 @@ export default {
 				z: 0,
 				size: 0
 			},
-			loadingPositions: true,
 			msg: ''
 		};
 	},
@@ -84,7 +82,7 @@ export default {
       event.preventDefault();
       this.loading = true;
         this.$http
-          .get('http://localhost:8081/api/positions/snap', {id:'d490'})
+          .get('http://localhost:8081/api/areas/snap', {id:'d490'})
           .then((response) => {
             console.log('response', response.data.position);
             this.defaultValue.x = response.data.position.x
@@ -132,7 +130,7 @@ export default {
 				return;
 			}
 			try {
-				await this.$http.post('http://localhost:8081/api/positions/', this.defaultValue);
+				await this.$http.post('http://localhost:8081/api/areas/', this.defaultValue);
 				this.openNotification('top-center', 'success', `👍 Succelfully created position ${elm.name}`, 'You can check the changes in the list');
 				this.loading = false;
 				this.closeDialog();
@@ -145,10 +143,10 @@ export default {
 	},
 	meteor: {
 		$subscribe: {
-			positions: []
+			areas: []
 		},
-		positions() {
-			return Positions.find({});
+		areas() {
+			return Areas.find({});
 		}
 	}
 };

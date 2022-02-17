@@ -16,7 +16,7 @@
                  </router-link>
              	</li>
              <li>
-               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'positions'}">
+               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'areas'}">
                  <mdicon size="21" class="m-auto" name="GoogleMaps" />
                </router-link>
              </li>

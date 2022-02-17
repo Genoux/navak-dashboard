@@ -1,3 +1,3 @@
 import './lanterns'
 import './servers'
-import './positions'
+import './areas'

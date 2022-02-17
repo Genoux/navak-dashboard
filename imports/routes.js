@@ -1,6 +1,6 @@
 import Servers from '/imports/ui/components/servers/list.vue'
 import Lanterns from '/imports/ui/components/lanterns/list.vue'
-import Positions from '/imports/ui/components/positions/list.vue'
+import Areas from '/imports/ui/components/areas/list.vue'
 export default [
   {
     path: '/servers',
@@ -13,8 +13,8 @@ export default [
     component: Lanterns
   },
   {
-    path: '/positions',
-    name: 'positions',
-    component: Positions
+    path: '/areas',
+    name: 'areas',
+    component: Areas
   }
 ];

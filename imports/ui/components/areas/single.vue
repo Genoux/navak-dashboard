@@ -4,12 +4,12 @@
 			<div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
 				<div class="flex-1">
 					<h4 class="font-medium">
-						{{ position.name }}
-						<span class="font-light opacity-50 pl-1">#{{ position.id }}</span>
+						{{ area.name }}
+						<span class="font-light opacity-50 pl-1">#{{ area.id }}</span>
 					</h4>
 				</div>
 				<div class="flex">
-					<div @click="openDialog(position)" class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
+					<div @click="openDialog(area)" class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
 						<mdicon name="Wrench" size="12"></mdicon>
 					</div>
 				</div>
@@ -17,15 +17,15 @@
 			<div class="grid grid-cols-3 p-5 gap-5 self-end">
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Position</h5>
-					<h4 class="text-sm">{{ formatNumber(position.x) }}, {{ formatNumber(position.y) }}, {{ formatNumber(position.z) }}</h4>
+					<h4 class="text-sm">{{ formatNumber(area.x) }}, {{ formatNumber(area.y) }}, {{ formatNumber(area.z) }}</h4>
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Size</h5>
-					<h4 class="text-sm">{{ position.size }}</h4>
+					<h4 class="text-sm">{{ area.size }}</h4>
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Group</h5>
-					<h4 class="text-sm">{{ position.group }}</h4>
+					<h4 class="text-sm">{{ area.group }}</h4>
 				</div>
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 					<mdicon name="Close"></mdicon>
 				</div>
 				<form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-4" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-					<div :key="i" v-for="(value, key, i) in selectedPosition">
+					<div :key="i" v-for="(value, key, i) in selectedArea">
 						<p class="text-sm text-white pb-2">{{ key }}</p>
 						<input
 							v-model="defaultValue[key]"
@@ -51,7 +51,7 @@
 					</div>
 				</form>
 				<div class="flex w-full gap-2 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-					<button @click="updatePosition(selectedPosition, $event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
+					<button @click="updatePosition(selectedArea, $event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-green rounded-lg text-white hover:opacity-90">
 						<mdicon class="m-auto" name="CheckBold"></mdicon>
 					</button>
 					<button @click="getPosition($event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-blue rounded-lg text-white hover:opacity-90">
@@ -72,7 +72,7 @@ export default {
 		return {
 			apiCalling: false,
 			clicked: false,
-			selectedPosition: '',
+			selectedArea: '',
 			activeDialog: false,
 			loading: false,
 			defaultValue: {
@@ -87,17 +87,17 @@ export default {
 		};
 	},
 	props: {
-		position: Object
+		area: Object
 	},
 	methods: {
 		formatNumber(num) {
-			return parseFloat(num).toFixed(2);
+			return parseFloat(num).toFixed(1);
 		},
 		async deletePosition(event) {
 			event.preventDefault();
 			this.loading = true;
 			try {
-				await this.$http.delete('http://localhost:8081/api/positions/' + this.selectedPosition.id);
+				await this.$http.delete('http://localhost:8081/api/areas/' + this.selectedArea.id);
 				this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 				this.loading = false;
 				this.activeDialog = false;
@@ -111,8 +111,9 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get('http://localhost:8081/api/positions/snap')
+				.get('http://localhost:8081/api/areas/snap')
 				.then((response) => {
+          console.log("🚀 ~ file: single.vue ~ line 116 ~ .then ~ response", response);
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
 					this.defaultValue.z = response.data.position.z;
@@ -134,6 +135,7 @@ export default {
 			});
 		},
 		updatePosition(obj, event) {
+      console.log("🚀 ~ file: single.vue ~ line 138 ~ updatePosition ~ obj", obj.id);
 			event.preventDefault();
 			const objJson = {
 				id: obj.id,
@@ -154,7 +156,7 @@ export default {
 			this.loading = true;
 			this.dialogClose = true;
 			this.$http
-				.put('http://localhost:8081/api/positions/' + obj.id, this.defaultValue)
+				.put('http://localhost:8081/api/areas/' + obj.id, this.defaultValue)
 				.then((response) => {
 					console.log('response', response);
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
@@ -185,7 +187,7 @@ export default {
 			this.defaultValue.z = e.z;
 			this.defaultValue.size = e.size;
 			this.defaultValue.group = e.group;
-			this.selectedPosition = e;
+			this.selectedArea = e;
 			this.activeDialog = true;
 		}
 	}
