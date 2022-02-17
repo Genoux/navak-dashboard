@@ -177,15 +177,13 @@
       formatColor() {
         this.defaultValue.rgb =
           `${this.colors.rgba.r}, ${this.colors.rgba.g}, ${this.colors.rgba.b}, ${this.colors.rgba.a}`;
-        console.log('this.colors.rgba.a', this.colors.rgba);
-        console.log('this.defaultValue.rgb', this.defaultValue.rgb);
         return `${this.colors.rgba.r}, ${this.colors.rgba.g}, ${this.colors.rgba.b}, ${this.colors.rgba.a}`;
       },
       restart(elm) {
         this.loading = true;
         try {
           this.$http
-            .post('http://172.30.192.1:8081/api/lanterns/reboot', {
+            .post('http://192.168.1.15:8081/api/lanterns/reboot', {
               id: elm.id
             })
             .then((response) => {
@@ -205,7 +203,7 @@
         this.apiCalling = true;
         try {
           this.$http
-            .post('http://172.30.192.1:8081/api/lanterns/flash', {
+            .post('http://192.168.1.15:8081/api/lanterns/flash', {
               id: elm.id
             })
             .then((response) => {
@@ -253,7 +251,7 @@
         setTimeout(() => {
           // update lantern to the API??
           this.$http
-            .put('http://172.30.192.1:8081/api/lanterns/' + obj.id, this.defaultValue)
+            .put('http://192.168.1.15:8081/api/lanterns/' + obj.id, this.defaultValue)
             .then((response) => {
               console.log('response', response);
               this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!',

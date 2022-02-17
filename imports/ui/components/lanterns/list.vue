@@ -1,20 +1,18 @@
 <template name="lanterns">
 	<div>
-     <div class="w-full flex bg-dark border-b border-white border-opacity-20 h-14">
-       <h1 class="text-white ml-5 align-middle self-center content-center font-regular">
-         {{ $route.name }}
-       </h1>
-     </div>
-  
-        <v-serversStatus></v-serversStatus>
-
+		<div class="w-full flex bg-dark border-b border-white border-opacity-20 h-14">
+			<h1 class="text-white ml-5 align-middle self-center content-center font-regular">
+				{{ $route.name }}
+			</h1>
+		</div>
+		<v-serversStatus></v-serversStatus>
 		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
 				<v-lantern :lantern="lantern"></v-lantern>
 			</div>
 		</div>
 		<div v-else class="flex justify-center p-24 items-center borderm-4">
-      <mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
+			<mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
 		</div>
 	</div>
 </template>
@@ -27,15 +25,14 @@ export default {
 	name: 'lanterns',
 	components: {
 		'v-lantern': singleLantern,
-    'v-serversStatus': ServersStatusBanner
+		'v-serversStatus': ServersStatusBanner
 	},
 	data() {
-		return {
-		};
+		return {};
 	},
 	meteor: {
 		$subscribe: {
-			lanterns: [],
+			lanterns: []
 		},
 		lanterns() {
 			return Lanterns.find({});

@@ -8,4 +8,22 @@
   "ipAddress": "192.168.1.212:1883",
   "status": false,
   "__v": 0
+}
+,{
+  "name": "navak-mqtt-dwm",
+  "ipAddress": "192.168.1.13",
+  "status": false,
+  "__v": 0
+},
+{
+  "name": "navak-database",
+  "ipAddress": "192.168.1.209:27017",
+  "status": false,
+  "__v": 0
+},
+{
+  "name": "navak-lanterns-server",
+  "ipAddress": "192.168.1.209",
+  "status": false,
+  "__v": 0
 }]

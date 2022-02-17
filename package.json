@@ -2,7 +2,7 @@
   "name": "navak-dashboard",
   "private": false,
   "scripts": {
-    "meteor": "export MONGO_URL=mongodb://localhost:27017/organic meteor",
+    "meteor": "set MONGO_OPLOG_URL=mongodb://navak:navakFTW@192.168.1.209/local?authSource=admin && set MONGO_URL=mongodb://192.168.1.209:27017/navak && meteor",
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
@@ -21,6 +21,7 @@
     "meteor-node-stubs": "^1.1.0",
     "mqtt": "^4.3.4",
     "node-cron": "^3.0.0",
+    "ping": "^0.4.1",
     "postcss-loader": "^6.2.1",
     "tw-elements": "^1.0.0-alpha10",
     "vue": "^2.6.14",
