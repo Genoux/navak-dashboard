@@ -108,7 +108,7 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			try {
-				await this.$http.delete('http://localhost:8081/api/areas/' + this.selectedArea.id);
+				await this.$http.delete('http://192.168.1.209:8081/api/areas/' + this.selectedArea.id);
 				this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 				this.loading = false;
 				this.activeDialog = false;
@@ -122,7 +122,7 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get('http://localhost:8081/api/areas/snap')
+				.get('http://192.168.1.209:8081/api/areas/snap')
 				.then((response) => {
           console.log("🚀 ~ file: single.vue ~ line 116 ~ .then ~ response", response);
 					this.defaultValue.x = response.data.position.x;
@@ -168,7 +168,7 @@ export default {
 			this.loading = true;
 			this.dialogClose = true;
 			this.$http
-				.put('http://localhost:8081/api/areas/' + obj.id, this.defaultValue)
+				.put('http://192.168.1.209:8081/api/areas/' + obj.id, this.defaultValue)
 				.then((response) => {
 					console.log('response', response);
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');

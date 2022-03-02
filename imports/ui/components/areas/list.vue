@@ -83,7 +83,7 @@ export default {
       event.preventDefault();
       this.loading = true;
         this.$http
-          .get('http://localhost:8081/api/areas/snap', {id:'d490'})
+          .get('http://192.168.1.209:8081/api/areas/snap', {id:'d490'})
           .then((response) => {
             console.log('response', response.data.position);
             this.defaultValue.x = response.data.position.x
@@ -133,7 +133,7 @@ export default {
 				return;
 			}
 			try {
-				await this.$http.post('http://localhost:8081/api/areas/', this.defaultValue);
+				await this.$http.post('http://192.168.1.209:8081/api/areas/', this.defaultValue);
 				this.openNotification('top-center', 'success', `👍 Succelfully created position ${elm.name}`, 'You can check the changes in the list');
 				this.loading = false;
 				this.closeDialog();
