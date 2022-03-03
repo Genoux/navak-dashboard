@@ -27,6 +27,18 @@
 					<h5 class="text-xs text-white text-opacity-50 font-light">Group</h5>
 					<h4 class="text-sm">{{ area.group }}</h4>
 				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Param 1</h5>
+					<h4 class="text-sm">{{ area.param1 }}</h4>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Param 2</h5>
+					<h4 class="text-sm">{{ area.param2 }}</h4>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Param 3</h5>
+					<h4 class="text-sm">{{ area.param3 }}</h4>
+				</div>
 			</div>
 		</div>
 		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
@@ -68,19 +80,20 @@
 
 <script>
 export default {
-  computed: {
-    filteredAreas: function () {
-     const filtered =  Object.keys(this.selectedArea)
-       .filter(key => key !== '_id' && key !== '__v')
-       .reduce((obj, key) => {
-         obj[key] = this.selectedArea[key];
-         return obj;
-       }, {});
-       return filtered
-    }
-  },
+	computed: {
+		filteredAreas: function () {
+			const filtered = Object.keys(this.selectedArea)
+				.filter((key) => key !== '_id' && key !== '__v')
+				.reduce((obj, key) => {
+					obj[key] = this.selectedArea[key];
+					return obj;
+				}, {});
+			return filtered;
+		}
+	},
 	data() {
 		return {
+			api: '192.168.1.209:8081',
 			apiCalling: false,
 			clicked: false,
 			selectedArea: '',
@@ -89,11 +102,14 @@ export default {
 			defaultValue: {
 				id: '',
 				name: '',
-        group: '',
+				group: '',
 				x: '',
 				y: '',
 				z: '',
 				size: '',
+				param1: 0,
+				param2: 0,
+				param3: '0'
 			}
 		};
 	},
@@ -108,7 +124,7 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			try {
-				await this.$http.delete('http://192.168.1.209:8081/api/areas/' + this.selectedArea.id);
+				await this.$http.delete(`http://${this.api}/api/areas/${this.selectedArea.id}`);
 				this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 				this.loading = false;
 				this.activeDialog = false;
@@ -122,9 +138,9 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get('http://192.168.1.209:8081/api/areas/snap')
+				.get(`http://${this.api}/api/areas/snap`)
 				.then((response) => {
-          console.log("🚀 ~ file: single.vue ~ line 116 ~ .then ~ response", response);
+					console.log('🚀 ~ file: single.vue ~ line 116 ~ .then ~ response', response);
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
 					this.defaultValue.z = response.data.position.z;
@@ -141,22 +157,25 @@ export default {
 			this.noti = this.$vs.notification({
 				color,
 				position,
-        square: true,
+				square: true,
 				title: title,
 				text: text
 			});
 		},
 		updatePosition(obj, event) {
-      console.log("🚀 ~ file: single.vue ~ line 138 ~ updatePosition ~ obj", obj.id);
+			console.log('🚀 ~ file: single.vue ~ line 138 ~ updatePosition ~ obj', obj.id);
 			event.preventDefault();
 			const objJson = {
 				id: obj.id,
 				name: obj.name,
-        group: obj.group,
+				group: obj.group,
 				x: obj.x,
 				y: obj.y,
 				z: obj.z,
 				size: obj.size,
+				param1: obj.param1,
+				param2: obj.param2,
+				param3: obj.param3
 			};
 			// check if obj is same as data
 			if (JSON.stringify(objJson) === JSON.stringify(this.defaultValue)) {
@@ -168,7 +187,7 @@ export default {
 			this.loading = true;
 			this.dialogClose = true;
 			this.$http
-				.put('http://192.168.1.209:8081/api/areas/' + obj.id, this.defaultValue)
+				.put(`http://${this.api}/api/areas/${obj.id}`, this.defaultValue)
 				.then((response) => {
 					console.log('response', response);
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
@@ -194,11 +213,12 @@ export default {
 		openDialog(e) {
 			this.defaultValue.id = e.id;
 			this.defaultValue.name = e.name;
-      this.defaultValue.group = e.group;
+			this.defaultValue.group = e.group;
 			this.defaultValue.x = e.x;
 			this.defaultValue.y = e.y;
 			this.defaultValue.z = e.z;
 			this.defaultValue.size = e.size;
+			(this.defaultValue.param1 = e.param1), (this.defaultValue.param2 = e.param2), (this.defaultValue.param3 = e.param3);
 
 			this.selectedArea = e;
 			this.activeDialog = true;
