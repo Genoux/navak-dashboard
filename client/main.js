@@ -8,15 +8,20 @@ import * as mdijs from '@mdi/js'
 import VueRouter from 'vue-router'
 import routes from '/imports/routes';
 import axios from 'axios';
+import VueProgressBar from 'vue-progressbar'
 
 const router = new VueRouter({
   mode: 'history',
   routes,
   linkExactActiveClass: "bg-gray-dark-light",
 })
-
 Meteor.startup(() => {
   Vue.prototype.$http = axios;
+  Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '2px'
+  })
   Vue.use(mdiVue, {
     icons: mdijs
   }) 
