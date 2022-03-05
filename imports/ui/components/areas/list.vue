@@ -70,7 +70,7 @@ export default {
 			defaultValue: {
 				id: (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1),
 				name: null,
-				group: '0',
+				group: 0,
 				x: 0,
 				y: 0,
 				z: 0,
