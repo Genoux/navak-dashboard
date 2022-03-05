@@ -128,6 +128,7 @@
     },
     data() {
       return {
+        api: '192.168.1.209:8081',
         showColorPicker: false,
         colors: {
           rgba: {
@@ -183,7 +184,7 @@
         this.loading = true;
         try {
           this.$http
-            .post('http://192.168.1.15:8081/api/lanterns/reboot', {
+            .post(`http://${this.api}/lanterns/reboot`, {
               id: elm.id
             })
             .then((response) => {
@@ -203,7 +204,7 @@
         this.apiCalling = true;
         try {
           this.$http
-            .post('http://192.168.1.15:8081/api/lanterns/flash', {
+            .post(`http://${this.api}/lanterns/flash`, {
               id: elm.id
             })
             .then((response) => {
@@ -252,7 +253,7 @@
         setTimeout(() => {
           // update lantern to the API??
           this.$http
-            .put('http://192.168.1.15:8081/api/lanterns/' + obj.id, this.defaultValue)
+            .put(`http://${this.api}/api/lanterns/${obj.id}`, this.defaultValue)
             .then((response) => {
               console.log('response', response);
               this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!',

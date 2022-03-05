@@ -64,41 +64,44 @@ export default {
 	},
 	data() {
 		return {
+			api: '192.168.1.209:8081',
 			activeDialog: false,
 			loading: false,
 			defaultValue: {
 				id: (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1),
 				name: null,
-        group: '0',
+				group: '0',
 				x: 0,
 				y: 0,
 				z: 0,
-				size: 0
+				size: 0,
+				param1: 0,
+				param2: 0,
+				param3: '0'
 			},
 			msg: ''
 		};
 	},
 	methods: {
-    getPosition(event){
-      event.preventDefault();
-      this.loading = true;
-        this.$http
-          .get('http://192.168.1.209:8081/api/areas/snap', {id:'d490'})
-          .then((response) => {
-            console.log('response', response.data.position);
-            this.defaultValue.x = response.data.position.x
-            this.defaultValue.y = response.data.position.y
-            this.defaultValue.z = response.data.position.z
-            this.openNotification('top-center', 'success', '👍 Succelfully updated position!',
-              'You can check the changes in the list');
-            this.loading = false;
-          }).catch((error) => {
-            console.log(error);
-            this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again',
-              `${error}`);
-            this.loading = false;
-          });
-    },
+		getPosition(event) {
+			event.preventDefault();
+			this.loading = true;
+			this.$http
+				.get(`http://${this.api}/api/areas/snap`, {id: 'd490'})
+				.then((response) => {
+					console.log('response', response.data.position);
+					this.defaultValue.x = response.data.position.x;
+					this.defaultValue.y = response.data.position.y;
+					this.defaultValue.z = response.data.position.z;
+					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
+					this.loading = false;
+				})
+				.catch((error) => {
+					console.log(error);
+					this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', `${error}`);
+					this.loading = false;
+				});
+		},
 		openDialog() {
 			this.activeDialog = true;
 		},
@@ -109,11 +112,14 @@ export default {
 			this.defaultValue = {
 				id: (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1),
 				name: null,
-        group: '0',
+				group: '0',
 				x: 0,
 				y: 0,
 				z: 0,
-				size: 0
+				size: 0,
+				param1: 0,
+				param2: 0,
+				param3: '0'
 			};
 			this.activeDialog = false;
 		},
@@ -122,7 +128,7 @@ export default {
 			this.noti = this.$vs.notification({
 				color,
 				position,
-        square: true,
+				square: true,
 				title: title,
 				text: text
 			});
@@ -133,7 +139,7 @@ export default {
 				return;
 			}
 			try {
-				await this.$http.post('http://192.168.1.209:8081/api/areas/', this.defaultValue);
+				await this.$http.post(`http://${this.api}/api/areas/`, this.defaultValue);
 				this.openNotification('top-center', 'success', `👍 Succelfully created position ${elm.name}`, 'You can check the changes in the list');
 				this.loading = false;
 				this.closeDialog();
