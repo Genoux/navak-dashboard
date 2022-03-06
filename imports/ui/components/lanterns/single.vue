@@ -184,7 +184,7 @@
         this.loading = true;
         try {
           this.$http
-            .post(`http://${this.api}/lanterns/reboot`, {
+            .post(`http://${this.api}/api/lanterns/reboot`, {
               id: elm.id
             })
             .then((response) => {
@@ -204,7 +204,7 @@
         this.apiCalling = true;
         try {
           this.$http
-            .post(`http://${this.api}/lanterns/flash`, {
+            .post(`http://${this.api}/api/lanterns/flash`, {
               id: elm.id
             })
             .then((response) => {
