@@ -3,15 +3,12 @@
 		"id": "s001",
 		"ip": "192.168.1.224",
 		"univers": 1,
-		"state": 0,
 		"rgb": "0,0,0,255",
-		"metrics": {
-			"message":"none",
-			"lantern": "none",
-			"bpm": 70,
-			"state": 0,
-			"timer": "00:00:00",
-			"presence": false
-		}
+    "message":"none",
+    "lantern": "none",
+    "bpm": 70,
+    "state": 0,
+    "timer": "00:00:00",
+    "presence": false
 	}
 ]
