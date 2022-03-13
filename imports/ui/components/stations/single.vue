@@ -1,75 +1,93 @@
 <template>
-  <div>
-    <div
-      progress="30"
-      class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-red border-opacity-20"
-      v-bind:class="{
-        'opacity-20': !station.status,
-        'pointer-events-none': !station.status,
-      }"
-    >
-      <div
-        class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-red border-opacity-20"
-      >
-        <div class="flex-1">
-          <h4 class="font-medium">{{ station.id }}</h4>
-        </div>
-        <div class="flex-2">
-          <h4 class="font-medium">{{ station.ip }}</h4>
-        </div>
+	<div>
+		<div
+			class="hover:border-current duration-75 ease-in bg-black text-white border border-white border-opacity-20"
+			v-bind:class="{
+				'opacity-20': !station.status,
+				'pointer-events-none': !station.status
+			}"
+		>
+			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
+				<div class="flex w-full">
+          <div class="w-2 h-2 flex self-center mr-2 animate-pulse " v-bind:class="{
+            'bg-gray-light': station.status == false,
+            'bg-white': station.state == 7,
+            'bg-status-green': station.state == 0 && station.status == true,
+            'bg-orange': station.state == 6,
+            'bg-indigo-50': station.state == 2,
+            'bg-indigo-600': station.state == 1 ,
+            'bg-status-red': station.state == 4 || station.state == 3,
+          }"> </div>
+					<h4 class="font-medium">{{ station.id }}</h4>
+            <div class="flex">  <mdicon class="self-center pl-1" name="Lightbulb" size="18"></mdicon></div>
+				</div>
+				<div class="m-auto">
+					<h4 class="font-medium">{{ station.ip }}</h4>
+				</div>
+			</div>
+			<div
+				class="grid grid-cols-2 p-5 gap-5 self-end"
+				v-bind:class="{
+					'visually-hidden': !station.status
+				}"
+			>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Message</h5>
+					<h4 readonly class="text-sm">{{ station.message }}</h4>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Lantern ID</h5>
+					<h4 readonly class="text-sm">{{ station.lantern }}</h4>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">BPM</h5>
+          <div class="flex m-auto animate-pulse">    <mdicon class="self-center pr-1" name="heart" size="12"></mdicon><h4  class="text-sm ">
+          {{ station.bpm }}</h4></div>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">State</h5>
+					<h4 readonly class="text-sm">{{ station.state }}</h4>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Timer</h5>
+					<h4 readonly class="text-sm">{{ station.timer }}</h4>
+				</div>
+				<div>
+					<h5 class="text-xs text-white text-opacity-50 font-light">Presence</h5>
+					<h4 readonly class="text-sm">{{ station.presence }}</h4>
+				</div>
+			</div>
+      <div class="pl-5 pr-5 pb-5" v-bind:class="{
+        'visually-hidden': !station.status
+      }">
+        <div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: '10' + '%'}" class="h-0.5 bg-white "></div></div>
       </div>
-      <div class="grid grid-cols-2 p-5 gap-5 self-end">
-        <div>
-          <h5 class="text-xs text-white text-opacity-50 font-light">Message</h5>
-          <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.message }}</h4>
-        </div>
-        <div>
-          <h5 class="text-xs text-white text-opacity-50 font-light">Lantern ID</h5>
-          <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.lantern }}</h4>
-        </div>
-        <div>
-          <h5 class="text-xs text-white text-opacity-50 font-light">BPM</h5>
-          <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.bpm }}</h4>
-        </div>
-        <div>
-          <h5 class="text-xs text-white text-opacity-50 font-light">State</h5>
-          <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.state }}</h4>
-        </div>
-        <div>
-          <h5 class="text-xs text-white text-opacity-50 font-light">Timer</h5>
-          <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.timer }}</h4>
-        </div>
-        <div>
-          <h5 class="text-xs text-white text-opacity-50 font-light">Presence</h5>
-          <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.presence }}</h4>
-        </div>
-      </div>
-      <div id="progress-bar" :style="{ width: '10' + '%' }" class="h-1 bg-red-600"></div>
-      <p class="text-white"> {{ null }}</p>
-    </div>
-  </div>
+		</div>
+	</div>
 </template>
 
 <script>
-import progress from "progress-it";
+import progress from 'progress-it';
 
 export default {
-  data() {return {};},
-  mounted() {},
-  methods: {
-    scanning() {},
-    openNotification(position = null, color, title, text) {
-      this.noti = this.$vs.notification({
-        color,
-        position,
-        square: true,
-        title: title,
-        text: text,
-      });
-    },
-  },
-  props: {
-    station: Object,
-  },
+	data() {
+		return {};
+	},
+	mounted() {},
+	methods: {
+		scanning() {},
+		openNotification(position = null, color, title, text) {
+			this.noti = this.$vs.notification({
+				color,
+				position,
+				square: true,
+				title: title,
+				text: text
+			});
+		}
+	},
+	props: {
+		station: Object
+	}
 };
 </script>

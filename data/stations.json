@@ -6,6 +6,7 @@
 		"rgb": "0,0,0,255",
     "message":"none",
     "lantern": "none",
+    "status": true,
     "bpm": 70,
     "state": 0,
     "timer": "00:00:00",

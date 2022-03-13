@@ -93,7 +93,7 @@ export default {
 	},
 	data() {
 		return {
-			api: '192.168.1.209:8081',
+			api: '127.0.0.1:8081',
 			apiCalling: false,
 			clicked: false,
 			selectedArea: '',

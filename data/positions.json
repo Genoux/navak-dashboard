@@ -10,5 +10,41 @@
     "param1":0,
     "param2":0,
     "param3":"0"
-	}
+	},
+  	{
+		"name": "Test zone2",
+		"id": "fd1a3",
+    "group": "0",
+		"x": 0,
+		"y": 0,
+		"z": 0,
+    "size": "12.00",
+    "param1":0,
+    "param2":0,
+    "param3":"0"
+	},
+  {
+    "name": "Test zone44",
+    "id": "fd1ea",
+    "group": "1",
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "size": "12.00",
+    "param1":0,
+    "param2":0,
+    "param3":"0"
+  },
+  {
+    "name": "Test zone",
+    "id": "fd1a",
+    "group": "1",
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "size": "12.00",
+    "param1":0,
+    "param2":0,
+    "param3":"0"
+  }
 ]
