@@ -21,9 +21,24 @@
 					<h4 class="font-medium">{{ station.id }}</h4>
             <div class="flex">  <mdicon class="self-center pl-1" name="Lightbulb" size="18"></mdicon></div>
 				</div>
-				<div class="m-auto">
-					<h4 class="font-medium">{{ station.ip }}</h4>
-				</div>
+        <div class="m-auto">
+          <h4 class="font-medium">{{ station.ip }}</h4>
+        </div>
+          <div class="flex"> 
+            <div
+            v-bind:class="{
+              'opacity-20': station.state == 6,
+              'pointer-events-none': station.state == 6
+            }"
+             @click="reboot(station)"
+            class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
+            <div v-bind:class="{
+              'animate-spin': loading,
+            }" >
+              <mdicon name="Refresh" size="16"></mdicon>
+            </div>
+           
+          </div></div>
 			</div>
 			<div
 				class="grid grid-cols-2 p-5 gap-5 self-end"
@@ -67,15 +82,33 @@
 </template>
 
 <script>
-import progress from 'progress-it';
 
 export default {
 	data() {
-		return {};
+		return {
+      api: '192.168.1.15:8081',
+      loading:false,
+    };
 	},
 	mounted() {},
 	methods: {
-		scanning() {},
+   reboot(elm) {
+     this.loading = true;
+     try {
+       this.$http
+         .post(`http://${this.api}/api/stations/reboot/${this.station.id}`)
+         .then((response) => {
+           console.log('response', response);
+           this.loading = false;
+           this.openNotification('top-center', 'success', '🔥 Rebooted! ',
+             `Lantern ${this.station.id} restarted successfully!`);
+         });
+     } catch (error) {
+       console.log(error);
+       this.openNotification('top-center', 'danger', '❌ Oups! ', `${error}`);
+       this.loading = false;
+     }
+   },
 		openNotification(position = null, color, title, text) {
 			this.noti = this.$vs.notification({
 				color,
