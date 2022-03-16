@@ -1,6 +1,6 @@
-<template>
+<template >
   <div>
-    <div class="bg-gray-dark flex flex-row">
+    <div class="bg-gray-dark flex flex-row darken" vs-theme="dark">
       <sidebar />
       <div class="w-full">
         <router-view></router-view>
@@ -24,6 +24,7 @@ export default {
     Sidebar
   },
   mounted() {
+     document.body.classList.add('darken')
     this.$vs.notification({
       duration: 'none',
       square: true,

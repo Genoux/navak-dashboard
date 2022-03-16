@@ -7,6 +7,31 @@
 			<div @click="openDialog()" class="flex-end ml-auto self-center border border-white hover:opacity-60 cursor-pointer focus:bg-white p-1">
 				<mdicon class="text-white" name="Plus" size="18"></mdicon>
 			</div>
+      <div>
+        <vs-select placeholder="Select" v-model="value">
+          <vs-option label="Vuesax" value="1">
+            Vuesax
+          </vs-option>
+          <vs-option label="Vue" value="2">
+            Vue
+          </vs-option>
+          <vs-option label="Javascript" value="3">
+            Javascript
+          </vs-option>
+          <vs-option disabled label="Sass" value="4">
+            Sass
+          </vs-option>
+          <vs-option label="Typescript" value="5">
+            Typescript
+          </vs-option>
+          <vs-option label="Webpack" value="6">
+            Webpack
+          </vs-option>
+          <vs-option label="Nodejs" value="7">
+            Nodejs
+          </vs-option>
+        </vs-select>
+      </div>
 		</div>
 		<v-serversStatus></v-serversStatus>
 		<div v-if="areas.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
@@ -64,7 +89,8 @@ export default {
 	},
 	data() {
 		return {
-			api: '192.168.1.209:8081',
+       value: '',
+			api: '127.0.0.1:8081',
 			activeDialog: false,
 			loading: false,
 			defaultValue: {

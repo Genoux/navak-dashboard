@@ -12,12 +12,17 @@
             <li>
               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'servers'}">
                 <mdicon size="21" class="m-auto" name="ServerSecurity" />
-                <div v-if="servers.length > 0" class="h-3 w-3 bg-red-600 absolute right-0 top-0 rounded-xl animate-pulse"></div>
+                <div v-if="servers.length > 0" class="h-3 w-3 bg-status-red absolute right-0 top-0 rounded-xl animate-pulse"></div>
                  </router-link>
              	</li>
              <li>
                <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'areas'}">
                  <mdicon size="21" class="m-auto" name="GoogleMaps" />
+               </router-link>
+             </li>
+             <li>
+               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-lg" :to="{name: 'stations'}">
+                 <mdicon size="21" class="m-auto" name="HandBackRight" />
                </router-link>
              </li>
 					</ul>

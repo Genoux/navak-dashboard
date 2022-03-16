@@ -8,14 +8,15 @@
     "url": "https://github.com/navak-project/navak-dashboard.git"
   },
   "scripts": {
-    "meteor": "set MONGO_OPLOG_URL=mongodb://navak:navakFTW@192.168.1.209/local?authSource=admin && set MONGO_URL=mongodb://192.168.1.209:27017/navak && meteor",
+    "meteor-school": "set NODE_ENV=developpement && set MONGO_OPLOG_URL=mongodb://navak:navakFTW@192.168.1.209/local?authSource=admin && set MONGO_URL=mongodb://192.168.1.209:27017/navak && meteor",
+    "meteor-home": "set NODE_ENV=developpement && set MONGO_URL=mongodb://127.0.0.1:27017/navak && meteor",
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.17.2",
     "@mdi/js": "^6.5.95",
     "axios": "^0.25.0",
     "boxicons": "^2.1.1",
@@ -29,6 +30,7 @@
     "node-cron": "^3.0.0",
     "ping": "^0.4.1",
     "postcss-loader": "^6.2.1",
+    "progress-it": "^1.1.1",
     "tw-elements": "^1.0.0-alpha10",
     "vue": "^2.6.14",
     "vue-color": "^2.8.1",
