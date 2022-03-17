@@ -86,7 +86,7 @@
 export default {
 	data() {
 		return {
-      api: '192.168.1.15:8081',
+      api: '192.168.1.209:8081',
       loading:false,
     };
 	},
