@@ -3,8 +3,8 @@
 		<div
 			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
-				'opacity-20': !station.status,
-				'pointer-events-none': !station.status
+				'opacity-20': station.state === 8,
+				'pointer-events-none': station.state === 8
 			}"
 		>
 			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
@@ -26,14 +26,13 @@
         </div>
           <div class="flex"> 
             <div
-            v-bind:class="{
-              'opacity-20': station.state == 6,
-              'pointer-events-none': station.state == 6
-            }"
+            :class="{'opacity-20': rebooting,
+            'pointer-events-none': rebooting}"
              @click="reboot(station)"
             class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
             <div v-bind:class="{
               'animate-spin': loading,
+
             }" >
               <mdicon name="Refresh" size="16"></mdicon>
             </div>
@@ -43,7 +42,7 @@
 			<div
 				class="grid grid-cols-2 p-5 gap-5 self-end"
 				v-bind:class="{
-					'visually-hidden': !station.status
+					'visually-hidden': station.state === 8
 				}"
 			>
 				<div>
@@ -75,25 +74,55 @@
       <div class="pl-5 pr-5 pb-5" v-bind:class="{
         'visually-hidden': !station.status
       }">
-        <div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: '10' + '%'}" class="h-0.5 bg-white "></div></div>
+      {{ w}}
+        <div class="bg-input-dark w-full "><div id="progress-bar" class="h-0.5 bg-white w-0"></div></div>
       </div>
 		</div>
 	</div>
 </template>
 
 <script>
-
+import anime from 'animejs/lib/anime.es.js';
 export default {
+  watch:{
+    'station.state': function(newVal){
+      if(newVal === 1){
+        this.rLerp(this.$props.station);
+      }
+    }
+  },
 	data() {
 		return {
       api: '192.168.1.209:8081',
       loading:false,
+      rebooting :false,
+      w: 0,
     };
 	},
-	mounted() {},
+	mounted() {
+
+  },
 	methods: {
+    rLerp (elm){
+     console.log("🚀 ~ file: single.vue ~ line 101 ~ rLerp ~ elm", elm);
+     anime.timeline({
+       targets: '#progress-bar',
+       width:'100%',
+       duration: 15000,
+       easing: 'linear',
+       update: function(anim) {
+         //this.w = Math.round(anim.progress)
+         console.log("🚀 ~ file: single.vue ~ line 114 ~ rLerp ~ Math.round(anim.progress)", Math.round(anim.progress));
+       },
+       complete: function(anim) {
+        // this.w = 0
+       }
+     }).add({ targets: '#progress-bar',  background: `rgb(${elm.rgb})` }, 0)
+
+    },
    reboot(elm) {
      this.loading = true;
+     this.rebooting = true
      try {
        this.$http
          .post(`http://${this.api}/api/stations/reboot/${this.station.id}`)
@@ -102,12 +131,14 @@ export default {
            this.loading = false;
            this.openNotification('top-center', 'success', '🔥 Rebooted! ',
              `Lantern ${this.station.id} restarted successfully!`);
+                this.rebooting = false
          });
      } catch (error) {
        console.log(error);
        this.openNotification('top-center', 'danger', '❌ Oups! ', `${error}`);
        this.loading = false;
      }
+  
    },
 		openNotification(position = null, color, title, text) {
 			this.noti = this.$vs.notification({

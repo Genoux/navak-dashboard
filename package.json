@@ -18,11 +18,13 @@
   "dependencies": {
     "@babel/runtime": "^7.17.2",
     "@mdi/js": "^6.5.95",
+    "animejs": "^3.2.1",
     "axios": "^0.25.0",
     "boxicons": "^2.1.1",
     "dotenv": "^16.0.0",
     "flowbite": "^1.3.2",
     "is-reachable": "^5.1.1",
+    "lerpy": "^1.1.3",
     "material-icons": "^1.10.6",
     "mdi-vue": "^3.0.12",
     "meteor-node-stubs": "^1.1.0",
@@ -38,7 +40,8 @@
     "vue-mqtt": "^2.0.3",
     "vue-router": "^3.5.3",
     "vue-tailwind-color-picker": "^1.0.6",
-    "vuesax": "^4.0.1-alpha.25"
+    "vuesax": "^4.0.1-alpha.25",
+    "wheen": "^2.1.3"
   },
   "meteor": {
     "mainModule": {
