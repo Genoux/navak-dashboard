@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="hover:border-current duration-75 ease-in bg-black text-white border border-white border-opacity-20">
+		<div class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20">
 			<div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
 				<div class="flex-1">
 					<h4 class="font-medium">

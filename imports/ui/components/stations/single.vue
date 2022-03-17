@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div
-			class="hover:border-current duration-75 ease-in bg-black text-white border border-white border-opacity-20"
+			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
 				'opacity-20': !station.status,
 				'pointer-events-none': !station.status

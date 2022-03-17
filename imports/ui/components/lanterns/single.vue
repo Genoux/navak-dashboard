@@ -1,14 +1,14 @@
 <template>
-	<div>
+	<div c>
 		<div
-			class="border-white hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20"
+			class="border-white rounded-sm hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20"
 			v-bind:class="{
-				'opacity-20': !lantern.status,
+				'opacity-30': !lantern.status,
 				'pointer-events-none': !lantern.status
 			}"
 		>
-			<div v-bind:style="'border: 1px solid rgba(' + lantern.rgb + ')'"></div>
-			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-20">
+			<div v-bind:style="'border-color: rgba(' + lantern.rgb + ')'" style="border-width:2px" class="rounded-t-sm "></div>
+			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-10">
 				<div
 					v-bind:class="{
 						'text-status-green': lantern.status,
@@ -25,8 +25,8 @@
 				</div>
 				<div class="flex mr-1">
 					<div class="border grid grid-flow-col gap-0 divide-x">
-						<span class="self-center px-2">
-							<mdicon size="18" name="Pulse" />
+						<span class="self-center px-2 animate-pulse text-red-500">
+							<mdicon size="12" name="Heart" />
 						</span>
 						<span class="px-2 p-0.5 font-bold text-xs">
 							{{ lantern.pulse }}
@@ -169,9 +169,15 @@
 					<div class="relative z-50 overflow-visible">
 						<p class="text-sm text-white">Color</p>
 						<p class="text-white text-xs p-0 m-0 opacity-75">{{ formatColor() }}</p>
-						<div class="border border-opacity-20 border-white mt-3 mb-3 h-5" @click="showColorPicker = !showColorPicker" v-bind:style="'background-color: rgba(' + formatColor() + ')'"></div>
-						<color-picker class="absolute right-0 top-0" v-if="showColorPicker" v-model="colors" />
+						<div :class="{'hover:opacity-90' : !showColorPicker, 'cursor-pointer ' : !showColorPicker}" class="transition-all border text-xs pt-1 pb-1 text-white border-opacity-20 w-full  flex border-white mt-3 mb-3 h-8" @click="showColorPicker = true" v-bind:style="'background-color: rgba(' + formatColor() + ')'">
+              <mdicon class="self-center text-center m-auto" v-if="!showColorPicker" name="Pencil" size="16" />
+              </div>
+                <div class="text-black absolute left-full ml-6 top-0">
+                  <span class="absolute z-50 m-2 cursor-pointer hover:opacity-90 focus:ring"  @click="showColorPicker = false"><mdicon class=""  name="Close" size="18" /></span>
+                    <color-picker class=" z-30" v-if="showColorPicker" v-model="colors" />
+                </div>
 					</div>
+      
 				</form>
 				<div
 					class="grid grid-flow-col gap-2 pt-2 mt-6"
