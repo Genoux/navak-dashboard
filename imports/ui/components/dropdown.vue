@@ -1,6 +1,7 @@
 <template>
   <div>
-    <select class="bg-black text-white border" v-model="selected">
+    <select class="bg-black text-white p-1 border pr-20 after:p-20 select" v-model="selected">
+      <option value="All">All</option>
       <option
         class="text-white"
         :key="select[0].group"
@@ -8,29 +9,13 @@
         :value="select[0].group"
       >{{ select[0].group }}</option>
     </select>
-    <p class="text-white">{{ selected }}</p>
   </div>
 </template>
 
 <script>
 export default({
-  state: {
-    user: {
-      username: 'matt',
-      fullName: 'Matt Maribojoc'
-    }
-  },
-  getters: {},
-  mutations: {},
-  actions: {},
   props: {
     selection: Array
-  },
-  watch: {
-   selected: function (newVal) {
-   console.log("🚀 ~ file: dropdown.vue ~ line 22 ~ newVal", newVal);
-    this.$emit('filterSelection', newVal)
-   }
   },
   methods: {
     group() {
@@ -41,16 +26,13 @@ export default({
           return rv;
         }, {});
       };
-     // Vue.prototype.$group = groupArrayOfObjects(obj, 'group')
-     // Vue.prototype.$selectedID = this.selected
-      console.log("🚀 ~ file: dropdown.vue ~ line 30 ~ group ~ groupArrayOfObjects(obj, 'group')", groupArrayOfObjects(obj, 'group'));
-      console.log(this.selected)
+      this.$emit('filterSelection', this.selected)
       return groupArrayOfObjects(obj, "group");
     }
   },
   data() {
     return {
-      selected: '0'
+      selected: 'All'
     };
   }
 });
