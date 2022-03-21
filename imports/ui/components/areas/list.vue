@@ -1,5 +1,6 @@
 <template name="areas">
   <div>
+         <p class="text-white">dwdwd {{filterSelection}}</p>
     <div class="flex bg-dark border-b border-white border-opacity-20 h-14 pl-5 pr-5">
       <h1 class="text-white self-center font-regular">{{ $route.name }}</h1>
       <div
@@ -8,7 +9,8 @@
       >
         <mdicon class="text-white" name="Plus" size="18"></mdicon>
       </div>
-      <v-dropdown :selection="areas"></v-dropdown>
+      <v-dropdown :selection="areas" @selected="filterSelection($event)"></v-dropdown>
+ 
     </div>
 
     <div
@@ -95,6 +97,7 @@ import singleArea from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 
 export default {
+  
   name: 'areas',
   components: {
     'v-dropdown': dropdown,
@@ -116,9 +119,13 @@ export default {
       })
     }
   },
+  mounted(){
+     console.log(this.$store.state.user.username);
+  },
   data() {
     return {
-      selectedSize: 'test',
+      filterSelection: 'selected',
+      selectedSize: '22',
       value: '',
       api: '127.0.0.1:8081',
       activeDialog: false,
@@ -139,6 +146,10 @@ export default {
     };
   },
   methods: {
+    filterSelection(e){
+      console.log("🚀 ~ file: list.vue ~ line 147 ~ filterSelection ~ e", e);
+      this.filterSelection =e
+    },
     getPosition(event) {
       event.preventDefault();
       this.loading = true;
@@ -201,7 +212,7 @@ export default {
         this.closeDialog();
       } catch (err) {
         console.log('error', err);
-        this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', `${error}`);
+        this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', `${err}`);
       } finally {
       }
     }

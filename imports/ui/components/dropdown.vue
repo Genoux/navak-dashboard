@@ -13,9 +13,24 @@
 </template>
 
 <script>
-export default {
+export default({
+  state: {
+    user: {
+      username: 'matt',
+      fullName: 'Matt Maribojoc'
+    }
+  },
+  getters: {},
+  mutations: {},
+  actions: {},
   props: {
     selection: Array
+  },
+  watch: {
+   selected: function (newVal) {
+   console.log("🚀 ~ file: dropdown.vue ~ line 22 ~ newVal", newVal);
+    this.$emit('filterSelection', newVal)
+   }
   },
   methods: {
     group() {
@@ -26,7 +41,10 @@ export default {
           return rv;
         }, {});
       };
-      //Vue.prototype.$test = groupArrayOfObjects(obj, 'group')
+     // Vue.prototype.$group = groupArrayOfObjects(obj, 'group')
+     // Vue.prototype.$selectedID = this.selected
+      console.log("🚀 ~ file: dropdown.vue ~ line 30 ~ group ~ groupArrayOfObjects(obj, 'group')", groupArrayOfObjects(obj, 'group'));
+      console.log(this.selected)
       return groupArrayOfObjects(obj, "group");
     }
   },
@@ -35,5 +53,5 @@ export default {
       selected: '0'
     };
   }
-};
+});
 </script>
