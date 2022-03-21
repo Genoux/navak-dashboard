@@ -4,6 +4,12 @@
 			<h1 class="text-white self-center font-regular flex-1">{{ $route.name }} / group: {{ selected }}</h1>
 			<div class="flex-2 self-center">
 				<div class="flex">
+					<input
+						class="mr-5 bg-black text-white pl-2 border pr-20 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
+						type="text"
+						v-model="search"
+						placeholder="Search areas.."
+					/>
 					<div class="mr-5 self-center"><v-dropdown :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
 					<div @click="openDialog()" class="ml-auto self-center border border-white hover:opacity-60 cursor-pointer focus:bg-white p-1">
 						<mdicon class="text-white" name="Plus" size="18"></mdicon>
@@ -12,15 +18,15 @@
 			</div>
 		</div>
 		<div v-if="areas.length > 0 && this.selected === 'All'" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-				<div v-bind:key="object" v-for="(area, object) in areas">
-					<v-area :area="area"></v-area>
-				</div>
+			<div v-bind:key="object" v-for="(area, object) in filteredList">
+				<v-area :area="area"></v-area>
+			</div>
 		</div>
-    <div v-else-if="this.selected !== 'All'" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-      <div v-bind:key="object" v-for="(area, object) in computed_items">
-        <v-area :area="area"></v-area>
-      </div>
-    </div>
+		<div v-else-if="this.selected !== 'All'" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+			<div v-bind:key="object" v-for="(area, object) in filteredList">
+				<v-area :area="area"></v-area>
+			</div>
+		</div>
 		<div v-else class="flex justify-center p-24 items-center borderm-4">
 			<mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
 		</div>
@@ -57,7 +63,6 @@
 		</div>
 	</div>
 </template>
-
 <script>
 import Areas from '../../../../imports/api/collections/Areas';
 import dropdown from '../dropdown.vue';
@@ -72,7 +77,15 @@ export default {
 		'v-serversStatus': ServersStatusBanner
 	},
 	computed: {
+		filteredList() {
+			return this.computed_items.filter((post) => {
+				return post.name.toLowerCase().includes(this.search.toLowerCase());
+			});
+		},
 		computed_items: function () {
+			if (this.selected == 'All') {
+				return this.areas;
+			}
 			let filterSize = this.selected;
 			return this.areas.filter(function (item) {
 				let filtered = true;
@@ -87,6 +100,7 @@ export default {
 	},
 	data() {
 		return {
+			search: '',
 			selected: 'selected',
 			value: '',
 			api: '127.0.0.1:8081',
@@ -152,7 +166,6 @@ export default {
 			};
 			this.activeDialog = false;
 		},
-
 		openNotification(position = null, color, title, text) {
 			this.noti = this.$vs.notification({
 				color,
