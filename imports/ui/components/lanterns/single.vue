@@ -1,5 +1,5 @@
 <template>
-	<div c>
+	<div>
 		<div
 			class="border-white rounded-sm hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20"
 			v-bind:class="{

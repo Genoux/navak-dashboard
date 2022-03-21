@@ -8,7 +8,16 @@ import * as mdijs from '@mdi/js'
 import VueRouter from 'vue-router'
 import routes from '/imports/routes';
 import axios from 'axios';
-//import VueProgressBar from 'vue-progressbar'
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {}
+});
 
 const router = new VueRouter({
   mode: 'history',
@@ -17,11 +26,6 @@ const router = new VueRouter({
 })
 Meteor.startup(() => {
   Vue.prototype.$http = axios;
- /*Vue.use(VueProgressBar, {
-    color: 'rgb(143, 255, 199)',
-    failedColor: 'red',
-    height: '2px'
-  })*/
   Vue.use(mdiVue, {
     icons: mdijs
   }) 
