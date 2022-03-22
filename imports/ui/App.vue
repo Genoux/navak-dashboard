@@ -15,20 +15,23 @@ import { version } from '../../package.json'
 
 
 export default {
+ 
+
   data() {
     return {
-      version: version
+      version: version,
+      env: Meteor.isDevelopment ? 'Development' : 'Production'
     };
   },
   components: {
     Sidebar
   },
   mounted() {
-     document.body.classList.add('darken')
+    document.body.classList.add('darken')
     this.$vs.notification({
       duration: 'none',
       square: true,
-      title:  `Navak Dashboard ${version}`,
+      title:  `Navak Dashboard ${version} - ${this.env}`,
       text: `Dashboard for controle over Navak physical project 👹 -
       <a style="text-decoration:underline"; href="https://github.com/navak-project/navak-dashboard">Check out the github</a>`,
     })
