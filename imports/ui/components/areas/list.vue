@@ -68,7 +68,7 @@ import Areas from '../../../../imports/api/collections/Areas';
 import dropdown from '../dropdown.vue';
 import singleArea from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
-
+import 'dotenv/config'
 export default {
 	name: 'areas',
 	components: {
@@ -103,7 +103,7 @@ export default {
 			search: '',
 			selected: 'selected',
 			value: '',
-			api: '127.0.0.1:8081',
+			api: '127.0.0.1:8081' || process.env.API,
 			activeDialog: false,
 			loading: false,
 			defaultValue: {
