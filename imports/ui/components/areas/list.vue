@@ -176,11 +176,13 @@ export default {
 			});
 		},
 		async createNewPosition(elm) {
+ 
 			if (elm.name == null || elm.name == '') {
 				this.openNotification('top-center', 'danger', '❌ Error', 'Name is required');
 				return;
 			}
 			try {
+        this.loading = true;
 				await this.$http.post(`http://${this.api}/api/areas/`, this.defaultValue);
 				this.openNotification('top-center', 'success', `👍 Succelfully created position ${elm.name}`, 'You can check the changes in the list');
 				this.loading = false;
@@ -189,6 +191,7 @@ export default {
 				console.log('error', err);
 				this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', `${err}`);
 			} finally {
+        this.loading = false;
 			}
 		}
 	},

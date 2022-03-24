@@ -8,16 +8,6 @@ import * as mdijs from '@mdi/js'
 import VueRouter from 'vue-router'
 import routes from '/imports/routes';
 import axios from 'axios';
-import Vuex from "vuex";
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {}
-});
 
 const router = new VueRouter({
   mode: 'history',

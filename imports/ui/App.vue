@@ -13,10 +13,7 @@
 import Sidebar from "./components/Sidebar.vue";
 import { version } from '../../package.json'
 
-
 export default {
- 
-
   data() {
     return {
       version: version,
