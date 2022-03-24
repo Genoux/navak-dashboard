@@ -3,8 +3,8 @@
 		<div
 			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
-				'opacity-20': station.state === 8,
-				'pointer-events-none': station.state === 8
+				'opacity-20': station.state === 8 || station.status === false,
+				'pointer-events-none': station.state === 8 || station.status === false
 			}"
 		>
 			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
@@ -56,7 +56,7 @@
 			<div
 				class="grid grid-cols-2 p-5 gap-5 self-end"
 				v-bind:class="{
-					'visually-hidden': station.state === 8
+					'visually-hidden': station.state === 8 || station.status === false
 				}"
 			>
 				<div>
@@ -92,7 +92,7 @@
 			<div
 				class="pl-5 pr-5 pb-5"
 				v-bind:class="{
-					'visually-hidden': station.state === 8
+					'visually-hidden': station.state === 8 || station.status === false
 				}"
 			>
 				<div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: w + '%'}" class="h-0.5 bg-white w-0"></div></div>
