@@ -17,6 +17,7 @@
 				</div>
 			</div>
 		</div>
+    <v-serversStatus></v-serversStatus>
 		<div v-if="areas.length > 0 && this.selected === 'All'" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
 			<div v-bind:key="object" v-for="(area, object) in filteredList">
 				<v-area :area="area"></v-area>
