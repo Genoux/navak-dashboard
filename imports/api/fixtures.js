@@ -4,39 +4,39 @@ import Lanterns from './collections/Lanterns.js';
 import Stations from './collections/Stations.js';
 import ping from 'ping';
 import tcpp from 'tcp-ping';
-var cron = require('node-cron');
 
 Meteor.startup(async (e) => {
-  cron.schedule('*/3 * * * * *', () => {
-    pingStation();
-    pingLanterns();
-    pingServer();
-  });
+  const stations = Stations.find().fetch();
+  const lanterns = Lanterns.find().fetch();
+  const servers = Servers.find().fetch();
+  
+  setInterval(async () => {
+    pingStation(stations);
+    pingLanterns(lanterns);
+    pingServer(servers);  
+  }, 5000);
+
 });
 
-function pingLanterns() {
-  var lanterns = Lanterns.find().fetch();
-  lanterns.forEach(async function (host) {
+function pingLanterns(obj) {
+  obj.forEach(async function (host) {
     let res = await ping.promise.probe(host.ipAddress);
     Lanterns.update({ ipAddress: host.ipAddress }, { $set: { status: res.alive } })
   });
 }
 
-function pingStation() {
-  var stations = Stations.find().fetch();
-  stations.forEach(async function (host) {
-   tcpp.probe(resolveIP(host.ipAddress), resolvePORT(host.ipAddress), async function (err, available) {
+function pingStation(obj) {
+  obj.forEach(async function (host) {
+    tcpp.probe(host.ipAddress, 5000, async function (err, available) {
+     console.log("🚀 ~ file: fixtures.js ~ line 31 ~ available", available);
      Stations.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
    });
  });
 }
 
-function pingServer() {
-  var servers = Servers.find().fetch();
-  console.log("🚀 ~ file: fixtures.js ~ line 41 ~ pingServer ~ servers", servers);
-  servers.forEach(async function (host) {
+function pingServer(obj) {
+  obj.forEach(async function (host) {
     tcpp.probe(resolveIP(host.ipAddress), resolvePORT(host.ipAddress), async function (err, available) {
-      console.log(resolveIP(host.ipAddress) + ':' + resolvePORT(host.ipAddress) + ' ' + available);
       Servers.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
     });
   });
