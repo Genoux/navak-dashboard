@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="relative bg-dark lg:bg-red-300 md:bg-green sm:bg-red-700 sm:bg-yellow">
+		<div class="relative bg-dark ">
 			<nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20">
 				<div>
 					<ul>

@@ -5,10 +5,7 @@
       <div class="w-full">
         <router-view></router-view>
       </div>
-     
     </div>
-    <div class="flex flex-col">    <v-bottombar></v-bottombar></div>
-
   </div>
 </template>
 
