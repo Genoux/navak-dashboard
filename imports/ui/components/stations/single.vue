@@ -118,7 +118,7 @@ export default {
 	},
 	data() {
 		return {
-			api: '127.0.0.1:3001',  //
+			api: '192.168.1.209:3001',  //
 			loading: false,
 			rebooting: false,
 			w: 0,

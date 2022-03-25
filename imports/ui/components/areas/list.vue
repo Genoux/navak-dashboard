@@ -104,7 +104,7 @@ export default {
 			search: '',
 			selected: 'selected',
 			value: '',
-			api: '127.0.0.1:8081' || process.env.API,
+			api: '192.168.1.209:8081' || process.env.API,
 			activeDialog: false,
 			loading: false,
 			defaultValue: {
