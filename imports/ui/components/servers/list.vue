@@ -1,8 +1,8 @@
 <template name="server">
 	<div>
-		<div class="w-full flex bg-dark border-b border-white border-opacity-20 h-14">
+		<div class="w-full flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5">
 			<h1 class="text-white ml-5 align-middle self-center content-center font-regular">
-				{{ $route.name }}
+				{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }}
 			</h1>
 		</div>
     <v-serversStatus></v-serversStatus>

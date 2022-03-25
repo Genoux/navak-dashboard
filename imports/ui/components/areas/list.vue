@@ -1,7 +1,7 @@
 <template name="areas">
 	<div>
 		<div class="flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5 pl-5 pr-5">
-			<h1 class="text-white self-center font-regular flex-1">{{ $route.name }} / group: {{ selected }}</h1>
+			<h1 class="text-white self-center font-regular flex-1">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1).slice(1) }} / group: {{ selected }}</h1>
 			<div class="flex-2 self-center">
 				<div class="flex">
 					<input
@@ -17,6 +17,7 @@
 				</div>
 			</div>
 		</div>
+    <v-serversStatus></v-serversStatus>
 		<div v-if="areas.length > 0 && this.selected === 'All'" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
 			<div v-bind:key="object" v-for="(area, object) in filteredList">
 				<v-area :area="area"></v-area>
@@ -68,7 +69,7 @@ import Areas from '../../../../imports/api/collections/Areas';
 import dropdown from '../dropdown.vue';
 import singleArea from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
-
+import 'dotenv/config'
 export default {
 	name: 'areas',
 	components: {
@@ -103,7 +104,7 @@ export default {
 			search: '',
 			selected: 'selected',
 			value: '',
-			api: '127.0.0.1:8081',
+			api: '127.0.0.1:8081' || process.env.API,
 			activeDialog: false,
 			loading: false,
 			defaultValue: {

@@ -3,8 +3,8 @@
 		<div
 			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
-				'opacity-20': station.state === 8,
-				'pointer-events-none': station.state === 8
+				'opacity-20': station.state === 8 || station.status === false,
+				'pointer-events-none': station.state === 8 || station.status === false
 			}"
 		>
 			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
@@ -40,13 +40,23 @@
 						>
 							<mdicon name="Refresh" size="16"></mdicon>
 						</div>
+            
 					</div>
 				</div>
+        <div class="flex">
+          <div
+            :class="{'bg-red-600': !station.presence, 'bg-green': station.presence}"
+            @click="presence(station)"
+            class="bg-black border p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none bg-opacity-30">
+            <mdicon v-if="station.presence" name="Eye" size="16"></mdicon>
+             <mdicon v-if="!station.presence" name="EyeOff" size="16"></mdicon>
+          </div>
+        </div>
 			</div>
 			<div
 				class="grid grid-cols-2 p-5 gap-5 self-end"
 				v-bind:class="{
-					'visually-hidden': station.state === 8
+					'visually-hidden': station.state === 8 || station.status === false
 				}"
 			>
 				<div>
@@ -82,7 +92,7 @@
 			<div
 				class="pl-5 pr-5 pb-5"
 				v-bind:class="{
-					'visually-hidden': station.state === 8
+					'visually-hidden': station.state === 8 || station.status === false
 				}"
 			>
 				<div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: w + '%'}" class="h-0.5 bg-white w-0"></div></div>
@@ -94,7 +104,7 @@
 <script>
 import anime from 'animejs/lib/anime.es.js';
 import Vue from 'vue';
-
+import 'dotenv/config'
 export default {
 	watch: {
 		'station.state': function (newVal) {
@@ -108,7 +118,7 @@ export default {
 	},
 	data() {
 		return {
-			api: '192.168.1.209:8081',
+			api: '127.0.0.1:3001',  //
 			loading: false,
 			rebooting: false,
 			w: 0,
@@ -130,6 +140,26 @@ export default {
 			.add({targets: '#progress-bar', background: `rgb(${this.$props.station.rgb}, 255)`}, 0);
 	},
 	methods: {
+    presence(station) {
+      station.presence  = !station.presence
+      try {
+        this.$http.put(`http://${this.api}/api/stations/${this.station.id}`, {presence: station.presence}).then((response) => {
+          console.log('response', response);
+          this.loading = false;
+          if(station.presence){
+          this.openNotification('top-center', 'success', '🍏 presence true! ', `Lantern ${this.station.id} true successfully!`);
+          }
+          else{
+          this.openNotification('top-center', 'success', '🍎 presence false! ', `Lantern ${this.station.id} false successfully!`);
+          }
+          this.rebooting = false;
+        });
+      } catch (error) {
+        console.log(error);
+        this.openNotification('top-center', 'danger', '❌ Oups! ', `${error}`);
+        this.loading = false;
+      }
+    },
 		progress(elm, direction) {
 			if (direction === 'forward') {
 				Vue.prototype.$actionButton.restart();

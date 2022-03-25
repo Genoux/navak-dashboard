@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import 'dotenv/config'
 export default {
 	computed: {
 		filteredAreas: function () {
@@ -93,7 +94,7 @@ export default {
 	},
 	data() {
 		return {
-			api: '192.168.1.209:8081',
+			api: '192.168.1.209:8081' || process.env.API,
 			apiCalling: false,
 			clicked: false,
 			selectedArea: '',

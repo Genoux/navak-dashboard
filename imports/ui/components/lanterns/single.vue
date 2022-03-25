@@ -200,14 +200,14 @@
 
 <script>
 import {Chrome} from 'vue-color';
-
+import 'dotenv/config'
 export default {
 	components: {
 		'color-picker': Chrome
 	},
 	data() {
 		return {
-			api: '192.168.1.209:8081',
+			api: '192.168.1.209:8081' || process.env.API,
 			showColorPicker: false,
 			colors: {
 				rgba: {

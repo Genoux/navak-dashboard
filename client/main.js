@@ -26,7 +26,8 @@ Meteor.startup(() => {
       success:'rgb(23, 201, 100)',
       danger:'rgb(242, 19, 93)',
       warning:'rgb(255, 130, 0)',
-      dark:'rgb(20, 20, 20)'
+      dark: 'rgb(20, 20, 20)',
+      greenLight: 'rgb(22, 138, 63)'
     }
   })
   new Vue({
