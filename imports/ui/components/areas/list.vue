@@ -1,8 +1,8 @@
 <template name="areas">
 	<div>
-		<div class="flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5 pl-5 pr-5">
+		<div class="flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5 pl-5 pr-5 ">
 			<h1 class="text-white self-center font-regular flex-1">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1).slice(1) }} / group: {{ selected }}</h1>
-			<div class="flex-2 self-center">
+			<div class="flex-2 self-center ">
 				<div class="flex">
 					<input
 						class="mr-5 bg-black text-white pl-2 border pr-20 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"

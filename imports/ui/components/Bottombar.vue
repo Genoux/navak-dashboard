@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="relative bg-dark lg:bg-red-300 md:bg-green sm:bg-red-700 sm:bg-yellow">
-			<nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20">
-				<div>
+		<div>
+			<nav class="bg-gray-800 absolute bottom-0 left-0  w-full p-2 border-r  border-white border-opacity-20">
+				<div class="flex bg-red-700">
 					<ul>
 						<li>
 							<router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-sm" :to="{name: 'lanterns'}">
