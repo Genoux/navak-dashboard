@@ -1,7 +1,7 @@
 <template >
   <div>
     <div class="bg-gray-dark flex flex-row darken" vs-theme="dark">
-      <sidebar />
+     <v-sidebar></v-sidebar>
       <div class="w-full">
         <router-view></router-view>
       </div>
@@ -11,6 +11,7 @@
 
 <script>
 import Sidebar from "./components/Sidebar.vue";
+import Bottombar from "./components/Bottombar.vue";
 import { version } from '../../package.json'
 
 export default {
@@ -21,7 +22,8 @@ export default {
     };
   },
   components: {
-    Sidebar
+    'v-sidebar' : Sidebar,
+    'v-bottombar': Bottombar
   },
   mounted() {
     document.body.classList.add('darken')
