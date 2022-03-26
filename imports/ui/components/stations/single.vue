@@ -13,7 +13,7 @@
 						class="w-2 h-2 flex self-center mr-2 animate-pulse"
 						v-bind:class="{
 							'bg-gray-light': station.status == false,
-							'bg-white': station.state == 7,
+							'bg-white': station.state == 7 || station.state == 9,
 							'bg-status-green': station.state == 0 && station.status == true,
 							'bg-orange': station.state == 6,
 							'bg-indigo-50': station.state == 2,
