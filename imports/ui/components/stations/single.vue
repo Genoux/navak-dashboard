@@ -3,8 +3,8 @@
 		<div
 			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
-				'opacity-20': station.state === 8 || station.status === false,
-				'pointer-events-none': station.state === 8 || station.status === false
+				'opacity-20': station.status === false,
+				'pointer-events-none': station.status === false
 			}"
 		>
 			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
@@ -21,8 +21,7 @@
 							'bg-status-red': station.state == 4 || station.state == 3
 						}"
 					></div>
-					<h4 class="font-medium">{{ station.id }}</h4>
-					<div class="flex"><mdicon class="self-center pl-1" name="Lightbulb" size="18"></mdicon></div>
+					<h4 class="font-medium">{{ station.id }} / <span class="opacity-50 font-light">{{ station.ipAddress }}</span></h4>
 				</div>
 				<div class="m-auto">
 					<h4 class="font-medium">{{ station.ip }}</h4>
@@ -40,7 +39,6 @@
 						>
 							<mdicon name="Refresh" size="16"></mdicon>
 						</div>
-            
 					</div>
 				</div>
         <div class="flex">
@@ -56,7 +54,7 @@
 			<div
 				class="grid grid-cols-2 p-5 gap-5 self-end"
 				v-bind:class="{
-					'visually-hidden': station.state === 8 || station.status === false
+					'visually-hidden': station.status === false
 				}"
 			>
 				<div>
@@ -92,7 +90,7 @@
 			<div
 				class="pl-5 pr-5 pb-5"
 				v-bind:class="{
-					'visually-hidden': station.state === 8 || station.status === false
+					'visually-hidden': station.status === false
 				}"
 			>
 				<div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: w + '%'}" class="h-0.5 bg-white w-0"></div></div>
@@ -118,7 +116,7 @@ export default {
 	},
 	data() {
 		return {
-			api: '192.168.1.209:3001',  //
+			api: '192.168.1.15:8081',  //
 			loading: false,
 			rebooting: false,
 			w: 0,

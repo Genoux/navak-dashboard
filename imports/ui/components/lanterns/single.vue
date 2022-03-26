@@ -179,19 +179,29 @@
 					</div>
       
 				</form>
+        <hr class="mt-6 border-1 opacity-20 border-gray-light">
 				<div
-					class="grid grid-flow-col gap-2 pt-2 mt-6"
+					class="grid grid-flow-col grid-cols-4 gap-2 pt-2 mt-6"
 					v-bind:class="{
 						'opacity-10': loading,
 						'pointer-events-none': loading
 					}"
 				>
-					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-10 flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
-						<mdicon class="m-auto" name="CheckBold"></mdicon>
+					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-6 rounded-sm flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
+            <div class="m-auto flex align-middle content-center">
+              <span class="mr-1">Done</span>
+            </div>
 					</button>
-					<button @click="restart(lantern)" class="py-2 px-6 flex text-center drop-shadow-lg bg-indigo-500 text-white hover:opacity-90">
-						<mdicon class="m-auto" name="Restart" />
+					<button @click="restart(lantern)" class="py-2 px-6 flex text-center rounded-sm drop-shadow-lg bg-indigo-500 text-white hover:opacity-90">
+            <div class="m-auto flex align-middle content-center">
+              <span class="mr-1">Reboot</span>
+            </div>
 					</button>
+          <button @click="reset(lantern)" class="py-2 px-6 flex rounded-sm text-center drop-shadow-lg bg-orange text-white hover:opacity-90">
+              <div class="m-auto flex align-middle content-center">
+                <span class="mr-1">Reset</span>
+              </div>
+          </button>
 				</div>
 			</div>
 		</div>
@@ -258,6 +268,25 @@ export default {
 			this.defaultValue.rgb = `${this.colors.rgba.r}, ${this.colors.rgba.g}, ${this.colors.rgba.b}, ${this.colors.rgba.a}`;
 			return `${this.colors.rgba.r}, ${this.colors.rgba.g}, ${this.colors.rgba.b}, ${this.colors.rgba.a}`;
 		},
+    reset(elm) {
+      this.loading = true;
+      try {
+        this.$http
+          .put(`http://${this.api}/api/lanterns/reset/${this.selectedLantern.id}`, {
+            id: elm.id
+          })
+          .then((response) => {
+            console.log('response', response);
+            this.loading = false;
+            this.closeDialog();
+            this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${this.selectedLantern.id} reset successfully!`);
+          });
+      } catch (error) {
+        console.log(error);
+        this.openNotification('top-center', 'danger', '❌ Oups! ', `${error}`);
+        this.loading = false;
+      }
+    },
 		restart(elm) {
 			this.loading = true;
 			try {

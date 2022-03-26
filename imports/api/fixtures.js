@@ -28,7 +28,6 @@ function pingLanterns(obj) {
 function pingStation(obj) {
   obj.forEach(async function (host) {
     tcpp.probe(host.ipAddress, 5000, async function (err, available) {
-     console.log("🚀 ~ file: fixtures.js ~ line 31 ~ available", available);
      Stations.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
    });
  });
