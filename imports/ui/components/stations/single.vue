@@ -141,7 +141,7 @@ export default {
     presence(station) {
       station.presence  = !station.presence
       try {
-        this.$http.put(`http://${this.api}/api/stations/${this.station.id}`, {presence: station.presence}).then((response) => {
+        this.$http.put(`http://${this.api}/api/stations/presence/${this.station.id}`, {presence: station.presence}).then((response) => {
           console.log('response', response);
           this.loading = false;
           if(station.presence){
