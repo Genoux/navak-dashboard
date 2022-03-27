@@ -88,11 +88,12 @@
 				</div>
 			</div>
 			<div
-				class="pl-5 pr-5"
+				class="pl-5 pr-5 pb-5"
 				v-bind:class="{
 					'visually-hidden': station.status === false
 				}"
 			>
+				<div class="bg-input-dark w-full rounded-md" :style="{background: `rgba(${this.$props.station.rgb})`}"><div :id="this.$props.station.id" :style="{width: w + '%'}" class="h-1 bg-white w-0 " ></div></div>
 			</div>
 		</div>
 	</div>
