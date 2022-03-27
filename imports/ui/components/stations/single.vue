@@ -88,12 +88,11 @@
 				</div>
 			</div>
 			<div
-				class="pl-5 pr-5 pb-5"
+				class="pl-5 pr-5"
 				v-bind:class="{
 					'visually-hidden': station.status === false
 				}"
 			>
-				<div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: w + '%'}" class="h-0.5 bg-white w-0"></div></div>
 			</div>
 		</div>
 	</div>
@@ -127,15 +126,18 @@ export default {
 		const _self = this;
 		Vue.prototype.$actionButton = anime
 			.timeline({
-				targets: '#progress-bar',
+				targets: '#s001',
 				duration: 15000,
 				easing: 'linear',
 				autoplay: false,
+        complete: function(anim) {
+          _self.w = 0;
+        },
 				update: function (anim) {
 					_self.w = anim.progress;
 				}
 			})
-			.add({targets: '#progress-bar', background: `rgb(${this.$props.station.rgb}, 255)`}, 0);
+			.add({targets: '#s002', background: `rgb(${this.$props.station.rgb}, 255)`}, 0);
 	},
 	methods: {
     presence(station) {
@@ -159,12 +161,14 @@ export default {
       }
     },
 		progress(elm, direction) {
+      console.log("🚀 ~ file: single.vue ~ line 165 ~ progress ~ direction", direction);
 			if (direction === 'forward') {
 				Vue.prototype.$actionButton.restart();
 			}
 			if (direction === 'reverse') {
 				Vue.prototype.$actionButton.pause();
 				this.w = 0;
+        console.log("🚀 ~ file: single.vue ~ line 172 ~ progress ~ this.w", this.w);
 			}
 		},
 		reboot(elm) {
