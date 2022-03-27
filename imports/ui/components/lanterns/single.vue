@@ -33,7 +33,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="mr-1">
+				<!-- <div class="mr-1">
 					<div class="border grid grid-flow-col gap-0 divide-x">
 						<span class="self-center px-2">
 							<span class="text-red-600 animate-pulse">
@@ -69,7 +69,7 @@
 						</span>
 						<span class="px-2 p-0.5 text-xs">{{ lantern.battery }}%</span>
 					</div>
-				</div>
+				</div> -->
 				<div class="flex mr-2">
 					<div class="border grid grid-flow-col gap-0 divide-x">
 						<span class="self-center px-2">
