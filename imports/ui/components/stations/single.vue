@@ -63,7 +63,9 @@
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Lantern ID</h5>
-					<h4 readonly class="text-sm">{{ station.lantern }}</h4>
+          <router-link :to="{name: 'lanterns'}">
+            <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.lantern }}</h4>
+          </router-link>
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">BPM</h5>
@@ -107,10 +109,10 @@ export default {
 	watch: {
 		'station.state': function (newVal) {
 			if (newVal === 1) {
-				this.progress(this.$props.station, 'forward');
+				//this.progress(this.$props.station, 'forward');
 			}
 			if (newVal === 9 || newVal === 4) {
-				this.progress(this.$props.station, 'reverse');
+				//this.progress(this.$props.station, 'reverse');
 			}
 		}
 	},
