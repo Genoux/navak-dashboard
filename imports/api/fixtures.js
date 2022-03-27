@@ -4,6 +4,16 @@ import Lanterns from './collections/Lanterns.js';
 import Stations from './collections/Stations.js';
 import ping from 'ping';
 import tcpp from 'tcp-ping';
+import mqtt from 'mqtt';
+const host = '192.168.1.212'
+const port = '1883'
+var client = mqtt.connect(`mqtt://${host}:${port}`)
+client.port = port;
+client.host = host;
+client.on('connect', function () {
+  console.log(`🔗 Connected to MQTT: mqtt://${client.host}:${client.port}`)
+})
+
 
 Meteor.startup(async (e) => {
   const stations = Stations.find().fetch();
@@ -22,6 +32,7 @@ function pingLanterns(obj) {
   obj.forEach(async function (host) {
     let res = await ping.promise.probe(host.ipAddress);
     Lanterns.update({ ipAddress: host.ipAddress }, { $set: { status: res.alive } })
+    client.publish('/lanterns/update', JSON.stringify(host));
   });
 }
 

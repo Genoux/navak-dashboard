@@ -356,6 +356,8 @@ export default {
 			}
 			this.loading = true;
 			this.dialogClose = true;
+      console.log("🚀 ~ file: single.vue ~ line 379 ~ setTimeout ~ obj.id", `http://${this.api}/api/lanterns/${obj.id}`);
+
 			setTimeout(() => {
 				// update lantern to the API??
 				this.$http
