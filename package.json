@@ -28,7 +28,7 @@
     "material-icons": "^1.10.6",
     "mdi-vue": "^3.0.12",
     "meteor-node-stubs": "^1.1.0",
-    "mqtt": "^4.3.4",
+    "mqtt": "^4.3.7",
     "node-cron": "^3.0.0",
     "ping": "^0.4.1",
     "postcss-loader": "^6.2.1",
