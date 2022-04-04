@@ -24,9 +24,12 @@ Meteor.startup(async (e) => {
 function pingLanterns(obj) {
   obj.forEach(async function (host) {
     let res = await ping.promise.probe(host.ipAddress);
-    client.publish(`/${host.id}/status`, `{ "status": ${res.alive} }`);
     client.publish('/lanterns/update', JSON.stringify(host));
-    Lanterns.update({ ipAddress: host.ipAddress }, { $set: { status: res.alive, picked: false } })
+    Lanterns.update({ ipAddress: host.ipAddress }, { $set: { status: res.alive } })
+    if (!res.alive) {
+      client.publish(`/${host.id}/status`, `{ "status": ${res.alive} }`);
+      Lanterns.update({ ipAddress: host.ipAddress }, { $set: { picked: false } })
+    }
   });
 }
 
