@@ -1,12 +1,11 @@
 import 'dotenv/config';
 //import mqtt from 'mqtt';
 const mqtt = require('mqtt')
-const { MQTTIP } = process.env;
 
 export function clientConnect() {
   return new Promise((resolve, reject) => { 
     try {
-      const host = '127.0.0.1';
+      const host = '192.168.1.212';
       const port = '1883';
       client = mqtt.connect(`mqtt://${host}:${port}`);
       client.on('connect', function () {
