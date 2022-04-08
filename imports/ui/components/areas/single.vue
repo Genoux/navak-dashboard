@@ -106,7 +106,7 @@ export default {
 				group: '',
 				x: '',
 				y: '',
-				z: '',
+				z: 0,
 				size: '',
 				param1: 0,
 				param2: 0,
@@ -144,7 +144,7 @@ export default {
 					console.log('🚀 ~ file: single.vue ~ line 116 ~ .then ~ response', response);
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
-					this.defaultValue.z = response.data.position.z;
+					this.defaultValue.z = 0;
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 					this.loading = false;
 				})
@@ -172,7 +172,7 @@ export default {
 				group: obj.group,
 				x: obj.x,
 				y: obj.y,
-				z: obj.z,
+				z: 0,
 				size: obj.size,
 				param1: obj.param1,
 				param2: obj.param2,
@@ -217,7 +217,7 @@ export default {
 			this.defaultValue.group = e.group;
 			this.defaultValue.x = e.x;
 			this.defaultValue.y = e.y;
-			this.defaultValue.z = e.z;
+			this.defaultValue.z = 0;
 			this.defaultValue.size = e.size;
 			(this.defaultValue.param1 = e.param1), (this.defaultValue.param2 = e.param2), (this.defaultValue.param3 = e.param3);
 

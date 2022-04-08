@@ -136,7 +136,7 @@ export default {
 					console.log('response', response.data.position);
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
-					this.defaultValue.z = response.data.position.z;
+					this.defaultValue.z = 0;
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 					this.loading = false;
 				})
