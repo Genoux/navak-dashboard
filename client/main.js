@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css'
@@ -8,6 +9,8 @@ import * as mdijs from '@mdi/js'
 import VueRouter from 'vue-router'
 import routes from '/imports/routes';
 import axios from 'axios';
+import { db, api, mqtt } from '../env.js'
+
 
 const router = new VueRouter({
   mode: 'history',
@@ -15,7 +18,9 @@ const router = new VueRouter({
   linkExactActiveClass: "bg-gray-dark-light",
 })
 Meteor.startup(() => {
+
   Vue.prototype.$http = axios;
+  Vue.prototype.$param = { db:db(), api:api(), mqtt:mqtt() };
   Vue.use(mdiVue, {
     icons: mdijs
   }) 
