@@ -272,7 +272,7 @@ export default {
       this.loading = true;
       try {
         this.$http
-          .put(`http://${this.api}/api/lanterns/reset/${this.selectedLantern.id}`, {
+          .put(`http://${this.$param.api}/api/lanterns/reset/${this.selectedLantern.id}`, {
             id: elm.id
           })
           .then((response) => {
@@ -291,7 +291,7 @@ export default {
 			this.loading = true;
 			try {
 				this.$http
-					.post(`http://${this.api}/api/lanterns/reboot`, {
+					.post(`http://${this.$param.api}/api/lanterns/reboot`, {
 						id: elm.id
 					})
 					.then((response) => {
@@ -310,7 +310,7 @@ export default {
 			this.apiCalling = true;
 			try {
 				this.$http
-					.post(`http://${this.api}/api/lanterns/flash`, {
+					.post(`http://${this.$param.api}/api/lanterns/flash`, {
 						id: elm.id
 					})
 					.then((response) => {
@@ -356,12 +356,12 @@ export default {
 			}
 			this.loading = true;
 			this.dialogClose = true;
-      console.log("🚀 ~ file: single.vue ~ line 379 ~ setTimeout ~ obj.id", `http://${this.api}/api/lanterns/${obj.id}`);
+      console.log("🚀 ~ file: single.vue ~ line 379 ~ setTimeout ~ obj.id", `http://${this.$param.api}/api/lanterns/${obj.id}`);
 
 			setTimeout(() => {
 				// update lantern to the API??
 				this.$http
-					.put(`http://${this.api}/api/lanterns/${obj.id}`, this.defaultValue)
+					.put(`http://${this.$param.api}/api/lanterns/${obj.id}`, this.defaultValue)
 					.then((response) => {
 						console.log('response', response);
 						this.openNotification('top-center', 'success', '👍 Succelfully updated lantern!', 'You can check the changes in the list');

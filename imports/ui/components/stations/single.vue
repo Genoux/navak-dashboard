@@ -146,7 +146,7 @@ export default {
     presence(station) {
       station.presence  = !station.presence
       try {
-        this.$http.put(`http://${this.api}/api/stations/presence/${this.station.id}`, {presence: station.presence}).then((response) => {
+        this.$http.put(`http://${this.$param.api}/api/stations/presence/${this.station.id}`, {presence: station.presence}).then((response) => {
           console.log('response', response);
           this.loading = false;
           if(station.presence){
@@ -178,7 +178,7 @@ export default {
 			this.loading = true;
 			this.rebooting = true;
 			try {
-				this.$http.post(`http://${this.api}/api/stations/reboot/${this.station.id}`).then((response) => {
+				this.$http.post(`http://${this.$param.api}/api/stations/reboot/${this.station.id}`).then((response) => {
 					console.log('response', response);
 					this.loading = false;
 					this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${this.station.id} restarted successfully!`);
