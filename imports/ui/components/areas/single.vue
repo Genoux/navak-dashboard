@@ -94,7 +94,6 @@ export default {
 	},
 	data() {
 		return {
-			api: '192.168.1.209:8081' || process.env.API,
 			apiCalling: false,
 			clicked: false,
 			selectedArea: '',
@@ -106,7 +105,7 @@ export default {
 				group: '',
 				x: '',
 				y: '',
-				z: '',
+				z: 0,
 				size: '',
 				param1: 0,
 				param2: 0,
@@ -125,7 +124,7 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			try {
-				await this.$http.delete(`http://${this.api}/api/areas/${this.selectedArea.id}`);
+				await this.$http.delete(`http://${this.$param.api}/api/areas/${this.selectedArea.id}`);
 				this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 				this.loading = false;
 				this.activeDialog = false;
@@ -139,12 +138,12 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get(`http://${this.api}/api/areas/snap`)
+				.get(`http://${this.$param.api}/api/areas/snap`)
 				.then((response) => {
 					console.log('🚀 ~ file: single.vue ~ line 116 ~ .then ~ response', response);
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
-					this.defaultValue.z = response.data.position.z;
+					this.defaultValue.z = 0;
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 					this.loading = false;
 				})
@@ -172,7 +171,7 @@ export default {
 				group: obj.group,
 				x: obj.x,
 				y: obj.y,
-				z: obj.z,
+				z: 0,
 				size: obj.size,
 				param1: obj.param1,
 				param2: obj.param2,
@@ -188,7 +187,7 @@ export default {
 			this.loading = true;
 			this.dialogClose = true;
 			this.$http
-				.put(`http://${this.api}/api/areas/${obj.id}`, this.defaultValue)
+				.put(`http://${this.$param.api}/api/areas/${obj.id}`, this.defaultValue)
 				.then((response) => {
 					console.log('response', response);
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
@@ -217,7 +216,7 @@ export default {
 			this.defaultValue.group = e.group;
 			this.defaultValue.x = e.x;
 			this.defaultValue.y = e.y;
-			this.defaultValue.z = e.z;
+			this.defaultValue.z = 0;
 			this.defaultValue.size = e.size;
 			(this.defaultValue.param1 = e.param1), (this.defaultValue.param2 = e.param2), (this.defaultValue.param3 = e.param3);
 

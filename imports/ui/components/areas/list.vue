@@ -1,7 +1,7 @@
 <template name="areas">
 	<div>
 		<div class="flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5 pl-5 pr-5 ">
-			<h1 class="text-white self-center font-regular flex-1">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1).slice(1) }} / group: {{ selected }}</h1>
+			<h1 class="text-white self-center font-regular flex-1">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }}</h1>
 			<div class="flex-2 self-center ">
 				<div class="flex">
 					<input
@@ -104,7 +104,6 @@ export default {
 			search: '',
 			selected: 'selected',
 			value: '',
-			api: '127.0.0.1:8081' || process.env.API,
 			activeDialog: false,
 			loading: false,
 			defaultValue: {
@@ -131,12 +130,12 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get(`http://${this.api}/api/areas/snap`, {id: 'd490'})
+				.get(`http://${this.$param.api}/api/areas/snap`, {id: 'd490'})
 				.then((response) => {
 					console.log('response', response.data.position);
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
-					this.defaultValue.z = response.data.position.z;
+					this.defaultValue.z = 0;
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 					this.loading = false;
 				})
@@ -184,7 +183,7 @@ export default {
 			}
 			try {
         this.loading = true;
-				await this.$http.post(`http://${this.api}/api/areas/`, this.defaultValue);
+				await this.$http.post(`http://${this.$param.api}/api/areas/`, this.defaultValue);
 				this.openNotification('top-center', 'success', `👍 Succelfully created position ${elm.name}`, 'You can check the changes in the list');
 				this.loading = false;
 				this.closeDialog();

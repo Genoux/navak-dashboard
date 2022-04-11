@@ -3,8 +3,8 @@
 		<div
 			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
-				'opacity-20': station.state === 8 || station.status === false,
-				'pointer-events-none': station.state === 8 || station.status === false
+				'opacity-20': station.status === false,
+				'pointer-events-none': station.status === false
 			}"
 		>
 			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
@@ -13,7 +13,7 @@
 						class="w-2 h-2 flex self-center mr-2 animate-pulse"
 						v-bind:class="{
 							'bg-gray-light': station.status == false,
-							'bg-white': station.state == 7,
+							'bg-white': station.state == 7 || station.state == 9,
 							'bg-status-green': station.state == 0 && station.status == true,
 							'bg-orange': station.state == 6,
 							'bg-indigo-50': station.state == 2,
@@ -21,8 +21,7 @@
 							'bg-status-red': station.state == 4 || station.state == 3
 						}"
 					></div>
-					<h4 class="font-medium">{{ station.id }}</h4>
-					<div class="flex"><mdicon class="self-center pl-1" name="Lightbulb" size="18"></mdicon></div>
+					<h4 class="font-medium">{{ station.id }} / <span class="opacity-50 font-light">{{ station.ipAddress }}</span></h4>
 				</div>
 				<div class="m-auto">
 					<h4 class="font-medium">{{ station.ip }}</h4>
@@ -40,7 +39,6 @@
 						>
 							<mdicon name="Refresh" size="16"></mdicon>
 						</div>
-            
 					</div>
 				</div>
         <div class="flex">
@@ -56,7 +54,7 @@
 			<div
 				class="grid grid-cols-2 p-5 gap-5 self-end"
 				v-bind:class="{
-					'visually-hidden': station.state === 8 || station.status === false
+					'visually-hidden': station.status === false
 				}"
 			>
 				<div>
@@ -65,7 +63,9 @@
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Lantern ID</h5>
-					<h4 readonly class="text-sm">{{ station.lantern }}</h4>
+          <router-link :to="{name: 'lanterns'}">
+            <h4 readonly class="text-sm hover:underline cursor-pointer">{{ station.lantern }}</h4>
+          </router-link>
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">BPM</h5>
@@ -92,10 +92,10 @@
 			<div
 				class="pl-5 pr-5 pb-5"
 				v-bind:class="{
-					'visually-hidden': station.state === 8 || station.status === false
+					'visually-hidden': station.status === false
 				}"
 			>
-				<div class="bg-input-dark w-full"><div id="progress-bar" :style="{width: w + '%'}" class="h-0.5 bg-white w-0"></div></div>
+				<div class="bg-input-dark w-full rounded-md" :style="{background: `rgba(${this.$props.station.rgb})`}"><div :id="this.$props.station.id" :style="{width: w + '%'}" class="h-1 bg-white w-0 " ></div></div>
 			</div>
 		</div>
 	</div>
@@ -109,16 +109,15 @@ export default {
 	watch: {
 		'station.state': function (newVal) {
 			if (newVal === 1) {
-				this.progress(this.$props.station, 'forward');
+				//this.progress(this.$props.station, 'forward');
 			}
 			if (newVal === 9 || newVal === 4) {
-				this.progress(this.$props.station, 'reverse');
+				//this.progress(this.$props.station, 'reverse');
 			}
 		}
 	},
 	data() {
 		return {
-			api: '127.0.0.1:3001',  //
 			loading: false,
 			rebooting: false,
 			w: 0,
@@ -129,21 +128,24 @@ export default {
 		const _self = this;
 		Vue.prototype.$actionButton = anime
 			.timeline({
-				targets: '#progress-bar',
+				targets: '#s001',
 				duration: 15000,
 				easing: 'linear',
 				autoplay: false,
+        complete: function(anim) {
+          _self.w = 0;
+        },
 				update: function (anim) {
 					_self.w = anim.progress;
 				}
 			})
-			.add({targets: '#progress-bar', background: `rgb(${this.$props.station.rgb}, 255)`}, 0);
+			.add({targets: '#s002', background: `rgb(${this.$props.station.rgb}, 255)`}, 0);
 	},
 	methods: {
     presence(station) {
       station.presence  = !station.presence
       try {
-        this.$http.put(`http://${this.api}/api/stations/${this.station.id}`, {presence: station.presence}).then((response) => {
+        this.$http.put(`http://${this.$param.api}/api/stations/presence/${this.station.id}`, {presence: station.presence}).then((response) => {
           console.log('response', response);
           this.loading = false;
           if(station.presence){
@@ -161,19 +163,21 @@ export default {
       }
     },
 		progress(elm, direction) {
+      console.log("🚀 ~ file: single.vue ~ line 165 ~ progress ~ direction", direction);
 			if (direction === 'forward') {
 				Vue.prototype.$actionButton.restart();
 			}
 			if (direction === 'reverse') {
 				Vue.prototype.$actionButton.pause();
 				this.w = 0;
+        console.log("🚀 ~ file: single.vue ~ line 172 ~ progress ~ this.w", this.w);
 			}
 		},
 		reboot(elm) {
 			this.loading = true;
 			this.rebooting = true;
 			try {
-				this.$http.post(`http://${this.api}/api/stations/reboot/${this.station.id}`).then((response) => {
+				this.$http.post(`http://${this.$param.api}/api/stations/reboot/${this.station.id}`).then((response) => {
 					console.log('response', response);
 					this.loading = false;
 					this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${this.station.id} restarted successfully!`);

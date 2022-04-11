@@ -31,7 +31,6 @@
 <script>
 
   export default {
-
     data() {
       return {
         text: 'This will get copied!'

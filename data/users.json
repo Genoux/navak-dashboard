@@ -8,7 +8,8 @@
   "__v": 0,
   "pulse": 60,
   "group": 1,
-  "rgb": "240, 12, 22, 255"
+  "rgb": "240, 12, 22, 255",
+  "picked": false
 },{
   "id": "0a99",
   "hostName": "esp32-D2AE70",
@@ -21,7 +22,8 @@
   "group": 1,
   "rgb": "0, 0, 0, 0",
   "battery": 0,
-  "wifiSignal": 0
+  "wifiSignal": 0,
+    "picked": false
 },{
   "id": "5a8e",
   "hostName": "esp32-66E53C",
@@ -34,5 +36,6 @@
   "group": 1,
   "rgb": "255, 76, 0, 255",
   "battery": 0,
-  "wifiSignal": 0
+  "wifiSignal": 0,
+    "picked": false
 }]
