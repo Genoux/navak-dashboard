@@ -138,7 +138,7 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get(`http://${this.api}/api/areas/snap`)
+				.get(`http://${this.$param.api}/api/areas/snap`)
 				.then((response) => {
 					console.log('🚀 ~ file: single.vue ~ line 116 ~ .then ~ response', response);
 					this.defaultValue.x = response.data.position.x;
