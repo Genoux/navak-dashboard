@@ -1,17 +1,17 @@
 <template name="areas">
-	<div>
-		<div class="flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5 pl-5 pr-5 ">
-			<h1 class="text-white self-center font-regular flex-1">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }}</h1>
-			<div class="flex-2 self-center ">
-				<div class="flex">
+	<div class="bg-gray-dark pb-24">
+		<div class="flex flex-col md:flex-row bg-dark border-b border-white border-opacity-20 pt-5 md:pb-5 pb-8 pl-5 pr-5 ">
+			<h1 class="text-white text-left mr-auto self-center font-regular md:flex-1 md:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }}</h1>
+			<div class="md:flex-2">
+				<div class="md:flex grid grid-cols-3">
 					<input
-						class="mr-5 bg-black text-white pl-2 border pr-20 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
+						class="md:mr-5 md:pt-0 md:pb-0 md:mb-0 bg-black text-white pl-2 border md:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
 						type="text"
 						v-model="search"
 						placeholder="Search areas.."
 					/>
-					<div class="mr-5 self-center"><v-dropdown :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
-					<div @click="openDialog()" class="ml-auto self-center border border-white hover:opacity-60 cursor-pointer focus:bg-white p-1">
+					<div class="md:mr-5 md:mb-0 md:ml-0 ml-4"><v-dropdown class="w-full"  :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
+					<div @click="openDialog()" class="border md:w-auto p-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white ">
 						<mdicon class="text-white" name="Plus" size="18"></mdicon>
 					</div>
 				</div>
@@ -28,10 +28,10 @@
 				<v-area :area="area"></v-area>
 			</div>
 		</div>
-		<div v-else class="flex justify-center p-24 items-center borderm-4">
+		<div v-else class="flex justify-center p-24 items-center border m-4">
 			<mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
 		</div>
-		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
+		<div v-if="activeDialog" class="fixed w-full m-auto h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
 			<div class="bg-black border border-white border-opacity-25 sm:w-3/4 md:w-3/4 lg:w-3/6 pt-5 pb-8 px-10 shadow-lg z-50">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
@@ -42,7 +42,7 @@
 				<div @click="closeDialog" class="float-right text-white hover:opacity-80 cursor-pointer relative bottom-1 left-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
 					<mdicon name="Close"></mdicon>
 				</div>
-				<form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-3" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
+				<form class=" md:grid-cols-2 gap-6 w-full lg:grid-cols-3 grid grid-cols-2" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
 					<div :key="i" v-for="(value, key, i) in defaultValue">
 						<p class="text-sm text-white pb-2">{{ key }}</p>
 						<input

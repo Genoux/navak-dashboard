@@ -58,8 +58,8 @@
 				}"
 			>
 				<div>
-					<h5 class="text-xs text-white text-opacity-50 font-light">Message</h5>
-					<h4 readonly class="text-sm">{{ station.message }}</h4>
+					<h5 class="text-xs text-white text-opacity-50 font-light ">Message</h5>
+					<h4 readonly class="text-sm pt-1 whitespace-nowrap">{{ station.message }}</h4>
 				</div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Lantern ID</h5>

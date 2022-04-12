@@ -52,7 +52,7 @@
 				<div @click="closeDialog" class="float-right text-white hover:opacity-80 cursor-pointer relative bottom-1 left-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
 					<mdicon name="Close"></mdicon>
 				</div>
-				<form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-3" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
+				<form class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2 lg:grid-cols-3 grid-cols-2" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
 					<div :key="i" v-for="(value, key, i) in filteredAreas">
 						<p class="text-sm text-white pb-2">{{ key }}</p>
 						<input

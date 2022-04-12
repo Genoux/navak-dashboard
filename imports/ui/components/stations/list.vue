@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="bg-gray-dark pb-24">
     <div class="w-full flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5">
       <h1 class="text-white ml-5 align-middle self-center content-center font-regular">
         {{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }}
       </h1>
     </div>
     <v-serversStatus></v-serversStatus>
-    <div v-if="stations.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+    <div v-if="stations.length > 0" class="p-4 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
       <div v-bind:key="object" v-for="(station, object) in stations">
         <v-station :station="station"></v-station>
       </div>
