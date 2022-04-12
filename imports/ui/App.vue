@@ -1,9 +1,10 @@
-<template >
+<template>
   <div>
-    <div class="bg-gray-dark flex flex-row darken" vs-theme="dark">
-     <v-sidebar></v-sidebar>
-      <div class="w-full">
-        <router-view></router-view>
+    <div class="bg-gray-dark flex flex-row darken h-full" vs-theme="dark">
+     <v-sidebar class="md:block hidden"></v-sidebar>
+     <v-bottombar class="md:hidden block"></v-bottombar>
+      <div class="w-full h-screen justify-between">
+        <router-view ></router-view>
       </div>
     </div>
   </div>
@@ -17,7 +18,9 @@ import { version } from '../../package.json'
 export default {
   data() {
     return {
+      noti: null,
       version: version,
+      windowHeight: window.innerHeight,
       env: Meteor.isDevelopment ? 'Development' : 'Production'
     };
   },
@@ -25,15 +28,30 @@ export default {
     'v-sidebar' : Sidebar,
     'v-bottombar': Bottombar
   },
+  created() {
+    window.addEventListener("resize", this.onResize);
+  },
+  methods:{
+    onResize(e) {
+      if(window.innerWidth < 768) {
+        if(this.noti === null){return}
+         this.noti.close()
+         console.log("🚀 ~ file: App.vue ~ line 50 ~ onResize ~ this.noti", this.noti);
+      }
+    }
+  },
   mounted() {
     document.body.classList.add('darken')
-    this.$vs.notification({
-      duration: 'none',
-      square: true,
-      title:  `Navak Dashboard ${version} - ${this.env}`,
-      text: `Dashboard for controle over Navak physical project 👹 -
-      <a style="text-decoration:underline"; href="https://github.com/navak-project/navak-dashboard">Check out the github</a>`,
-    })
+    if(window.innerWidth > 768) {
+     this.noti =  this.$vs.notification({
+        duration: 'none',
+        square: true,
+        title:  `Navak Dashboard ${version} - ${this.env}`,
+        text: `Dashboard for controle over Navak physical project 👹 -
+        <a style="text-decoration:underline"; href="https://github.com/navak-project/navak-dashboard">Check out the github</a>`,
+      })
+    }
+
   }
 };
 </script>

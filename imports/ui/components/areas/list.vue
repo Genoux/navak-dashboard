@@ -1,17 +1,17 @@
 <template name="areas">
-	<div>
-		<div class="flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5 pl-5 pr-5 ">
-			<h1 class="text-white self-center font-regular flex-1">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }}</h1>
-			<div class="flex-2 self-center ">
-				<div class="flex">
+	<div class="bg-gray-dark pb-24">
+		<div class="flex flex-col md:flex-row bg-dark border-b border-white border-opacity-20 pt-5 md:pb-5 pb-8 pl-5 pr-5 ">
+			<h1 class="text-white text-left mr-auto self-center font-regular md:flex-1 md:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }}</h1>
+			<div class="md:flex-2">
+				<div class="md:flex grid grid-cols-3">
 					<input
-						class="mr-5 bg-black text-white pl-2 border pr-20 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
+						class="md:mr-5 md:pt-0 md:pb-0 md:mb-0 bg-black text-white pl-2 border md:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
 						type="text"
 						v-model="search"
 						placeholder="Search areas.."
 					/>
-					<div class="mr-5 self-center"><v-dropdown :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
-					<div @click="openDialog()" class="ml-auto self-center border border-white hover:opacity-60 cursor-pointer focus:bg-white p-1">
+					<div class="md:mr-5 md:mb-0 md:ml-0 ml-4"><v-dropdown class="w-full"  :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
+					<div @click="openDialog()" class="border md:w-auto p-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white ">
 						<mdicon class="text-white" name="Plus" size="18"></mdicon>
 					</div>
 				</div>
