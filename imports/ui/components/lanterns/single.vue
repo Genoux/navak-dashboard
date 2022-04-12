@@ -33,50 +33,13 @@
 						</span>
 					</div>
 				</div>
-				<!-- <div class="mr-1">
-					<div class="border grid grid-flow-col gap-0 divide-x">
-						<span class="self-center px-2">
-							<span class="text-red-600 animate-pulse">
-								<mdicon v-if="lantern.battery >= 0 && lantern.battery <= 10" size="12" name="Battery10" />
-							</span>
-							<span class="text-red-600 animate-pulse">
-								<mdicon v-if="lantern.battery >= 11 && lantern.battery <= 20" size="12" name="Battery20" />
-							</span>
-							<span class="text-yellow animate-pulse">
-								<mdicon v-if="lantern.battery >= 21 && lantern.battery <= 30" size="12" name="Battery30" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 31 && lantern.battery <= 40" size="12" name="Battery40" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 41 && lantern.battery <= 50" size="12" name="Battery50" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 51 && lantern.battery <= 60" size="12" name="Battery60" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 61 && lantern.battery <= 70" size="12" name="Battery70" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 71 && lantern.battery <= 80" size="12" name="Battery80" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 81 && lantern.battery <= 90" size="12" name="Battery90" />
-							</span>
-							<span>
-								<mdicon v-if="lantern.battery >= 91 && lantern.battery <= 100" size="12" name="Battery" />
-							</span>
-						</span>
-						<span class="px-2 p-0.5 text-xs">{{ lantern.battery }}%</span>
-					</div>
-				</div> -->
-				<div class="flex mr-2">
-					<div class="border grid grid-flow-col gap-0 divide-x">
+				<div class="flex mr-1">
+					<!-- <div class="border grid grid-flow-col gap-0 divide-x">
 						<span class="self-center px-2">
 							<mdicon size="12" name="wifi" />
 						</span>
 						<span class="px-2 p-0.5 text-xs">{{ lantern.wifiSignal }}%</span>
-					</div>
+					</div> -->
 				</div>
 				<div class="border-l border-white border-opacity-25 flex">
 					<div @click="flash(lantern)" class="border ml-4 p-1 hover:opacity-60 cursor-pointer">
@@ -111,7 +74,7 @@
 		</div>
 		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
-			<div class="bg-black border border-white border-opacity-25 sm:w-full md:w-2/5 pt-5 pb-8 px-10 shadow-lg z-50">
+			<div class="bg-black border border-white border-opacity-25  md:w-4/5 lg:w-2/4  pt-5 pb-8 px-10 w-full shadow-lg z-50">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
 					<svg fill="white" class="animate-spin h-8 w-8" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
 						<path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
@@ -128,7 +91,7 @@
 					<mdicon name="Close"></mdicon>
 				</div>
 				<form
-					class="pt-0 pb-0 grid md:grid-cols-2 gap-6 w-full sm:grid-cols-2"
+					class="pt-0 pb-0 grid md:grid-cols-2 gap-6  grid-cols-2 "
 					v-bind:class="{
 						'opacity-10': loading,
 						'pointer-events-none': loading
@@ -181,24 +144,24 @@
 				</form>
         <hr class="mt-6 border-1 opacity-20 border-gray-light">
 				<div
-					class="grid grid-flow-col grid-cols-4 gap-2 pt-2 mt-6"
+					class="grid-flow-row md:grid-flow-row lg:grid-flow-col flex gap-2 pt-2 mt-6"
 					v-bind:class="{
 						'opacity-10': loading,
 						'pointer-events-none': loading
 					}"
 				>
-					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-6 rounded-sm flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
-            <div class="m-auto flex align-middle content-center">
+					<button @click="updateLantern(selectedLantern, $event)" class="py-2 px-6 flex-1 rounded-sm grid-cols-1 text-center drop-shadow-lg bg-green text-white hover:opacity-90">
+            <div class="m-auto  align-middle content-center">
               <span class="mr-1">Done</span>
             </div>
 					</button>
-					<button @click="restart(lantern)" class="py-2 px-6 flex text-center rounded-sm drop-shadow-lg bg-indigo-500 text-white hover:opacity-90">
-            <div class="m-auto flex align-middle content-center">
+					<button @click="restart(lantern)" class="py-2 px-6  text-center rounded-sm drop-shadow-lg bg-indigo-500 text-white hover:opacity-90">
+            <div class="m-auto  align-middle content-center">
               <span class="mr-1">Reboot</span>
             </div>
 					</button>
-          <button @click="reset(lantern)" class="py-2 px-6 flex rounded-sm text-center drop-shadow-lg bg-orange text-white hover:opacity-90">
-              <div class="m-auto flex align-middle content-center">
+          <button @click="reset(lantern)" class="py-2 px-6  rounded-sm text-center drop-shadow-lg bg-orange text-white hover:opacity-90">
+              <div class="m-auto  align-middle content-center">
                 <span class="mr-1">Reset</span>
               </div>
           </button>

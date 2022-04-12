@@ -6,7 +6,7 @@
 			</h1>
 		</div>
 		<v-serversStatus></v-serversStatus>
-		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 			<div v-bind:key="object" v-for="(lantern, object) in lanterns">
 				<v-lantern :lantern="lantern"></v-lantern>
 			</div>
