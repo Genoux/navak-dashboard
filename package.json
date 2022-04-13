@@ -8,6 +8,7 @@
     "url": "https://github.com/navak-project/navak-dashboard.git"
   },
   "scripts": {
+    "pm2": "pm2 startOrRestart ecosystem.config.js --env production",
     "meteor-school": "set NODE_ENV=developpement && set MONGO_OPLOG_URL=mongodb://navak:navakFTW@192.168.1.209/local?authSource=admin && set MONGO_URL=mongodb://192.168.1.209:27017/navak && meteor",
     "meteor-home": "set NODE_ENV=developpement && set MONGO_URL=mongodb://127.0.0.1:27017/navak && meteor",
     "start": "meteor run",

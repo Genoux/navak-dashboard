@@ -1,0 +1,10 @@
+[
+    {
+        "id": 0,
+        "name": "Bridge_L",
+        "universe": 100,
+        "address": 1,
+        "area": "Bridge_1",
+        "fixtureType": 2
+    }
+]
