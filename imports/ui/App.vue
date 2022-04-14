@@ -3,7 +3,7 @@
     <div class="bg-gray-dark flex flex-row darken h-full" vs-theme="dark">
      <v-sidebar class="md:block hidden"></v-sidebar>
      <v-bottombar class="md:hidden block"></v-bottombar>
-      <div class="w-full h-screen justify-between">
+      <div class="w-full ml-0 md:ml-12 h-screen justify-between">
         <router-view ></router-view>
       </div>
     </div>

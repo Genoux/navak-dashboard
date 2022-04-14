@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<div class="relative bg-dark ">
-			<nav class="bg-gray-800 h-screen justify-between flex flex-col p-2 border-r border-white border-opacity-20">
+		<div class="relative bg-dark">
+			<nav class="bg-gray-800 h-screen fixed bg-dark justify-between flex flex-col p-2 border-r border-white border-opacity-20">
 				<div>
 					<ul>
 						<li>
