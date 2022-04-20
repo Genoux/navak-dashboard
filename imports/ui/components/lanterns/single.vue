@@ -235,14 +235,14 @@ export default {
       this.loading = true;
       try {
         this.$http
-          .put(`http://${this.$param.api}/api/lanterns/reset/${this.selectedLantern.id}`, {
+          .put(`http://${this.$param.api}/api/lanterns/reset/${elm.id}`, {
             id: elm.id
           })
           .then((response) => {
             console.log('response', response);
             this.loading = false;
             this.closeDialog();
-            this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${this.selectedLantern.id} reset successfully!`);
+            this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${elm.id} reset successfully!`);
           });
       } catch (error) {
         console.log(error);
@@ -261,7 +261,7 @@ export default {
 						console.log('response', response);
 						this.loading = false;
 						this.closeDialog();
-						this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${this.selectedLantern.id} restarted successfully!`);
+						this.openNotification('top-center', 'success', '🔥 Rebooted! ', `Lantern ${elm.id} restarted successfully!`);
 					});
 			} catch (error) {
 				console.log(error);
