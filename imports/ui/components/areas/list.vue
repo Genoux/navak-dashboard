@@ -1,19 +1,22 @@
 <template name="areas">
 	<div class="bg-gray-dark pb-24">
 		<div class="flex flex-col md:flex-row bg-dark border-b border-white border-opacity-20 pt-5 md:pb-5 pb-8 pl-5 pr-5 ">
-			<h1 class="text-white text-left mr-auto self-center font-regular md:flex-1 md:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }}</h1>
+			<h1 class="text-white text-left mr-auto self-center font-regular md:flex-1 md:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }} <span class="opacity-50">({{filteredList.length}})</span> </h1>
 			<div class="md:flex-2">
 				<div class="md:flex grid grid-cols-3">
 					<input
-						class="md:mr-5 md:pt-0 md:pb-0 md:mb-0 bg-black text-white pl-2 border md:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
+						class="rounded-sm md:mr-5 md:pt-0 md:pb-0 md:mb-0 bg-black text-white pl-2 border md:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
 						type="text"
 						v-model="search"
 						placeholder="Search areas.."
 					/>
-					<div class="md:mr-5 md:mb-0 md:ml-0 ml-4"><v-dropdown class="w-full"  :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
-					<div @click="openDialog()" class="border md:w-auto p-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white ">
-						<mdicon class="text-white" name="Plus" size="18"></mdicon>
+					<div class="md:mr-5 md:mb-0 md:ml-0 ml-4" ><v-dropdown class="w-full " CustomClass="h-full" style="height: 34px;" :setAll=true  default="All" :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
+					<div @click="openDialog()" class="border rounded-sm flex md:w-auto pl-3 pr-3 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white ">
+						<mdicon class="text-white   mt-auto mb-auto " name="Plus" size="18"></mdicon>
 					</div>
+          <!-- <div @click="confirmationPopup()" class=" border md:w-auto  ml-4 p-1 pr-2 pl-2  border-white hover:opacity-60 cursor-pointer focus:bg-white ">
+            <p class="text-white ">Delete All</p>
+          </div> -->
 				</div>
 			</div>
 		</div>
@@ -48,15 +51,19 @@
 						<input
 							v-model="defaultValue[key]"
 							:placeholder="JSON.stringify(defaultValue[key])"
-							class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
+							class="rounded-sm w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
 						/>
 					</div>
+          <div class="h-full">
+            <p class="text-sm text-white pb-2"> Snap Tool </p>
+            <v-dropdown style="height: 42px;" CustomClass="w-full px-4 py-2 h-full" :setAll="false" :selection="snapList" :default="snapList[0].group" @snapSelection="snapSelection($event)"></v-dropdown>
+          </div>
 				</form>
 				<div class="grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-5 gap-2 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
-					<button @click="createNewPosition(defaultValue)" class="py-2 px-6 flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
+					<button @click="createNewPosition(defaultValue)" class="rounded-sm py-2 px-6 flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
 						<mdicon class="m-auto" name="CheckBold"></mdicon>
 					</button>
-					<button @click="getPosition($event)" class="py-2 px-6 flex text-center drop-shadow-lg bg-blue text-white hover:opacity-90">
+					<button @click="getPosition($event)" class="rounded-sm py-2 px-6 flex text-center drop-shadow-lg bg-blue text-white hover:opacity-90">
 						<mdicon class="m-auto" name="Camera"></mdicon>
 					</button>
 				</div>
@@ -69,6 +76,7 @@ import Areas from '../../../../imports/api/collections/Areas';
 import dropdown from '../dropdown.vue';
 import singleArea from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
+import confirmationVue from '../confirmation.vue';
 import 'dotenv/config'
 export default {
 	name: 'areas',
@@ -97,10 +105,14 @@ export default {
 				}
 				return filtered;
 			});
-		}
+		},
 	},
 	data() {
 		return {
+      active: 0,
+      confirmation: null,
+      snapList: [{group: '0bb6'}, {group: 'd4b2'}],
+      snapSelected: '',
 			search: '',
 			selected: 'selected',
 			value: '',
@@ -122,15 +134,26 @@ export default {
 		};
 	},
 	methods: {
+    confirmationPopup() {
+      this.confirmation =  this.$vs.notification({
+        duration: 'none',
+        square: true,
+        color:'warning',
+        title:  `Warning!`,
+        content: confirmationVue,
+      })
+    },
 		filterSelection(e) {
-			console.log('🚀 ~ file: list.vue ~ line 147 ~ filterSelection ~ e', e);
 			this.selected = e;
 		},
+    snapSelection(e) {
+      this.snapSelected = e;
+    },
 		getPosition(event) {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get(`http://${this.$param.api}/api/areas/snap`, {id: 'd490'})
+				.get(`http://${this.$param.api}/api/areas/snap/${this.snapSelected}`)
 				.then((response) => {
 					console.log('response', response.data.position);
 					this.defaultValue.x = response.data.position.x;
