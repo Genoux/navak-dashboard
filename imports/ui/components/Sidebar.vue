@@ -25,6 +25,11 @@
                  <mdicon size="21" class="m-auto" name="HandBackRight" />
                </router-link>
              </li>
+             <li>
+               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-2 p-2 rounded-sm" :to="{name: 'fixture'}">
+                 <mdicon size="21" class="m-auto" name="FloorLampTorchiere" />
+               </router-link>
+             </li>
 					</ul>
 				</div>
 			</nav>
