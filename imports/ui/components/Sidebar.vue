@@ -20,26 +20,26 @@
         <div class="h-screen flex flex-col">
 					<ul>
 						<li>
-							<router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-left my-3 p-2 pr-32 rounded-sm" :to="{name: 'lanterns'}">
+							<router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-left my-3 p-2 pr-32 rounded-md" :to="{name: 'lanterns'}">
 								<mdicon size="18" class="mr-2" name="Lightbulb" /> 
                 <div class="m-auto w-full"><p class="text-sm text-left ">Lanterns</p></div>
 							</router-link>
 						</li>
             <li>
-              <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-sm" :to="{name: 'servers'}">
-                <mdicon size="18" class="mr-2" name="ServerSecurity" />
+              <router-link class="w-full relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2  rounded-md" :to="{name: 'servers'}">
+                <mdicon size="18" class="mr-2 self-center" name="ServerSecurity" />
                 <div class="m-auto w-full"><p class="text-sm text-left ">Servers</p></div>
-                <div v-if="servers.length > 0" class="h-3 w-3 bg-status-red absolute right-0 top-0 rounded-xl animate-pulse"></div>
+                <div v-if="servers.length > 0" class="h-4 w-2 self-center bg-status-red rounded-full animate-pulse"></div>
                  </router-link>
              	</li>
              <li>
-               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-sm" :to="{name: 'areas'}">
+               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-md" :to="{name: 'areas'}">
                  <mdicon size="18" class="mr-2" name="GoogleMaps" />
                  <div class="m-auto w-full"><p class="text-sm text-left">Areas</p></div>
                </router-link>
              </li>
              <li>
-               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-sm" :to="{name: 'stations'}">
+               <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-md" :to="{name: 'stations'}">
                  <mdicon size="18" class="mr-2" name="HandBackRight" />
                   <div class="m-auto w-full"><p class="text-sm text-left ">Stations</p></div>
                </router-link>
