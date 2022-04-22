@@ -51,7 +51,7 @@
             🔥 Navak Dashboard {{version}}
           </p></div>
 				</div>
-      <div @click='toggleNavigation()' class="absolute bottom-14 right-6 flex mb-40 mt-auto text-white hover:bg-gray-dark-light rounded-md"><mdicon name="ChevronRight" size=32 class=""></mdicon></div>
+      <!-- <div @click='toggleNavigation()' class="absolute bottom-14 right-6 flex mb-40 mt-auto text-white hover:bg-gray-dark-light rounded-md"><mdicon name="ChevronRight" size=32 class=""></mdicon></div> -->
 
 			</nav>
       <nav ref="navigationsm" class="flex flex-col bg-gray-800 fixed bg-dark justify-between  p-2  border-r border-white border-opacity-20">
@@ -80,7 +80,7 @@
                </router-link>
              </li>
           </ul>
-            <div @click='toggleNavigation()' class="flex mb-6 mt-auto text-white hover:bg-gray-dark-light rounded-md"><mdicon name="ChevronRight" size=32 class=""></mdicon></div>
+            <!-- <div @click='toggleNavigation()' class="flex mb-6 mt-auto text-white hover:bg-gray-dark-light rounded-md"><mdicon name="ChevronRight" size=32 class=""></mdicon></div> -->
         </div>
 
       </nav>
