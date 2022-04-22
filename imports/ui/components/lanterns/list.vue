@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div v-else class="flex justify-center p-24 items-center borderm-4">
-			<mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
+			<mdicon name="LightningBolt" size="31" class="animate-pulse text-white" />
 		</div>
 	</div>
 </template>

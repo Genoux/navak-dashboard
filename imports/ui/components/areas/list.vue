@@ -1,16 +1,16 @@
 <template name="areas">
 	<div class="bg-gray-dark pb-24">
-		<div class="flex flex-col md:flex-row bg-dark border-b border-white border-opacity-20 pt-5 md:pb-5 pb-8 pl-5 pr-5 ">
-			<h1 class="text-white text-left mr-auto self-center font-regular md:flex-1 md:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }} <span class="opacity-50">({{filteredList.length}})</span> </h1>
-			<div class="md:flex-2">
-				<div class="md:flex grid grid-cols-3">
+		<div class="flex flex-col lg:flex-row bg-dark border-b border-white border-opacity-20 pt-5 lg:pb-5 md:pb-5 pb-8 pl-5 pr-5 ">
+			<h1 class="text-white text-left mr-auto self-center font-regular lg:flex-1 lg:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }} <span class="opacity-50">({{filteredList.length}})</span> </h1>
+			<div class="lg:flex-2">
+				<div class="lg:flex grid grid-cols-3">
 					<input
-						class="rounded-sm md:mr-5 md:pt-0 md:pb-0 md:mb-0 bg-black text-white pl-2 border md:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
+						class="rounded-sm lg:mr-5 lg:pt-0 lg:pb-0 lg:mb-0 bg-black text-white pl-2 border lg:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
 						type="text"
 						v-model="search"
 						placeholder="Search areas.."
 					/>
-					<div class="md:mr-5 md:mb-0 md:ml-0 ml-4" ><v-dropdown class="w-full " CustomClass="h-full" style="height: 34px;" :setAll=true  default="All" :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
+					<div class="lg:mr-5 lg:mb-0 lg:ml-0 ml-4" ><v-dropdown class="w-full " CustomClass="h-full" style="height: 34px;" :setAll=true  default="All" :selection="areas" @filterSelection="filterSelection($event)"></v-dropdown></div>
 					<div @click="openDialog()" class="border rounded-sm flex md:w-auto pl-3 pr-3 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white ">
 						<mdicon class="text-white   mt-auto mb-auto " name="Plus" size="18"></mdicon>
 					</div>
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<div v-else class="flex justify-center p-24 items-center border m-4">
-			<mdicon name="LightningBolt" size="48" class="animate-pulse text-white" />
+			<mdicon name="LightningBolt" size="31" class="animate-pulse text-white" />
 		</div>
 		<div v-if="activeDialog" class="fixed w-full m-auto h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>

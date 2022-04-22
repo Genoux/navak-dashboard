@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="bg-gray-dark flex flex-row darken h-full" vs-theme="dark">
+    <div class="bg-gray-dark flex flex-row darken h-screen" vs-theme="dark">
      <v-sidebar class="md:block hidden"></v-sidebar>
      <v-bottombar class="md:hidden block"></v-bottombar>
-      <div class="w-full ml-0 md:ml-12 h-screen justify-between">
+ 
+      <div ref="content" class="w-full ml-0 md:ml-64 h-screen justify-between" v-bind:class="sideNavigationToggle">
         <router-view ></router-view>
       </div>
     </div>
@@ -14,10 +15,10 @@
 import Sidebar from "./components/Sidebar.vue";
 import Bottombar from "./components/Bottombar.vue";
 import { version } from '../../package.json'
-
 export default {
   data() {
     return {
+      sideNavigationToggle: this.$sideNavigationToggle,
       noti: null,
       version: version,
       windowHeight: window.innerHeight,
@@ -29,7 +30,7 @@ export default {
     'v-bottombar': Bottombar
   },
   created() {
-    window.addEventListener("resize", this.onResize);
+    //window.addEventListener("resize", this.onResize);
   },
   methods:{
     onResize(e) {
@@ -42,15 +43,16 @@ export default {
   },
   mounted() {
     document.body.classList.add('darken')
-    if(window.innerWidth > 768) {
+    /*if(window.innerWidth > 768) {
      this.noti =  this.$vs.notification({
         duration: 'none',
+        position: 'bottom-left',
         square: true,
         title:  `Navak Dashboard ${version} - ${this.env}`,
         text: `Dashboard for controle over Navak physical project 👹 -
         <a style="text-decoration:underline"; href="https://github.com/navak-project/navak-dashboard">Check out the github</a>`,
       })
-    }
+    }*/
 
   }
 };
