@@ -1,9 +1,9 @@
 <template>
   <div>
-    <select class="bg-black text-white p-1 border pr-20 after:p-20 select" v-model="selected">
-      <option value="All">All</option>
+    <select class="bg-black text-white p-1 border pr-20 after:p-20 select rounded-sm" :class="this.$props.CustomClass" v-model="selected">
+      <option v-if="setAll" value="All">All</option>
       <option
-        class="text-white"
+        class="text-white "
         :key="select[0].group"
         v-for="select in  group()"
         :value="select[0].group"
@@ -15,7 +15,10 @@
 <script>
 export default({
   props: {
-    selection: Array
+    selection: Array,
+    setAll: Boolean,
+    default: String,
+    CustomClass: String
   },
   methods: {
     group() {
@@ -26,13 +29,14 @@ export default({
           return rv;
         }, {});
       };
-      this.$emit('filterSelection', this.selected)
+      this.$emit('filterSelection', this.selected);
+      this.$emit('snapSelection', this.selected);
       return groupArrayOfObjects(obj, "group");
     }
   },
   data() {
     return {
-      selected: 'All'
+      selected: this.$props.default
     };
   }
 });

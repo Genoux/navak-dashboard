@@ -61,6 +61,10 @@
 							class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
 						/>
 					</div>
+          <div class="h-full">
+            <p class="text-sm text-white pb-2"> Snap Tool </p>
+            <v-dropdown style="height: 42px;" CustomClass="w-full px-4 py-2 h-full" :setAll="false" :selection="snapList" :default="snapList[0].group" @snapSelection="snapSelection($event)"></v-dropdown>
+          </div>
 				</form>
 				<div class="flex w-full gap-3 pt-2 mt-6" v-bind:class="{'opacity-10': loading, 'pointer-events-none': loading}">
 					<button @click="updatePosition(selectedArea, $event)" class="py-2 px-10 flex text-center drop-shadow-lg bg-green text-white hover:opacity-90">
@@ -81,6 +85,9 @@
 <script>
 import 'dotenv/config'
 export default {
+  components: {
+    'v-dropdown': () => import('../dropdown.vue')
+  },
 	computed: {
 		filteredAreas: function () {
 			const filtered = Object.keys(this.selectedArea)
@@ -94,6 +101,8 @@ export default {
 	},
 	data() {
 		return {
+      snapList: [{group: '0bb6'}, {group: 'd4b2'}],
+      snapSelected: '',
 			apiCalling: false,
 			clicked: false,
 			selectedArea: '',
@@ -117,6 +126,9 @@ export default {
 		area: Object
 	},
 	methods: {
+    snapSelection(e) {
+      this.snapSelected = e;
+    },
 		formatNumber(num) {
 			return parseFloat(num).toFixed(1);
 		},
@@ -138,9 +150,10 @@ export default {
 			event.preventDefault();
 			this.loading = true;
 			this.$http
-				.get(`http://${this.$param.api}/api/areas/snap`)
+				.get(`http://${this.$param.api}/api/areas/snap/${this.snapSelected}`)
 				.then((response) => {
-					console.log('🚀 ~ file: single.vue ~ line 116 ~ .then ~ response', response);
+				
+          if(response.data.position)
 					this.defaultValue.x = response.data.position.x;
 					this.defaultValue.y = response.data.position.y;
 					this.defaultValue.z = 0;
@@ -148,7 +161,6 @@ export default {
 					this.loading = false;
 				})
 				.catch((error) => {
-					console.log(error);
 					this.openNotification('top-center', 'danger', '💀 Something want wrong, please try again', `${error}`);
 					this.loading = false;
 				});

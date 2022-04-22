@@ -15,11 +15,12 @@ import { db, api, mqtt } from '../env.js'
 const router = new VueRouter({
   mode: 'history',
   routes,
-  linkExactActiveClass: "bg-gray-dark-light",
+  linkExactActiveClass: "bg-gray-dark-light text-bold",
 })
 Meteor.startup(() => {
-
+  
   Vue.prototype.$http = axios;
+  Vue.prototype.$sideNavigationToggle = false;
   Vue.prototype.$param = { db:db(), api:api(), mqtt:mqtt() };
   Vue.use(mdiVue, {
     icons: mdijs
