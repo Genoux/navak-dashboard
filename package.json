@@ -2,7 +2,7 @@
   "name": "navak-dashboard",
   "private": false,
   "description": "",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/navak-project/navak-dashboard.git"
@@ -33,9 +33,9 @@
     "mqtt": "^4.3.7",
     "node-cron": "^3.0.0",
     "ping": "^0.4.1",
-    "pm2-meteor": "^0.11.5",
+    "pm2-meteor": "^0.1.0",
     "postcss-loader": "^6.2.1",
-    "progress-it": "^1.1.1",
+    "progress-it": "^1.0.1",
     "tcp-ping": "^0.1.1",
     "tcp-ping-port": "^1.0.1",
     "tw-elements": "^1.0.0-alpha10",
@@ -63,6 +63,8 @@
     "postcss": "^8.4.6",
     "postcss-import": "^14.0.2",
     "postcss-load-config": "^3.1.1",
-    "tailwindcss": "^2.2.19"
+    "tailwindcss": "^2.2.19",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.14"
   }
 }

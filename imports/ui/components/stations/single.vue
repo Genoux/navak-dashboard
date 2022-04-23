@@ -1,5 +1,6 @@
 <template>
 	<div>
+   
 		<div
 			class="hover:border-current rounded-sm duration-75 ease-in bg-black text-white border border-white border-opacity-20"
 			v-bind:class="{
@@ -8,7 +9,7 @@
 			}"
 		>
 			<div class="flex w-full px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
-				<div class="flex w-full">
+				<div class="flex">
 					<div
 						class="w-2 h-2 flex self-center mr-2 animate-pulse"
 						v-bind:class="{
@@ -26,6 +27,7 @@
 				<div class="m-auto">
 					<h4 class="font-medium">{{ station.ip }}</h4>
 				</div>
+
 				<div class="flex">
 					<div
 						:class="{'opacity-20': rebooting, 'pointer-events-none': rebooting}"
@@ -88,6 +90,7 @@
 					<h5 class="text-xs text-white text-opacity-50 font-light">Presence</h5>
 					<h4 readonly class="text-sm">{{ station.presence }}</h4>
 				</div>
+        
 			</div>
 			<div
 				class="pl-5 pr-5 pb-5"
@@ -97,6 +100,16 @@
 			>
 				<div class="bg-input-dark w-full rounded-md" :style="{background: `rgba(${this.$props.station.rgb})`}"><div :id="this.$props.station.id" :style="{width: w + '%'}" class="h-1 bg-white w-0 " ></div></div>
 			</div>
+       <div class="bg-gray-dark-light p-3 ml-5 mr-5 mb-5 text-left flex"> 
+         <div
+           class="w-2 h-2 flex self-center mr-2 rounded-full animate-pulse "
+           v-bind:class="{
+             'bg-yellow': station.polarStatus == 'Discovering device...'
+           }"
+         ></div>
+         <div><p class="text-white text-xs">{{station.polarStatus}}</p></div>
+         
+         </div>
 		</div>
 	</div>
 </template>
