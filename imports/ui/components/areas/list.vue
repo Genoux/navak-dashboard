@@ -1,5 +1,5 @@
 <template name="areas">
-	<div class="bg-gray-dark pb-24">
+	<div class="bg-gray-dark pb-24 ml-0 md:ml-64 ">
 		<div class="flex flex-col lg:flex-row bg-dark border-b border-white border-opacity-20 pt-5 lg:pb-5 md:pb-5 pb-8 pl-5 pr-5 ">
 			<h1 class="text-white text-left mr-auto self-center font-regular lg:flex-1 lg:mb-0 mb-4">{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} / group: {{ selected }} <span class="opacity-50">({{filteredList.length}})</span> </h1>
 			<div class="lg:flex-2">

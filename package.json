@@ -38,6 +38,7 @@
     "progress-it": "^1.0.1",
     "tcp-ping": "^0.1.1",
     "tcp-ping-port": "^1.0.1",
+    "three": "^0.139.2",
     "tw-elements": "^1.0.0-alpha10",
     "vue": "^2.6.14",
     "vue-color": "^2.8.1",

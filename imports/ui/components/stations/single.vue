@@ -100,7 +100,8 @@
 			>
 				<div class="bg-input-dark w-full rounded-md" :style="{background: `rgba(${this.$props.station.rgb})`}"><div :id="this.$props.station.id" :style="{width: w + '%'}" class="h-1 bg-white w-0 " ></div></div>
 			</div>
-       <div class="bg-gray-dark-light p-3 ml-5 mr-5 mb-5 text-left flex"> 
+       <div class="bg-gray-dark-light p-3 ml-5 mr-5 mb-5 text-left flex"
+       :class="{'hidden': station.status === false}"> 
          <div
            class="w-2 h-2 flex self-center mr-2 rounded-full animate-pulse "
            v-bind:class="{

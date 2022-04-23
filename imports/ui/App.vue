@@ -4,7 +4,7 @@
      <v-sidebar class="md:block hidden"></v-sidebar>
      <v-bottombar class="md:hidden block"></v-bottombar>
  
-      <div ref="content" class="w-full ml-0 md:ml-64 h-screen justify-between" v-bind:class="sideNavigationToggle">
+      <div ref="content" class="w-full h-screen justify-between" v-bind:class="sideNavigationToggle">
         <router-view ></router-view>
       </div>
     </div>
