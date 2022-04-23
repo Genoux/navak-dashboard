@@ -1,5 +1,6 @@
-<template name="fixtures">
+<template>
 	<div class="bg-gray-dark pb-24">
+    <div><p class="text-white">wdwdwd{{fixture}}</p></div>
 		<div class="w-full flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5">
 			<h1 class="text-white ml-5 align-middle self-center content-center font-regular">
 				{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }}
@@ -18,12 +19,14 @@
 </template>
 
 <script>
-import Fixtures from '../../../../imports/api/collections/Fixtures.js';
+import Fixtures from '../../../../imports/api/collections/Fixtures';
+import singleFixture from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 export default {
 	name: 'fixtures',
 	components: {
-		'v-serversStatus': ServersStatusBanner
+		'v-serversStatus': ServersStatusBanner,
+    'v-fixture': singleFixture
 	},
 	data() {
 		return {};
@@ -33,7 +36,7 @@ export default {
 			fixtures: []
 		},
 		fixtures() {
-			return fixtures.find({});
+			return Fixtures.find({});
 		}
 	}
 };
