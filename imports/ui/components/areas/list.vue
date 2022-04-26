@@ -409,17 +409,6 @@ export default {
       });
     },
     async createNewPosition(elm) {
-      this.areas.forEach((element) => {
-        if (element.name === elm.name) {
-          this.openNotification(
-            "top-center",
-            "danger",
-            "❌ Error",
-            "Area already existe"
-          );
-          return;
-        }
-      });
       if (elm.name == null || elm.name == "") {
         this.openNotification(
           "top-center",
