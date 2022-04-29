@@ -34,7 +34,7 @@ async function pingStation() {
   let stations = Stations.find().fetch();
   stations.forEach(async function (host) {
     tcpp.probe(host.ipAddress, 5000, async function (err, available) {
-     Stations.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
+      Stations.update({ ipAddress: host.ipAddress }, { $set: { status: available, presence: false } })
    });
  });
 }
