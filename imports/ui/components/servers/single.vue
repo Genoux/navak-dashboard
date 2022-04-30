@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-white border-opacity-20"
+      class="hover:border-current duration-75 ease-in bg-black text-white border rounded-md border-white border-opacity-20"
       v-bind:class="{'opacity-20': !server.status, 'pointer-events-none': !server.status}">
       <div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
         <div v-bind:class="{'text-status-green': server.status, 'text-gray': !server.status}">
