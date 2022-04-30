@@ -286,15 +286,28 @@ export default {
 				this.apiCalling = false;
 			}
 		},
-		openNotification(position = null, color, title, text) {
-			this.noti = this.$vs.notification({
-				color,
-				position,
-				square: true,
-				title: title,
-				text: text
-			});
-		},
+    openNotification(position = null, color, title, text) {
+      if(this.noti === undefined){ 
+        this.noti = this.$vs.notification({
+          color,
+          position,
+          square: true,
+          title: title,
+          text: text
+        });
+        return
+      }
+    if(this.noti !== null && this.noti !== undefined) {
+      this.noti.close();
+      this.noti = this.$vs.notification({
+        color,
+        position,
+        square: true,
+        title: title,
+        text: text
+      });
+    }
+    },
 		updateLantern(obj, event) {
 			event.preventDefault();
 			this.dialogError = false;

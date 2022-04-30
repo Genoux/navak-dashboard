@@ -37,7 +37,8 @@
       };
     },
     methods: {
-      openNotification(position = null, color, title, text) {
+    openNotification(position = null, color, title, text) {
+      if(this.noti === undefined){ 
         this.noti = this.$vs.notification({
           color,
           position,
@@ -45,7 +46,19 @@
           title: title,
           text: text
         });
-      },
+        return
+      }
+    if(this.noti !== null && this.noti !== undefined) {
+      this.noti.close();
+      this.noti = this.$vs.notification({
+        color,
+        position,
+        square: true,
+        title: title,
+        text: text
+      });
+    }
+    },
       copy(e) {
         this.openNotification('top-center', 'success', '📋 Copied! ',
         `Copied to clipboard!`);

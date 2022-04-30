@@ -400,13 +400,26 @@ export default {
       this.activeDialog = false;
     },
     openNotification(position = null, color, title, text) {
+      if(this.noti === undefined){ 
+        this.noti = this.$vs.notification({
+          color,
+          position,
+          square: true,
+          title: title,
+          text: text
+        });
+        return
+      }
+    if(this.noti !== null && this.noti !== undefined) {
+      this.noti.close();
       this.noti = this.$vs.notification({
         color,
         position,
         square: true,
         title: title,
-        text: text,
+        text: text
       });
+    }
     },
     async createNewPosition(elm) {
       if (elm.name == null || elm.name == "") {
