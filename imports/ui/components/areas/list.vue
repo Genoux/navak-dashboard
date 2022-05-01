@@ -58,6 +58,7 @@
               :setAll="true"
               default="All"
               :selection="areas"
+              filterBy="group"
               @filterSelection="filterSelection($event)"
             ></v-dropdown>
           </div>
@@ -215,6 +216,7 @@
               :setAll="false"
               :selection="snapList"
               :default="snapList[0].group"
+              filterBy="group"
               @snapSelection="snapSelection($event)"
             ></v-dropdown>
           </div>

@@ -188,7 +188,6 @@ export default {
     }
     },
 		updatePosition(obj, event) {
-			console.log('🚀 ~ file: single.vue ~ line 138 ~ updatePosition ~ obj', obj.id);
 			event.preventDefault();
 			const objJson = {
 				id: obj.id,
@@ -214,7 +213,6 @@ export default {
 			this.$http
 				.put(`http://${this.$param.api}/api/areas/${obj.id}`, this.defaultValue)
 				.then((response) => {
-					console.log('response', response);
 					this.openNotification('top-center', 'success', '👍 Succelfully updated position!', 'You can check the changes in the list');
 					this.loading = false;
 					this.activeDialog = false;
@@ -244,9 +242,7 @@ export default {
 			this.defaultValue.z = 0;
 			this.defaultValue.size = e.size;
 			(this.defaultValue.param1 = e.param1), (this.defaultValue.param2 = e.param2), (this.defaultValue.param3 = e.param3);
-
 			this.selectedArea = e;
-
 			this.activeDialog = true;
 		}
 	}
