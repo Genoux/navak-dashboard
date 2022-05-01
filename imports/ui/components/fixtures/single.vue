@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="border-white rounded-md hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20">
-			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-10">
+			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-20">
 				<div class="flex-1">
 					<h4 class="font-medium">
 						{{ fixture.name }}
@@ -34,7 +34,7 @@
 		</div>
 		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
-			<div class="bg-black border border-white border-opacity-25 md:w-4/5 lg:w-2/4 pt-5 pb-8 px-10 w-full shadow-lg z-50">
+			<div class="bg-black border border-white border-opacity-25 md:w-4/5 lg:w-2/4 pt-5 pb-8 px-10 w-full shadow-lg z-50 rounded-md ml-5 mr-5">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
 					<svg fill="white" class="animate-spin h-8 w-8" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
 						<path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
