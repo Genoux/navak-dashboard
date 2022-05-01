@@ -1,14 +1,13 @@
 <template>
 	<div>
 		<div
-			class="border-white rounded-sm hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20"
+			class="border-white rounded-md hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20 overflow-hidden"
 			v-bind:class="{
 				'opacity-30': !lantern.status,
 				'pointer-events-none': !lantern.status
 			}"
 		>
-			<div v-bind:style="'border-color: rgba(' + lantern.rgb + ')'" style="border-width:2px" class="rounded-t-sm "></div>
-			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-10">
+			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-10 ">
 				<div
 					v-bind:class="{
 						'text-status-green': lantern.status,
@@ -23,8 +22,8 @@
 						<span class="font-light opacity-50 pl-1">#{{ lantern.group }}</span>
 					</h4>
 				</div>
-				<div class="flex mr-1">
-					<div class="border grid grid-flow-col gap-0 divide-x">
+				<div class="flex mr-1 ">
+					<div class="border grid grid-flow-col gap-0 divide-x rounded-sm ">
 						<span class="self-center px-2 animate-pulse text-red-500">
 							<mdicon size="12" name="Heart" />
 						</span>
@@ -42,13 +41,13 @@
 					</div> -->
 				</div>
 				<div class="border-l border-white border-opacity-25 flex">
-					<div @click="flash(lantern)" class="border ml-4 p-1 hover:opacity-60 cursor-pointer">
+					<div @click="flash(lantern)" class="rounded-sm border ml-4 p-1 hover:opacity-60 cursor-pointer">
 						<svg v-if="apiCalling" fill="white" class="animate-spin h-3 w-3" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
 							<path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
 						</svg>
 						<mdicon v-else size="12" name="Flash" />
 					</div>
-					<div @click="openDialog(lantern)" class="bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
+					<div @click="openDialog(lantern)" class="rounded-sm bg-black border ml-2 p-1 hover:opacity-60 cursor-pointer focus:bg-white focus:text-blue focus:outline-none">
 						<mdicon name="Wrench" size="12"></mdicon>
 					</div>
 				</div>
@@ -71,10 +70,12 @@
 					<h4 class="text-sm">{{ lantern.startUniverse }}</h4>
 				</div>
 			</div>
+			<div v-bind:style="'border-color: rgba(' + lantern.rgb + ')'" style="border-width:2px" class="rounded-md mb-5 ml-5 mr-5"></div>
+
 		</div>
 		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
-			<div class="bg-black border border-white border-opacity-25  md:w-4/5 lg:w-2/4  pt-5 pb-8 px-10 w-full shadow-lg z-50">
+			<div class="bg-black border border-white border-opacity-25  md:w-4/5 lg:w-2/4  pt-5 pb-8 px-10 w-full shadow-lg z-50 rounded-md">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
 					<svg fill="white" class="animate-spin h-8 w-8" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
 						<path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" />
@@ -286,15 +287,28 @@ export default {
 				this.apiCalling = false;
 			}
 		},
-		openNotification(position = null, color, title, text) {
-			this.noti = this.$vs.notification({
-				color,
-				position,
-				square: true,
-				title: title,
-				text: text
-			});
-		},
+    openNotification(position = null, color, title, text) {
+      if(this.noti === undefined){ 
+        this.noti = this.$vs.notification({
+          color,
+          position,
+          square: true,
+          title: title,
+          text: text
+        });
+        return
+      }
+    if(this.noti !== null && this.noti !== undefined) {
+      this.noti.close();
+      this.noti = this.$vs.notification({
+        color,
+        position,
+        square: true,
+        title: title,
+        text: text
+      });
+    }
+    },
 		updateLantern(obj, event) {
 			event.preventDefault();
 			this.dialogError = false;
