@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="border-white rounded-sm hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20">
+		<div class="border-white rounded-md hover:border-current duration-75 ease-in bg-black text-white border border-opacity-20">
 			<div class="flex flex-grow px-4 py-4 items-center gap-1 border-b border-white border-opacity-10">
 				<div class="flex-1">
 					<h4 class="font-medium">
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center overflow-y-scroll">
+		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center">
 			<div @click="closeDialog" class="absolute w-full h-screen bg-dark opacity-75"></div>
 			<div class="bg-black border border-white border-opacity-25 md:w-4/5 lg:w-2/4 pt-5 pb-8 px-10 w-full shadow-lg z-50">
 				<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" v-if="loading">
@@ -57,6 +57,14 @@
 						'pointer-events-none': loading
 					}"
 				>
+        <div>
+          <p class="text-sm text-white pb-2">Name</p>
+          <input
+            v-model="defaultValue.name"
+            :placeholder="toString(selectedFixture.name)"
+            class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
+          />
+        </div>
 					<div>
 						<p class="text-sm text-white pb-2">ID</p>
 						<input
@@ -96,7 +104,7 @@
 				</form>
 				<hr class="mt-6 border-1 opacity-20 border-gray-light" />
 				<div
-					class="grid-flow-row md:grid-flow-row lg:grid-flow-col gap-2 pt-2 mt-6 flex"
+					class="grid-flow-row md:grid-flow-row lg:grid-flow-col gap-3 pt-2 mt-6 flex"
 					v-bind:class="{
 						'opacity-10': loading,
 						'pointer-events-none': loading
