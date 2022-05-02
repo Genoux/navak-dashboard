@@ -21,7 +21,7 @@
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">IP address</h5>
           <h4 readonly 
-          :value="text" @click="copy(server.ipAddress)" class="text-sm hover:underline cursor-pointer">{{ server.ipAddress }}</h4>
+          :value="text" class="text-sm ">{{ server.ipAddress }}</h4>
         </div>
       </div>
     </div>
@@ -31,11 +31,6 @@
 <script>
 
   export default {
-    data() {
-      return {
-        text: 'This will get copied!'
-      };
-    },
     methods: {
     openNotification(position = null, color, title, text) {
       if(this.noti === undefined){ 
@@ -59,11 +54,6 @@
       });
     }
     },
-      copy(e) {
-        this.openNotification('top-center', 'success', '📋 Copied! ',
-        `Copied to clipboard!`);
-        navigator.clipboard.writeText(e);
-      }
     },
     props: {
       server: Object
