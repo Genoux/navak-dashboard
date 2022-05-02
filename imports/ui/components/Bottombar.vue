@@ -24,6 +24,11 @@
                  <mdicon size="21" class="m-auto " name="HandBackRight" />
                </router-link>
              </li>
+             <li class="flex mb-3 mt-3">
+               <router-link class="flex h-full m-auto p-4 cursor-pointer text-white  rounded-md hover:bg-gray-dark-light " :to="{name: 'fixtures'}">
+                 <mdicon size="21" class="m-auto " name="CoachLamp" />
+               </router-link>
+             </li>
 					</ul>
 	
 			</nav>

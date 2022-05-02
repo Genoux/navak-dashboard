@@ -1,25 +1,23 @@
 <template>
 	<div class="bg-gray-dark pb-24">
-		<div class="flex flex-row bg-dark border-b border-white border-opacity-20 pt-5 lg:pb-5 md:pb-5 pb-8 pl-5 pr-5">
-			<h1 class="text-white text-left mr-auto self-center font-regular lg:flex-1 lg:mb-0 mb-4">
+		<div class="flex flex-row bg-dark border-b border-white border-opacity-20 pt-5 lg:pb-5 md:pb-5 pb-5 pl-5 pr-5">
+			<h1 class="text-white text-left mr-auto self-center font-regular lg:flex-1 lg:mb-0 mb-0">
 				{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }}
 			</h1>
-      <div class="lg:flex-2 ">
-        <div class="lg:flex grid grid-cols-3 ">
+      <div>
+        <div class="flex">
           <input
-            class="rounded-md h-10 lg:mr-3 lg:pt-0 lg:pb-0 lg:mb-0 bg-black text-white pl-2 border lg:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
+            class="rounded-md h-10 mr-3 lg:mr-3 lg:pt-0 lg:pb-0 lg:mb-0 bg-black text-white pl-2 border lg:pr-10 pr-0 focus:outline-none placeholder-white text-sm placeholder-opacity-50 select"
             type="text"
             v-model="search"
             placeholder="Search areas.."
           />
-
+          
           <div @click="openDialog()" class="border h-10 rounded-md flex md:w-auto pl-3 pr-3 pt-1 pb-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white">
             <mdicon class="text-white mt-auto mb-auto" name="Plus" size="18"></mdicon>
           </div>
-          <!-- <div @click="confirmationPopup()" class=" border md:w-auto  ml-4 p-1 pr-2 pl-2  border-white hover:opacity-60 cursor-pointer focus:bg-white ">
-            <p class="text-white ">Delete All</p>
-          </div> -->
         </div>
+
       </div>
 <!-- <div @click="openDialog()" class="border h-8 rounded-sm flex md:w-auto pl-2 pr-2 pt-1 pb-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white">
   <mdicon class="text-white mt-auto mb-auto" name="Plus" size="18"></mdicon>
