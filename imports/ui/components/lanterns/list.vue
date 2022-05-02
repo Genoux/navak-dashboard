@@ -69,7 +69,6 @@ export default {
     },
     filteredList() {
       return this.computed_items.filter((post) => {
-        console.log("🚀 ~ file: list.vue ~ line 61 ~ returnthis.computed_items.filter ~ post", post);
         return post.id.toLowerCase().includes(this.search.toLowerCase());
       });
     }
@@ -118,20 +117,28 @@ export default {
           return lantern.picked == true;
         });
       }
-
-		/*	return this.lanterns.filter(function (item) {
-				let filtered;
-				if (filterSize) {
-					filtered = item.status == filter.status;
-				}
-				return filtered;
-			});*/
 		}
 	},
 	methods: {
 		filterSelection(e) {
 			this.selected = e;
-		}
+		},
+    reset() {
+      try {
+        this.$http
+          .post(`http://${this.$param.api}/api/lanterns/reset/`)
+          .then((response) => {
+            console.log('response', response);
+            this.loading = false;
+            this.closeDialog();
+            this.openNotification('top-center', 'success', '🔥 Reset! ', `Lanterns are reset successfully!`);
+          });
+      } catch (error) {
+        console.log(error);
+        this.openNotification('top-center', 'danger', '❌ Oups! ', `${error}`);
+        this.loading = false;
+      }
+    },
 	},
 	meteor: {
 		$subscribe: {
