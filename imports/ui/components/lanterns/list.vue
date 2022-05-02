@@ -1,15 +1,26 @@
 <template name="lanterns">
 	<div class="bg-gray-dark pb-24">
-		<div class="w-full flex bg-dark border-b border-white border-opacity-20 pt-5 pb-5  pl-5 pr-5 ">
-			<h1 class="text-white ml-5 align-middle self-center content-center font-regular">
-				{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }} <span class="opacity-50">({{ lanterns.length }})</span>
+		<div class="flex flex-col lg:flex-row bg-dark border-b border-white border-opacity-20 pt-5 lg:pb-5 md:pb-5 pb-8 pl-5 pr-5">
+			<h1 class="text-white text-left mr-auto self-center font-regular lg:flex-1 lg:mb-0 mb-4">
+				{{ $route.name.charAt(0).toUpperCase() + $route.name.slice(1) }}
+				<span class="opacity-50">({{ filteredList.length }})</span>
 			</h1>
-      <div @click="reset()" class="border rounded-sm flex md:w-auto pl-3 pr-3 pb-1 pt-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white ">
-        <p class="text-white">Reset all</p>
-      </div>
-        <div class="lg:mr-5 lg:mb-0 lg:ml-0 ml-4" ><v-dropdown class="w-full " CustomClass="h-full" style="height: 34px;" :setAll=true  default="All" :selection="lanterns" @filterSelection="filterSelection($event)"></v-dropdown></div>
-
+			<div class="lg:mr-3 lg:mb-0 lg:ml-0 flex">
+				<v-dropdown
+					@filterSelection="filterSelection($event)"
+					CustomClass="w-full px-4 py-2 rounded-md h-10 "
+					:setAll="true"
+					:selection="[{status: 'On'}, {status: 'Off'}, {status: 'Picked'}]"
+					default="All"
+					filterBy="status"
+				></v-dropdown>
+        <div @click="reset()" class="border h-10 ml-4 rounded-md flex self-center md:w-auto pl-6 pr-6 pb-1 pt-1 border-white hover:opacity-60 cursor-pointer focus:bg-white ">
+          <p class="text-white mt-auto mb-auto">Reset all</p>
+        </div>
+			</div>
+     
 		</div>
+
 		<v-serversStatus></v-serversStatus>
 		<div v-if="lanterns.length > 0" class="p-4 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 			<div v-bind:key="object" v-for="(lantern, object) in filteredList">
@@ -30,7 +41,7 @@ import ServersStatusBanner from '../ServersStatusBanner.vue';
 export default {
 	name: 'lanterns',
 	components: {
-    'v-dropdown': dropdown,
+		'v-dropdown': () => import('../dropdown.vue'),
 		'v-lantern': singleLantern,
 		'v-serversStatus': ServersStatusBanner
 	},
@@ -65,8 +76,62 @@ export default {
   },
 	data() {
 		return {
-      search: '',
-    };
+			selected: 'All'
+		};
+	},
+	mounted() {},
+	computed: {
+		filteredList() {
+			// return this.computed_items(this.lanterns)
+			return this.computed_items.filter((post) => {
+				return post;
+			});
+		},
+		computed_items: function () {
+			if (this.selected == 'All') {
+				return this.lanterns;
+			}
+			let filterSize = this.selected;
+			let filter;
+      switch (filterSize) {
+        case 'On':
+          filter = {
+            status: true
+          };
+          break;
+        case 'Off':
+          filter = {
+            status: false
+          };
+          break;
+        default:
+          filter = {};
+          break;
+      }
+      if(filterSize == 'On' || filterSize == 'Off') {
+        return this.lanterns.filter((lantern) => {
+          return lantern.status == filter.status;
+        });
+      }
+      if(filterSize == 'Picked') {
+        return this.lanterns.filter((lantern) => {
+          return lantern.picked == true;
+        });
+      }
+
+		/*	return this.lanterns.filter(function (item) {
+				let filtered;
+				if (filterSize) {
+					filtered = item.status == filter.status;
+				}
+				return filtered;
+			});*/
+		}
+	},
+	methods: {
+		filterSelection(e) {
+			this.selected = e;
+		}
 	},
 	meteor: {
 		$subscribe: {
