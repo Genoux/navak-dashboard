@@ -8,7 +8,7 @@
 			<div class="flex-2">
 				<v-dropdown
 					@filterSelection="filterSelection($event)"
-					CustomClass="w-full px-4 py-2 rounded-md "
+					CustomClass="w-full px-4 py-2 rounded-md h-10"
 					:setAll="true"
 					:selection="[{status: 'On'}, {status: 'Off'}, {status: 'Picked'}]"
 					default="All"
