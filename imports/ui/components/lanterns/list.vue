@@ -14,8 +14,11 @@
 					default="All"
 					filterBy="status"
 				></v-dropdown>
-        <div @click="reset()" class="border h-10 ml-4 rounded-md flex self-center md:w-auto pl-6 pr-6 pb-1 pt-1 border-white hover:opacity-60 cursor-pointer focus:bg-white ">
+        <div v-if="showBigBrainTool" @click="reset()" class="border h-10 ml-4 rounded-md flex self-center md:w-auto pl-6 pr-6 pb-1 pt-1 border-red-500 hover:opacity-60 cursor-pointer focus:bg-white ">
           <p class="text-white mt-auto mb-auto">Reset all</p>
+        </div>
+        <div v-if="showBigBrainTool" @click="reset()" class="border h-10 ml-4 rounded-md flex self-center md:w-auto pl-6 pr-6 pb-1 pt-1 border-white hover:opacity-60 cursor-pointer focus:bg-white ">
+          <p class="text-white mt-auto mb-auto">Random Ignote</p>
         </div>
 			</div>
      
@@ -41,7 +44,7 @@ import ServersStatusBanner from '../ServersStatusBanner.vue';
 export default {
 	name: 'lanterns',
 	components: {
-		'v-dropdown': () => import('../dropdown.vue'),
+		'v-dropdown': dropdown,
 		'v-lantern': singleLantern,
 		'v-serversStatus': ServersStatusBanner
 	},
@@ -50,7 +53,21 @@ export default {
       this.selected = e;
     },
   },
-  computed: {
+  created() {
+    let i = 0;
+    window.addEventListener('keyup', (e) => {
+      if (e.key == 'Escape') {
+         i++;
+         if(i >=10) {
+            this.showBigBrainTool = !this.showBigBrainTool;
+            i= 0;
+         }
+      console.log("🚀 ~ file: list.vue ~ line 60 ~ window.addEventListener ~ Escape");
+       
+      }
+    });
+  },
+  /*computed: {
     computed_items: function () {
       if (this.selected == 'All') {
         return this.lanterns;
@@ -72,9 +89,10 @@ export default {
         return post.id.toLowerCase().includes(this.search.toLowerCase());
       });
     }
-  },
+  },*/
 	data() {
 		return {
+      showBigBrainTool: false,
 			selected: 'All'
 		};
 	},
