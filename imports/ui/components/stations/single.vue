@@ -103,19 +103,34 @@
 				<div class="bg-input-dark w-full rounded-md" :style="{background: `rgba(${this.$props.station.rgb})`}">
 					<div :id="this.$props.station.id" :style="{width: w + '%'}" class="h-1 bg-white w-0"></div>
 				</div>
-				<div class="bg-gray-dark-light p-3 mt-5 text-left flex rounded-md">
-					<div
-						class="w-2 h-2 flex self-center mr-2 rounded-full animate-pulse"
-						v-bind:class="{
-							'bg-yellow': station.polarState == 1 || station.polarState == 2,
-							'bg-red-600': station.polarState == 4,
-							'bg-status-green': station.polarState == 3
-						}"
-					></div>
-					<div>
-						<p class="text-white text-xs">{{ station.polarStatus }}</p>
-					</div>
-				</div>
+  <div class=" grid grid-cols-1 gap-0 lg:gap-4 lg:grid-cols-2">
+    <div class="bg-gray-dark-light p-3 mt-5 text-left flex rounded-md">
+      <div
+        class="w-2 h-2 flex self-center mr-2 rounded-full animate-pulse"
+        v-bind:class="{
+          'bg-yellow': station.polarState == 1 || station.polarState == 2,
+          'bg-red-600': station.polarState == 4,
+          'bg-status-green': station.polarState == 3
+        }"
+      ></div>
+      <div class="self-center">
+        <p class="text-white text-xs">{{ station.polarStatus }}</p>
+      </div>
+    </div>
+      <div class="bg-gray-dark-light p-3 mt-3 sm:mt-5 text-left flex rounded-md">
+      <div
+        class="w-2 h-2 flex self-center mr-2 rounded-full animate-pulse"
+        v-bind:class="{
+          'bg-yellow': station.presenceState == 1 || station.presenceState == 2,
+          'bg-red-600': station.presenceState == 4,
+          'bg-status-green': station.presenceState == 3
+        }"
+      ></div>
+      <div class="self-center">
+        <p class="text-white text-xs">{{ station.presenceStatus }}</p>
+      </div>
+    </div>
+  </div>
 			</div>
 		</div>
 	</div>
