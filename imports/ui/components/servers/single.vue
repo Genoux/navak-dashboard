@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="hover:border-current duration-75 ease-in bg-black text-white border rounded-sm border-white border-opacity-20"
+      class="hover:border-current duration-75 ease-in bg-black text-white border rounded-md border-white border-opacity-20"
       v-bind:class="{'opacity-20': !server.status, 'pointer-events-none': !server.status}">
       <div class="flex flex-grow px-4 py-4 items-center gap-2 border-b border-white border-opacity-20">
         <div v-bind:class="{'text-status-green': server.status, 'text-gray': !server.status}">
@@ -20,8 +20,7 @@
         </div>
         <div>
           <h5 class="text-xs text-white text-opacity-50 font-light">IP address</h5>
-          <h4 readonly 
-          :value="text" @click="copy(server.ipAddress)" class="text-sm hover:underline cursor-pointer">{{ server.ipAddress }}</h4>
+          <h4 readonly class="text-sm ">{{ server.ipAddress }}</h4>
         </div>
       </div>
     </div>
@@ -31,27 +30,6 @@
 <script>
 
   export default {
-    data() {
-      return {
-        text: 'This will get copied!'
-      };
-    },
-    methods: {
-      openNotification(position = null, color, title, text) {
-        this.noti = this.$vs.notification({
-          color,
-          position,
-          square: true,
-          title: title,
-          text: text
-        });
-      },
-      copy(e) {
-        this.openNotification('top-center', 'success', '📋 Copied! ',
-        `Copied to clipboard!`);
-        navigator.clipboard.writeText(e);
-      }
-    },
     props: {
       server: Object
     },

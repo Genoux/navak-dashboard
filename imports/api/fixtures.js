@@ -9,20 +9,16 @@ const client = await clientConnect();
 
 
 Meteor.startup(async (e) => {
-  const stations = Stations.find().fetch();
-  const lanterns = Lanterns.find().fetch();
-  const servers = Servers.find().fetch();
-  
   setInterval(async () => {
-    pingStation(stations);
-    pingLanterns(lanterns);
-    pingServer(servers);  
+    await pingStation();
+    //await pingLanterns();
+    await pingServer();
   }, 5000);
-
 });
 
-function pingLanterns(obj) {
-  obj.forEach(async function (host) {
+async function pingLanterns(obj) {
+  let lanterns = Lanterns.find().fetch();
+  lanterns.forEach(async function (host) {
     let res = await ping.promise.probe(host.ipAddress);
     client.publish('/lanterns/update', JSON.stringify(host));
     Lanterns.update({ ipAddress: host.ipAddress }, { $set: { status: res.alive } })
@@ -33,16 +29,18 @@ function pingLanterns(obj) {
   });
 }
 
-function pingStation(obj) {
-  obj.forEach(async function (host) {
+async function pingStation() {
+  let stations = Stations.find().fetch();
+  stations.forEach(async function (host) {
     tcpp.probe(host.ipAddress, 5000, async function (err, available) {
-     Stations.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
+      Stations.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
    });
  });
 }
 
-function pingServer(obj) {
-  obj.forEach(async function (host) {
+async function pingServer() {
+  let servers = Servers.find().fetch();
+  servers.forEach(async function (host) {
     tcpp.probe(resolveIP(host.ipAddress), resolvePORT(host.ipAddress), async function (err, available) {
       Servers.update({ ipAddress: host.ipAddress }, { $set: { status: available } })
     });

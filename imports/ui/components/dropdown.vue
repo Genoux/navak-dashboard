@@ -4,10 +4,10 @@
       <option v-if="setAll" value="All">All</option>
       <option
         class="text-white "
-        :key="select[0].group"
-        v-for="select in  group()"
-        :value="select[0].group"
-      >{{ select[0].group }}</option>
+        :key="select[0][filterBy]"
+        v-for="select in group(filterBy)"
+        :value="select[0][filterBy]"
+      >{{ select[0][filterBy] }}</option>
     </select>
   </div>
 </template>
@@ -18,10 +18,11 @@ export default({
     selection: Array,
     setAll: Boolean,
     default: String,
-    CustomClass: String
+    CustomClass: String,
+    filterBy: String
   },
   methods: {
-    group() {
+    group(filterBy) {
       const obj = this.$props.selection
       function groupArrayOfObjects(list, key) {
         return list.reduce(function (rv, x) {
@@ -31,7 +32,7 @@ export default({
       };
       this.$emit('filterSelection', this.selected);
       this.$emit('snapSelection', this.selected);
-      return groupArrayOfObjects(obj, "group");
+      return groupArrayOfObjects(obj, filterBy);
     }
   },
   data() {

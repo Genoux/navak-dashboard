@@ -45,6 +45,12 @@
                </router-link>
              </li>
              <li>
+              <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-md" :to="{name: 'fixtures'}">
+                <mdicon size="18" class="mr-2" name="CoachLamp" />
+                 <div class="m-auto w-full"><p class="text-sm text-left ">Fixtures</p></div>
+              </router-link>
+             </li>
+             <li>
                <router-link class="relative hover:translate-x-2 hover:bg-gray-dark-light cursor-pointer text-white flex align-middle text-center my-3 p-2 pr-32 rounded-md" :to="{name: 'map'}">
                  <mdicon size="18" class="mr-2" name="MapSearch" />
                   <div class="m-auto w-full"><p class="text-sm text-left ">Map</p></div>
