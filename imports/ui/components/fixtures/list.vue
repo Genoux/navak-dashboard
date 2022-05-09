@@ -74,8 +74,8 @@
 							@filterSelection="filterSelection($event)"
 							CustomClass="w-full px-4 py-2 h-full rounded-md"
 							:setAll="false"
-							:selection="areas"
-							:default="areas[0].name"
+							:selection="area"
+							:default="area[0].name"
 							filterBy="name"
 						></v-dropdown>
 					</div>
@@ -114,7 +114,7 @@ export default {
     },
     filteredList() {
       return this.computed_items.filter((post) => {
-       	return post.name.toLowerCase().includes(this.search.toLowerCase());
+        return post.name.toLowerCase().includes(this.search.toLowerCase());
       });
     },
     computed_items: function () {
@@ -122,10 +122,13 @@ export default {
         return this.fixtures;
       }
       
-      let filterSize = this.selected;
+     // let filterSize = this.selected;
       return this.fixtures.filter(function (item) {
         let filtered = true;
-          filtered = item.name == filterSize;
+        if (filtered) {
+            filtered = item.name;
+        }
+  
         return filtered;
       });
     }
@@ -154,7 +157,7 @@ export default {
       }
     },
     filterSelection(e) {
-      this.selected = e;
+      this.defaultValue.area = e;
     },
 		openDialog() {
 			this.activeDialog = true;
@@ -168,7 +171,7 @@ export default {
 				name: null,
 				universe: 0,
 				address: 0,
-				area: ' ',
+				area: this.area[0].name,
 				fixtureType: 0
 			};
 			this.activeDialog = false;
@@ -205,6 +208,7 @@ export default {
 			loading: false,
       search: '',
       selected: 'All',
+      area: Areas.find({}).fetch(),
 			defaultValue: {
         id: (((1 + Math.random()) * 0x10000) | 0),
         name: null,

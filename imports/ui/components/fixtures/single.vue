@@ -13,7 +13,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="grid grid-cols-2 p-5 gap-5 self-end">
+			<div class="grid grid-cols-3 p-5 gap-5 self-end">
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">ID</h5>
 					<h4 class="text-sm">{{ fixture.id }}</h4>
@@ -26,10 +26,15 @@
 					<h5 class="text-xs text-white text-opacity-50 font-light">Address</h5>
 					<h4 class="text-sm">{{ fixture.address }}</h4>
 				</div>
+        <div>
+          <h5 class="text-xs text-white text-opacity-50 font-light">fixtureType</h5>
+          <h4 class="text-sm">{{ fixture.address }}</h4>
+        </div>
 				<div>
 					<h5 class="text-xs text-white text-opacity-50 font-light">Area</h5>
 					<h4 class="text-sm">{{ fixture.area }}</h4>
 				</div>
+        
 			</div>
 		</div>
 		<div v-if="activeDialog" class="fixed w-full h-full top-0 left-0 flex z-50 items-center justify-center">
@@ -89,6 +94,14 @@
 							class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
 						/>
 					</div>
+          <div>
+            <p class="text-sm text-white pb-2">fixtureType</p>
+            <input
+              v-model="defaultValue.fixtureType"
+              :placeholder="toString(selectedFixture.fixtureType)"
+              class="w-full px-4 py-2 text-white bg-dark border border-white border-opacity-25 focus:outline-none focus:border-opacity-60"
+            />
+          </div>
 					<!-- <div>
 						<p class="text-sm text-white pb-2">Area</p>
 						<input
@@ -144,7 +157,8 @@ export default {
 				name: '',
 				area: '',
 				universe: '',
-				address: ''
+				address: '',
+        fixtureType: ''
 			}
 		};
 	},
@@ -257,6 +271,7 @@ export default {
 			this.defaultValue.area = e.area;
 			this.defaultValue.universe = e.universe;
 			this.defaultValue.address = e.address;
+      this.defaultValue.fixtureType = e.fixtureType;
 			this.selectedFixture = e;
 			this.dialogClose = false;
 			this.activeDialog = true;
