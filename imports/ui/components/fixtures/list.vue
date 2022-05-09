@@ -17,11 +17,7 @@
             <mdicon class="text-white mt-auto mb-auto" name="Plus" size="18"></mdicon>
           </div>
         </div>
-
       </div>
-<!-- <div @click="openDialog()" class="border h-8 rounded-sm flex md:w-auto pl-2 pr-2 pt-1 pb-1 ml-auto border-white hover:opacity-60 cursor-pointer focus:bg-white">
-  <mdicon class="text-white mt-auto mb-auto" name="Plus" size="18"></mdicon>
-</div> -->
 		</div>
   
 		<v-serversStatus></v-serversStatus>
@@ -74,8 +70,8 @@
 							@filterSelection="filterSelection($event)"
 							CustomClass="w-full px-4 py-2 h-full rounded-md"
 							:setAll="false"
-							:selection="area"
-							:default="area[0].name"
+							:selection="areas"
+							default="dwd"
 							filterBy="name"
 						></v-dropdown>
 					</div>
@@ -171,7 +167,7 @@ export default {
 				name: null,
 				universe: 0,
 				address: 0,
-				area: this.area[0].name,
+				area: '',
 				fixtureType: 0
 			};
 			this.activeDialog = false;
