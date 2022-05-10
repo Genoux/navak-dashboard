@@ -11,7 +11,7 @@ const client = await clientConnect();
 Meteor.startup(async (e) => {
   setInterval(async () => {
     await pingStation();
-    await pingLanterns();
+    //await pingLanterns();
     await pingServer();
   }, 5000);
 });
@@ -19,7 +19,6 @@ Meteor.startup(async (e) => {
 async function pingLanterns(obj) {
   let lanterns = Lanterns.find().fetch();
   lanterns.forEach(async function (host) {
-    //console.log("🚀 ~ file: fixtures.js ~ line 26 ~ pingLanterns ~ obj", host.id);
     let res = await ping.promise.probe(host.ipAddress);
     client.publish('/lanterns/update', JSON.stringify(host));
     Lanterns.update({ ipAddress: host.ipAddress }, { $set: { status: res.alive } })

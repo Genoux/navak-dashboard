@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="bg-gray-dark flex flex-row darken h-screen" vs-theme="dark">
-     <v-sidebar class="md:block hidden"></v-sidebar>
-     <v-bottombar class="md:hidden block"></v-bottombar>
+     <v-sidebar class="lg:block hidden"></v-sidebar>
+     <v-bottombar class="lg:hidden block"></v-bottombar>
  
-      <div ref="content" class="w-full ml-0 md:ml-64 h-screen justify-between" v-bind:class="sideNavigationToggle">
+      <div ref="content" class="w-full ml-0 lg:ml-64 h-screen justify-between" v-bind:class="sideNavigationToggle">
         <router-view ></router-view>
       </div>
     </div>
