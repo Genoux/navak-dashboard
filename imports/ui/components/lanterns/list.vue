@@ -57,7 +57,7 @@
 						<div class="align-center flex pt-5">
 							<mdicon name="danger" size="44" class="text-white align-center m-auto" />
 						</div>
-						<h1 class="text-white text-center pb-10 pt-5">{{ message }}</h1>
+						<h1 class="text-white text-center pb-8 pt-5">{{ message }}</h1>
 					</div>
 					<div class="grid grid-flow-col gap-6">
 						<button @click="authorization()" class="rounded-md py-2 px-6 text-center drop-shadow-lg bg-red-500 text-white hover:opacity-90">
