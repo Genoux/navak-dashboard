@@ -15,7 +15,7 @@ export default {
       scene: null,
       camera: null,
       renderer: null,
-      controls: null
+      controls: null,
     }
   },
   mounted () {
@@ -30,15 +30,27 @@ export default {
       0.1,
       1000
     )
-    this.camera.position.set(15, 5, 15)
+    this.camera.position.set(0, 0, 25)
+    this.camera.lookAt(new THREE.Vector3(0,0,0))
     
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       powerPreference: "high-performance"
     })
-    this.renderer.outputEncoding = THREE.sRGBEncoding
+
+
+    // renderer
+    this.renderer = new THREE.WebGLRenderer();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setClearColor("#000000");
+    document.body.appendChild(this.renderer.domElement); //create canvas element (as a child of the body) with our renderer settings
+
+     this.renderer.outputEncoding = THREE.sRGBEncoding
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    
     this.controls.addEventListener('change', this.animateThreeJs )
+   /*
+   
     this.renderer.setSize(this.sceneCanvas.offsetWidth, this.sceneCanvas.offsetHeight)
     this.renderer.setClearColor("#212121")
     this.renderer.shadowMap.enabled = true
@@ -47,7 +59,7 @@ export default {
     this.renderer.shadowMap.autoUpdate = false
     this.renderer.shadowMap.needsUpdate = true
     this.sceneCanvas.append(this.renderer.domElement)
-    
+    */
     // lighting
     let ambientLight = new THREE.AmbientLight (0xdaccff, 0.5)
     this.scene.add(ambientLight)
@@ -59,7 +71,7 @@ export default {
     light.shadow.mapSize.height = 2048
     this.scene.add(light)
     // Adding a cube
-    let geometry = new THREE.BoxGeometry()
+    let geometry = new THREE.CircleGeometry()
     let material = new THREE.MeshPhysicalMaterial({color: 0x00ff00})
     let cube = new THREE.Mesh(geometry, material)
     this.scene.add(cube)
@@ -81,6 +93,9 @@ export default {
       this.renderer.setPixelRatio(window.devicePixelRatio)
       this.renderer.setSize(window.innerWidth, window.innerHeight)
       this.animateThreeJs()
+    },
+    setZoom(){
+
     }
   }
 }
