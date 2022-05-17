@@ -11,7 +11,7 @@ const client = await clientConnect();
 Meteor.startup(async (e) => {
   setInterval(async () => {
     await pingStation();
-    //await pingLanterns();
+    await pingLanterns();
     await pingServer();
   }, 5000);
 });
