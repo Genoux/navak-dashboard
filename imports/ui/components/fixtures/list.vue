@@ -93,12 +93,20 @@
 </template>
 
 <script>
-import Fixtures from '../../../../imports/api/collections/Fixtures';
-import Areas from '../../../../imports/api/collections/Areas';
+// Demo mode - using client-side data instead of database
+import { DemoCollections } from '../../demo-data.js';
 import singleFixture from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 export default {
   computed: {
+    fixtures() {
+      // Demo mode - using client-side data
+      return DemoCollections.Fixtures.find({}).fetch();
+    },
+    areas() {
+      // Demo mode - using client-side data
+      return DemoCollections.Areas.find({}).fetch();
+    },
     filteredFixture: function () {
       const filtered = Object.keys(this.defaultValue)
         .filter((key) => key !== '_id' && key !== '__v' && key !== 'area')
@@ -215,17 +223,5 @@ export default {
 			}
 		};
 	},
-	meteor: {
-		$subscribe: {
-			fixtures: [],
-      areas: []
-		},
-    areas() {
-      return Areas.find({});
-    },
-		fixtures() {
-			return Fixtures.find({});
-		}
-	}
 };
 </script>

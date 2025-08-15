@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import Areas from '../collections/Stations.js';
+import Stations from '../collections/Stations.js';
 
 Meteor.publish('stations', function () {
-  return Areas.find();
+  return Stations.find();
 });

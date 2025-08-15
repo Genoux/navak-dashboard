@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import Servers from '../../../../imports/api/collections/Servers.js';
+// Demo mode - using client-side data instead of database
+import { DemoCollections } from '../../demo-data.js';
 import singleServer from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 export default {
@@ -33,12 +34,10 @@ export default {
 			msg: ''
 		};
 	},
-	meteor: {
-		$subscribe: {
-			servers: []
-		},
+	computed: {
 		servers() {
-			return Servers.find({});
+			// Demo mode - using client-side data
+			return DemoCollections.Servers.find({}).fetch();
 		}
 	}
 };

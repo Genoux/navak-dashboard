@@ -78,7 +78,8 @@
 </template>
 
 <script>
-import Lanterns from '../../../../imports/api/collections/Lanterns.js';
+// Demo mode - using client-side data instead of database
+import { DemoCollections } from '../../demo-data.js';
 import singleLantern from './single.vue';
 import dropdown from '../dropdown.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
@@ -101,6 +102,10 @@ export default {
 	},
 	mounted() {},
 	computed: {
+		lanterns() {
+			// Demo mode - using client-side data
+			return DemoCollections.Lanterns.find({}).fetch();
+		},
 		filteredList() {
 			// return this.computed_items(this.lanterns)
 			return this.computed_items.filter((post) => {
@@ -197,13 +202,5 @@ export default {
 			}
 		}
 	},
-	meteor: {
-		$subscribe: {
-			lanterns: []
-		},
-		lanterns() {
-			return Lanterns.find({});
-		}
-	}
 };
 </script>

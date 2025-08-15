@@ -54,8 +54,14 @@
           
         <div class="mt-auto mb-36 pt-4 pb-4  bg-gray-dark-light  rounded-lg">
           <p class="text-white text-xs text-center">
-            🔥 Navak Dashboard {{version}}
-          </p></div>
+            Navak Dashboard {{version}}
+          </p>
+          <div class="flex justify-center mt-2">
+            <a href="https://github.com/navak-project/navak-dashboard" target="_blank" class="text-white hover:text-gray-300 transition-colors">
+              <mdicon name="Github" size="20"></mdicon>
+            </a>
+          </div>
+        </div>
 				</div>
       <!-- <div @click='toggleNavigation()' class="absolute bottom-14 right-6 flex mb-40 mt-auto text-white hover:bg-gray-dark-light rounded-md"><mdicon name="ChevronRight" size=32 class=""></mdicon></div> -->
 

@@ -113,12 +113,12 @@
 	</div>
 </template>
 <script>
-import Areas from '../../../../imports/api/collections/Areas';
+// Demo mode - using client-side data instead of database
+import { DemoCollections } from '../../demo-data.js';
 import dropdown from '../dropdown.vue';
 import singleArea from './single.vue';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 import confirmationVue from '../confirmation.vue';
-import 'dotenv/config';
 export default {
 	name: 'areas',
 	components: {
@@ -127,6 +127,10 @@ export default {
 		'v-serversStatus': ServersStatusBanner
 	},
 	computed: {
+		areas() {
+			// Demo mode - using client-side data
+			return DemoCollections.Areas.find({}).fetch();
+		},
 		filteredList() {
 			return this.computed_items.filter((post) => {
 				return post.name.toLowerCase().includes(this.search.toLowerCase());
@@ -271,13 +275,5 @@ export default {
 			}
 		}
 	},
-	meteor: {
-		$subscribe: {
-			areas: []
-		},
-		areas() {
-			return Areas.find({});
-		}
-	}
 };
 </script>

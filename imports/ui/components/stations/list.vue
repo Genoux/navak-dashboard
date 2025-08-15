@@ -17,7 +17,8 @@
   </div>
 </template>
 <script>
-import Stations from '../../../../imports/api/collections/Stations.js';
+// Demo mode - using client-side data instead of database
+import { DemoCollections } from '../../demo-data.js';
 import ServersStatusBanner from '../ServersStatusBanner.vue';
 import singleStation from './single.vue';
 export default {
@@ -31,12 +32,10 @@ export default {
 		return {
 		};
 	},
-	meteor: {
-		$subscribe: {
-			stations: []
-		},
+	computed: {
 		stations() {
-			return Stations.find({});
+			// Demo mode - using client-side data
+			return DemoCollections.Stations.find({}).fetch();
 		}
 	}
 };
