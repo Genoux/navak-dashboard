@@ -12,10 +12,8 @@ module.exports = {
       // => @media (min-width: 1280px) { ... }
     },
   },
-  content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
-  plugins: [
-    require('tw-elements/dist/plugin')
-  ],
+  content: ['./src/**/*.{html,js}'],
+  plugins: [],
   purge: ["./src/**/*.vue"],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
