@@ -11,8 +11,10 @@
     "pm2": "pm2 startOrRestart ecosystem.config.js --env production",
     "meteor-school": "set NODE_ENV=developpement && set MONGO_OPLOG_URL=mongodb://navak:navakFTW@192.168.1.209/local?authSource=admin && set MONGO_URL=mongodb://192.168.1.209:27017/navak && meteor",
     "meteor-home": "set NODE_ENV=developpement && set MONGO_URL=mongodb://127.0.0.1:27017/navak && meteor",
-    "start": "meteor run",
-    "build": "meteor build ../build --directory",
+    "start": "node main.js",
+    "dev": "meteor run",
+    "build": "curl https://install.meteor.com/ | sh && meteor build . --directory --server-only",
+    "vercel-build": "curl https://install.meteor.com/ | sh && meteor build . --directory --server-only",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
