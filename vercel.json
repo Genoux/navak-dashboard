@@ -14,7 +14,6 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "ROOT_URL": "https://navak-dashboard.vercel.app",
     "DEMO_MODE": "true",
     "MONGO_URL": "mongodb://localhost:27017/demo"
   }

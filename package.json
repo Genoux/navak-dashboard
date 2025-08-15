@@ -14,7 +14,7 @@
     "start": "node index.js",
     "dev": "meteor run",
     "build": "curl https://install.meteor.com/ | sh && meteor build . --directory --server-only",
-    "vercel-build": "curl https://install.meteor.com/ | sh && meteor build . --directory --server-only",
+    "vercel-build": "curl https://install.meteor.com/ | sh && ROOT_URL=http://localhost:3000 meteor build . --directory --server-only",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
