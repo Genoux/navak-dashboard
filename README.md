@@ -1,5 +1,8 @@
 # Navak Dashboard
 
+<img width="3147" height="1839" alt="CleanShot 2025-08-15 at 11 02 05@2x" src="https://github.com/user-attachments/assets/114ca811-937a-4382-b88c-feb5c9a9d329" />
+
+
 > **Tableau de bord pour l'installation interactive Navak - Projet final baccalauréat en média interactif UQAM**
 
 ## Description
@@ -49,3 +52,7 @@ Projet académique - UQAM
 ---
 
 *Interface développée pour l'installation artistique interactive Navak*
+
+<img width="3152" height="1824" alt="CleanShot 2025-08-15 at 11 04 08@2x" src="https://github.com/user-attachments/assets/c622739f-5be8-4f4f-88c2-ff611ef36a07" />
+<img width="3009" height="1673" alt="CleanShot 2025-08-15 at 11 05 48@2x" src="https://github.com/user-attachments/assets/87020b94-e2bf-49c2-b81a-59dd41b9244d" />
+
