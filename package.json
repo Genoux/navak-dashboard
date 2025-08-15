@@ -13,7 +13,6 @@
     "meteor-home": "set NODE_ENV=developpement && set MONGO_URL=mongodb://127.0.0.1:27017/navak && meteor",
     "start": "meteor run",
     "build": "meteor build ../build --directory",
-    "vercel-build": "meteor build .vercel_build_output --directory && cp -r .vercel_build_output/bundle/* .",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
